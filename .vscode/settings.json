@@ -1,0 +1,28 @@
+{
+  "editor.rulers": [120],
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "modifications",
+  "eslint.enable": true,
+  "eslint.format.enable": true,
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "[javascript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[typescript]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[typescriptreact]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[json]": { "editor.defaultFormatter": "vscode.json-language-features" },
+  "[jsonc]": { "editor.defaultFormatter": "dbaeumer.vscode-eslint" },
+  "[scss]": { "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter" },
+
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.suggest.includeAutomaticOptionalChainCompletions": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.updateImportsOnFileMove.enabled": "always",
+
+  "html.format.wrapAttributes": "preserve-aligned",
+  "html.format.wrapLineLength": 300,
+}
