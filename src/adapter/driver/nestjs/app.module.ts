@@ -4,14 +4,16 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 import * as redisStore from 'cache-manager-redis-store'
 import { DataSource, DataSourceOptions } from 'typeorm'
-// import { addTransactionalDataSource } from 'typeorm-transactional'
 
-import AppController from '@/AppController'
-import RedisConfig from '@/config/RedisConfig'
+import { RedisConfig } from '@/config/RedisConfig'
 import TypeOrmConfig from '@/config/typeorm/TypeOrmConfig'
 
+import { ConsumidorsModule } from './consumidores/consumidores.module'
+import { ProdutosModule } from './produtos/produtos.module'
+
 @Module({
-  imports: [
+  imports: [ProdutosModule, ConsumidorsModule,
+
     TypeOrmModule.forRootAsync({
       useFactory () {
         return TypeOrmConfig
@@ -30,7 +32,5 @@ import TypeOrmConfig from '@/config/typeorm/TypeOrmConfig'
       ...RedisConfig
     }),
   ],
-  controllers: [AppController],
-  providers: [],
 })
-export default class AppModule { }
+export class AppModule {}
