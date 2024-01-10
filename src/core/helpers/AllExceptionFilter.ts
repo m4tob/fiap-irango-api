@@ -5,7 +5,7 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from
 import * as Sentry from '@sentry/node'
 import { Response } from 'express'
 
-import { ErrorMessages } from '@/helpers/ErrorMessages'
+import { ErrorMessages } from '@/core/helpers/ErrorMessages'
 
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {

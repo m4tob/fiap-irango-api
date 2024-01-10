@@ -17,8 +17,8 @@ import { initializeTransactionalContext } from 'typeorm-transactional'
 
 import { AppModule } from '@/AppModule'
 import { SentryConfig } from '@/config/SentryConfig'
-import { AllExceptionFilter } from '@/helpers/AllExceptionFilter'
-import { ResponseTransformInterceptor } from '@/helpers/ResponseTransformInterceptor'
+import { AllExceptionFilter } from '@/core/helpers/AllExceptionFilter'
+import { ResponseTransformInterceptor } from '@/core/helpers/ResponseTransformInterceptor'
 
 const configureSentry = (app: INestApplication) => {
   Sentry.init(SentryConfig)
