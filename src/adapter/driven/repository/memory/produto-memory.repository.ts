@@ -27,4 +27,8 @@ export default class ProdutoMemoryRepository implements IProdutoRepository {
   async find (): Promise<Produto[]> {
     return this.alunos
   }
+
+  async findByCategoria (): Promise<Produto[]> {
+    return this.alunos
+  }
 }

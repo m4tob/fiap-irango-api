@@ -1,5 +1,7 @@
 import { Inject } from '@nestjs/common'
 
+import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
+
 import ProdutoCreateDto from '../domain/dto/input/produto-create.dto'
 import ProdutoUpdateDto from '../domain/dto/input/produto-update.dto'
 import ProdutoDto from '../domain/dto/output/produto.dto'
@@ -16,6 +18,7 @@ export default class ProdutoUseCase implements IProdutoUseCase {
     private readonly repository: IProdutoRepository,
   ) {}
 
+  // TODO: alterar camada do mapper
   async createProduto (input: ProdutoCreateDto): Promise<ProdutoDto> {
     const produto = Produto.create(
       input.nome,
@@ -44,6 +47,14 @@ export default class ProdutoUseCase implements IProdutoUseCase {
 
   async listProdutos (): Promise<ProdutoDto[]> {
     const produtos = await this.repository.find()
+
+    return produtos.map((produto) => {
+      return ProdutoMapper.toProdutoDto(produto)
+    })
+  }
+
+  async findByCategoria (categoria: ProdutoCategoriaEnum): Promise<ProdutoDto[]> {
+    const produtos = await this.repository.findByCategoria(categoria)
 
     return produtos.map((produto) => {
       return ProdutoMapper.toProdutoDto(produto)

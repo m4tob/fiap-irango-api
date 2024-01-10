@@ -4,6 +4,7 @@ import Produto from 'src/core/domain/entities/produto'
 import IProdutoRepository from 'src/core/domain/repositories/iproduto.repository'
 import { Repository } from 'typeorm'
 
+import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 import ProdutoMapper from '@/core/domain/mappers/produto.mapper'
 
 import { Produto as Entity } from '../../entities/produto'
@@ -40,5 +41,17 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
 
   async find (): Promise<Produto[]> {
     return []
+  }
+
+  async findByCategoria (categoria: ProdutoCategoriaEnum): Promise<Produto[]> {
+    const produtos = await this.repository.find({
+      where: {
+        categoriaId: categoria
+      }
+    })
+
+    return produtos.map((produto) => {
+      return ProdutoMapper.toDtoForProduto(produto)
+    })
   }
 }

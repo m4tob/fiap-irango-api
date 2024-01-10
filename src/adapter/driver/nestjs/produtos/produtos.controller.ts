@@ -13,6 +13,8 @@ import IProdutoUseCase, {
   IProdutoUseCase as Itest,
 } from 'src/core/application/iproduto.use-case'
 
+import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
+
 import CreateProdutoDto from './dto/create-produto.dto'
 import Produto from './dto/produto.'
 
@@ -24,6 +26,17 @@ export class ProdutosController {
   @Get()
   list () {
     return this.produtoUseCase.listProdutos()
+  }
+
+  @Get('/categorias/:categoria')
+  @ApiOperation({ summary: 'products Find By categoria' })
+  @ApiResponse({
+    status: 200,
+    description: 'The found record',
+    type: [Produto],
+  })
+  findByCategoria (@Param('categoria') categoria: ProdutoCategoriaEnum) {
+    return this.produtoUseCase.findByCategoria(categoria)
   }
 
   @Post()
