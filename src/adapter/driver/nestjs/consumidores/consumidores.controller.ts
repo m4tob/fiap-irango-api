@@ -16,16 +16,16 @@ import IConsumidorUseCase, {
 import Consumidor from './dto/consumidor'
 import CreateConsumidorDto from './dto/create-consumidor.dto'
 
-@Controller('consumidors')
-@ApiTags('consumidors')
-export class ConsumidorsController {
+@Controller('consumidores')
+@ApiTags('consumidores')
+export class ConsumidoresController {
   constructor (
     @Inject(Itest) private readonly consumidorUseCase: IConsumidorUseCase,
   ) {}
 
   @Get()
   list () {
-    return this.consumidorUseCase.listConsumidors()
+    return this.consumidorUseCase.listConsumidores()
   }
 
   @Post()

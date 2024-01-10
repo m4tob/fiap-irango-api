@@ -1,5 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 
+import { join } from 'path'
+
 import { Environment as envs } from '@/Environment'
 
 export default {
@@ -16,6 +18,7 @@ export default {
   },
   logging: false,
   entities: [
+    join(__dirname, '..', '..', 'adapter', 'driven', 'entities', '*{.ts,.js}'),
   ],
   bigNumberStrings: false,
   timezone: '+00:00',

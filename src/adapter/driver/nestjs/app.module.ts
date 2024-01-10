@@ -5,15 +5,16 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import * as redisStore from 'cache-manager-redis-store'
 import { DataSource, DataSourceOptions } from 'typeorm'
 
+import { DatabaseModule } from '@/adapter/driver/nestjs/database/database.module'
 import { RedisConfig } from '@/config/RedisConfig'
 import TypeOrmConfig from '@/config/typeorm/TypeOrmConfig'
 
-import { ConsumidorsModule } from './consumidores/consumidores.module'
+import { ConsumidoresModule } from './consumidores/consumidores.module'
 import { ProdutosModule } from './produtos/produtos.module'
 
 @Module({
-  imports: [ProdutosModule, ConsumidorsModule,
-
+  imports: [ProdutosModule, ConsumidoresModule,
+    DatabaseModule,
     TypeOrmModule.forRootAsync({
       useFactory () {
         return TypeOrmConfig

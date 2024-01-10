@@ -6,7 +6,7 @@ export default interface IConsumidorUseCase {
   createConsumidor(input: ConsumidorCreateDto): Promise<ConsumidorDto>;
   createConsumidor(input: ConsumidorCreateDto): Promise<ConsumidorDto>;
   updateConsumidor(input: ConsumidorUpdateDto): Promise<ConsumidorDto | undefined>;
-  listConsumidors(): Promise<ConsumidorDto[]>;
+  listConsumidores(): Promise<ConsumidorDto[]>;
 }
 
 export const IConsumidorUseCase = Symbol('IConsumidorUseCase')

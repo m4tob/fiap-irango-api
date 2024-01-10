@@ -12,6 +12,6 @@ export default new DataSource({
   ...(TypeOrmConfig as DataSourceOptions),
   migrationsTableName: 'Migration',
   migrations: [
-    join(__dirname, '..', 'migrations', '*{.ts,.js}')
+    join(__dirname, '..', '..', 'database', 'migrations', '*{.ts,.js}')
   ],
 })
