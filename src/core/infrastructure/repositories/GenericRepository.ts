@@ -2,9 +2,9 @@
 
 import { DeleteResult, ObjectLiteral, Repository, SelectQueryBuilder } from 'typeorm'
 
-import { IGenericRepository, Relation } from '@/core/infrastructure/repositories/IGenericRepository'
+import IGenericRepository, { Relation } from '@/core/infrastructure/repositories/IGenericRepository'
 
-export abstract class GenericRepository<MODEL_TYPE extends ObjectLiteral, ID_TYPE> implements IGenericRepository<MODEL_TYPE, ID_TYPE> {
+export default abstract class GenericRepository<MODEL_TYPE extends ObjectLiteral, ID_TYPE> implements IGenericRepository<MODEL_TYPE, ID_TYPE> {
   constructor (protected model: Repository<MODEL_TYPE>, protected table: string) {
   }
 

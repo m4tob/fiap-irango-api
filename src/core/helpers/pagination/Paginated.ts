@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger'
 
 import { IsDefined } from 'class-validator'
 
-export class Paginated<T> {
+export default class Paginated<T> {
   @IsDefined()
   @ApiProperty({ description: 'Paginated results', required: false, type: [Object] })
   results: T[]

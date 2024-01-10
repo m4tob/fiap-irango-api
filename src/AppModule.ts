@@ -6,8 +6,8 @@ import * as redisStore from 'cache-manager-redis-store'
 import { DataSource, DataSourceOptions } from 'typeorm'
 import { addTransactionalDataSource } from 'typeorm-transactional'
 
-import { AppController } from '@/AppController'
-import { RedisConfig } from '@/config/RedisConfig'
+import AppController from '@/AppController'
+import RedisConfig from '@/config/RedisConfig'
 import TypeOrmConfig from '@/config/typeorm/TypeOrmConfig'
 
 @Module({
@@ -32,4 +32,4 @@ import TypeOrmConfig from '@/config/typeorm/TypeOrmConfig'
   controllers: [AppController],
   providers: [],
 })
-export class AppModule { }
+export default class AppModule { }

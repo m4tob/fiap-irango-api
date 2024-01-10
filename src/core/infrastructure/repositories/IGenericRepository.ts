@@ -6,7 +6,7 @@ export class Relation {
   join?: string
 }
 
-export abstract class IGenericRepository<MODEL_TYPE extends ObjectLiteral, ID_TYPE> {
+export default abstract class IGenericRepository<MODEL_TYPE extends ObjectLiteral, ID_TYPE> {
   abstract save (model: MODEL_TYPE): Promise<MODEL_TYPE>
 
   abstract saveMany (models: MODEL_TYPE[]): Promise<MODEL_TYPE[]>

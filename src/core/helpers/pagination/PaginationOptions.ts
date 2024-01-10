@@ -1,4 +1,4 @@
-export class PaginationOptions {
+export default class PaginationOptions {
   page: number
   pageSize: number
   offset: number

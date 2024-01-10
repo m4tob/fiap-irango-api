@@ -27,7 +27,7 @@
     "strictNullChecks": true,
 
     "paths": {
-      "@/helpers/*": ["src/helpers/*"],
+      "@/core/*": ["src/core/*"],
       "@/*": ["src/*"]
     }
   },

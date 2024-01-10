@@ -5,10 +5,10 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from
 import * as Sentry from '@sentry/node'
 import { Response } from 'express'
 
-import { ErrorMessages } from '@/core/helpers/ErrorMessages'
+import ErrorMessages from '@/core/helpers/ErrorMessages'
 
 @Catch()
-export class AllExceptionFilter implements ExceptionFilter {
+export default class AllExceptionFilter implements ExceptionFilter {
   catch (exception: any, host: ArgumentsHost) {
     const ctx = host.switchToHttp()
     const response = ctx.getResponse<Response>()

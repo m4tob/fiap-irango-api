@@ -5,7 +5,7 @@ interface HealthCheck {
 }
 
 @Controller()
-export class AppController {
+export default class AppController {
   constructor () { }
 
   @Get()
