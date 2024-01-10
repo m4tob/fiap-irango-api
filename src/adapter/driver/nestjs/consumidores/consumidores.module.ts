@@ -23,13 +23,11 @@ import { ConsumidoresController } from './consumidores.controller'
       provide: IConsumidorUseCase,
       useClass: ProdutoUseCase,
     },
-
     {
       provide: 'CONSUMIDOR_REPOSITORY',
       useFactory: (dataSource: DataSource) => dataSource.getRepository(Consumidor),
       inject: ['DATA_SOURCE'],
     },
-
     {
       provide: IConsumidorRepository,
       useClass: ConsumidorTypeormRepository,

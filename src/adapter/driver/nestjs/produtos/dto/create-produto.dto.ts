@@ -27,7 +27,7 @@ export default class CreateProdutoDto implements ProdutoCreateDto {
   readonly preco: number
 
   @ApiProperty({
-    example: [ProdutoCategoriaEnum.ACOMPANHAMENTO],
+    example: ProdutoCategoriaEnum.ACOMPANHAMENTO,
     description: 'Categoria',
     enum: ProdutoCategoriaEnum,
   })

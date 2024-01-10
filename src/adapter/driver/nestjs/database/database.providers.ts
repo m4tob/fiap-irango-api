@@ -2,6 +2,7 @@ import { join } from 'path'
 import { DataSource } from 'typeorm'
 
 import { Consumidor } from '@/adapter/driven/entities/consumidor'
+import { Produto } from '@/adapter/driven/entities/produto'
 import { Environment as envs } from '@/Environment'
 
 export const databaseProviders = [
@@ -22,7 +23,7 @@ export const databaseProviders = [
         },
         logging: false,
         entities: [
-          join(__dirname, '..', '..', 'driven', 'entities', '*{.ts,.js}'), Consumidor
+          join(__dirname, '..', '..', 'driven', 'entities', '*{.ts,.js}'), Consumidor, Produto
         ],
         bigNumberStrings: false,
         timezone: '+00:00',
