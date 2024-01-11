@@ -1,4 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
 
 import Produto from 'src/core/domain/entities/produto'
 import IProdutoRepository from 'src/core/domain/repositories/iproduto.repository'
@@ -12,8 +13,7 @@ import { Produto as Entity } from '../../entities/produto'
 @Injectable()
 export default class ProdutoTypeormRepository implements IProdutoRepository {
   constructor (
-    @Inject('PRODUTO_REPOSITORY')
-    private repository: Repository<Entity>,
+    @InjectRepository(Entity) private readonly repository: Repository<Entity>
   ) {}
 
   async create (input: Produto): Promise<void> {

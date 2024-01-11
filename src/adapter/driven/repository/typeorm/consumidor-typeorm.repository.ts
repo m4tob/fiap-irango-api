@@ -1,4 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common'
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
 
 import Consumidor from 'src/core/domain/entities/consumidor'
 import IConsumidorRepository from 'src/core/domain/repositories/iconsumidor.repository'
@@ -11,8 +12,7 @@ import { Consumidor as Entity } from '../../entities/consumidor'
 @Injectable()
 export default class ConsumidorTypeormRepository implements IConsumidorRepository {
   constructor (
-    @Inject('CONSUMIDOR_REPOSITORY')
-    private repository: Repository<Entity>,
+    @InjectRepository(Entity) private readonly repository: Repository<Entity>
   ) {}
 
   async create (input: Consumidor): Promise<void> {
