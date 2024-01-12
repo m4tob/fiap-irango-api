@@ -2,7 +2,7 @@ import { CallHandler, ExecutionContext, Injectable, mixin, NestInterceptor, Type
 
 import { Observable } from 'rxjs'
 
-import { PaginationOptions } from './PaginationOptions'
+import PaginationOptions from './PaginationOptions'
 
 export function PaginationInterceptor (maxLimit = 10): Type<NestInterceptor> {
   @Injectable()
