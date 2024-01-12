@@ -17,7 +17,7 @@ export default class CreateProdutoDto implements ProdutoCreateDto {
     description: 'Descrição do Produto',
     type: String,
   })
-  readonly description: string
+  readonly descricao: string
 
   @ApiProperty({
     example: '10.20',
@@ -31,5 +31,5 @@ export default class CreateProdutoDto implements ProdutoCreateDto {
     description: 'Categoria',
     enum: ProdutoCategoriaEnum,
   })
-  readonly categoriaId: ProdutoCategoriaEnum
+  readonly categoria: ProdutoCategoriaEnum
 }

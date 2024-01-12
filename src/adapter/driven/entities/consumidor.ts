@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm'
 
-@Entity('consumidor')
+@Entity('Consumidor')
 export class Consumidor {
   @PrimaryColumn()
   public readonly id: string

@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryColumn } from 'typeorm'
 
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
-@Entity('produtos')
+@Entity('Produto')
 export class Produto {
   @PrimaryColumn()
   public readonly id: string
@@ -11,7 +11,7 @@ export class Produto {
   public nome: string
 
   @Column()
-  public description: string
+  public descricao: string
 
   @Column({
     type: 'float'
@@ -21,5 +21,5 @@ export class Produto {
   @Column({
     enum: ProdutoCategoriaEnum
   })
-  public categoriaId: ProdutoCategoriaEnum
+  public categoria: ProdutoCategoriaEnum
 }

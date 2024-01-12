@@ -46,7 +46,7 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
   async findByCategoria (categoria: ProdutoCategoriaEnum): Promise<Produto[]> {
     const produtos = await this.repository.find({
       where: {
-        categoriaId: categoria
+        categoria
       }
     })
 

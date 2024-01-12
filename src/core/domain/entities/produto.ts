@@ -8,25 +8,25 @@ export default class Produto {
   public constructor (
     public readonly id: string,
     public nome: string,
-    public description: string,
+    public descricao: string,
     public preco: number,
-    public categoriaId: ProdutoCategoriaEnum,
+    public categoria: ProdutoCategoriaEnum,
   ) {}
 
   static create (
      nome: string,
-     description: string,
+     descricao: string,
      preco: number,
-     categoriaId: ProdutoCategoriaEnum,
+     categoria: ProdutoCategoriaEnum,
   ): Produto {
     const userId = uuidv4()
-    return new Produto(userId, nome, description, preco, categoriaId)
+    return new Produto(userId, nome, descricao, preco, categoria)
   }
 
   update (input: ProdutoUpdateDto) {
     this.nome = input.nome
     this.preco = input.preco
-    this.description = input.description
-    this.categoriaId = input.categoriaId
+    this.descricao = input.descricao
+    this.categoria = input.categoria
   }
 }

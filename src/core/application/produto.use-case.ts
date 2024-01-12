@@ -22,9 +22,9 @@ export default class ProdutoUseCase implements IProdutoUseCase {
   async createProduto (input: ProdutoCreateDto): Promise<ProdutoDto> {
     const produto = Produto.create(
       input.nome,
-      input.description,
+      input.descricao,
       input.preco,
-      input.categoriaId,
+      input.categoria,
     )
 
     await this.repository.create(produto)
