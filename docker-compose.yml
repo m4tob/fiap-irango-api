@@ -73,7 +73,7 @@ services:
       - local-mysql
       - local-redis
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health-check"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:3000/health-check"]
       interval: 1m30s
       timeout: 10s
       retries: 5
