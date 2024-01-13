@@ -17,3 +17,4 @@ else
   echo 'RUN APPLICATION (PROD)';
   npm run start:prod;
 fi
+.
