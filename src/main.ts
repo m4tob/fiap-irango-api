@@ -3,7 +3,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { Environment as envs } from '@/Environment'
+import { Environment as envs } from '@/environment'
 envs.validate()
 
 import { INestApplication, ValidationPipe } from '@nestjs/common'
@@ -15,7 +15,7 @@ import * as bodyParser from 'body-parser'
 import helmet from 'helmet'
 import { initializeTransactionalContext } from 'typeorm-transactional'
 
-import AppModule from '@/AppModule'
+import AppModule from '@/app.module'
 import SentryConfig from '@/config/SentryConfig'
 import AllExceptionFilter from '@/core/helpers/AllExceptionFilter'
 import ResponseTransformInterceptor from '@/core/helpers/ResponseTransformInterceptor'

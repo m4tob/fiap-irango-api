@@ -7,10 +7,10 @@
   "license": "MIT",
   "scripts": {
     "build": "rm -rf dist && nest build",
-    "start": "node dist/App.js",
-    "start:dev": "nest start --watch --preserveWatchOutput --entryFile=App.js",
-    "start:debug": "nest start --debug --watch --entryFile=src/App.ts",
-    "start:prod": "node dist/App",
+    "start": "node dist/main.js",
+    "start:dev": "nest start --watch --preserveWatchOutput --entryFile=main.js",
+    "start:debug": "nest start --debug --watch --entryFile=src/main.ts",
+    "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "npm run test:unit && npm run test:integration",
     "test:unit": "NODE_ENV=test jest test/unit --config jest.config.unit.js",
@@ -19,12 +19,12 @@
     "test:integration:one": "NODE_ENV=test jest $1 --config jest.config.integration.js --logHeapUsage --verbose",
     "test:coverage": "NODE_ENV=test jest test/unit --config jest.config.unit.js --verbose --coverage",
     "migration:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource src/config/typeorm/TypeOrmMigrationConfig.ts migration:generate",
-    "migration:run": "REDIS_ENABLED=0 ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource src/config/typeorm/TypeOrmMigrationConfig.ts migration:run",
-    "migration:run:test": "REDIS_ENABLED=0 ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource test/integration/config/typeorm/TypeOrmTestMigrationConfig.ts migration:run",
-    "migration:revert": "REDIS_ENABLED=0 ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource src/config/typeorm/TypeOrmMigrationConfig.ts migration:revert",
-    "seed:generate": "REDIS_ENABLED=0 ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create",
-    "seed:run": "REDIS_ENABLED=0 ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource src/config/typeorm/TypeOrmSeedConfig.ts migration:run",
-    "seed:revert": "REDIS_ENABLED=0 ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource src/config/typeorm/TypeOrmSeedConfig.ts migration:revert"
+    "migration:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource src/config/typeorm/TypeOrmMigrationConfig.ts migration:run",
+    "migration:run:test": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource test/integration/config/typeorm/TypeOrmTestMigrationConfig.ts migration:run",
+    "migration:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource src/config/typeorm/TypeOrmMigrationConfig.ts migration:revert",
+    "seed:generate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:create",
+    "seed:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource src/config/typeorm/TypeOrmSeedConfig.ts migration:run",
+    "seed:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --dataSource src/config/typeorm/TypeOrmSeedConfig.ts migration:revert"
   },
   "dependencies": {
     "@nestjs/cache-manager": "^2.1.1",
