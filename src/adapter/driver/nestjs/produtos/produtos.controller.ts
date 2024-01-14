@@ -16,7 +16,7 @@ import IProdutoUseCase, {
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 import CreateProdutoDto from './dto/create-produto.dto'
-import Produto from './dto/produto.'
+import Produto from './dto/produto'
 
 @Controller('produtos')
 @ApiTags('produtos')
@@ -25,7 +25,7 @@ export class ProdutosController {
 
   @Get()
   list () {
-    return this.produtoUseCase.listProdutos()
+    return this.produtoUseCase.list()
   }
 
   @Get('/categorias/:categoria')
@@ -50,7 +50,7 @@ export class ProdutosController {
     type: Produto,
   })
   create (@Body() input: CreateProdutoDto) {
-    return this.produtoUseCase.createProduto(input)
+    return this.produtoUseCase.create(input)
   }
 
   @Put(':id')
@@ -64,6 +64,6 @@ export class ProdutosController {
     type: Produto,
   })
   update (@Param('id') id: string, @Body() input: CreateProdutoDto) {
-    return this.produtoUseCase.updateProduto({ ...input, id })
+    return this.produtoUseCase.update({ ...input, id })
   }
 }

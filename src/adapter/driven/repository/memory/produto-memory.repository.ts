@@ -21,7 +21,7 @@ export default class ProdutoMemoryRepository implements IProdutoRepository {
       this.alunos.splice(index, 1)
     }
 
-    this.create(input)
+    return this.create(input)
   }
 
   async find (): Promise<Produto[]> {

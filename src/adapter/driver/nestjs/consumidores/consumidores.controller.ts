@@ -25,7 +25,7 @@ export class ConsumidoresController {
 
   @Get()
   list () {
-    return this.consumidorUseCase.listConsumidores()
+    return this.consumidorUseCase.list()
   }
 
   @Post()
@@ -39,7 +39,7 @@ export class ConsumidoresController {
     type: Consumidor,
   })
   create (@Body() input: CreateConsumidorDto) {
-    return this.consumidorUseCase.createConsumidor(input)
+    return this.consumidorUseCase.create(input)
   }
 
   @Put(':id')
@@ -53,6 +53,6 @@ export class ConsumidoresController {
     type: Consumidor,
   })
   update (@Param('id') id: string, @Body() input: CreateConsumidorDto) {
-    return this.consumidorUseCase.updateConsumidor({ ...input, id })
+    return this.consumidorUseCase.update({ ...input, id })
   }
 }

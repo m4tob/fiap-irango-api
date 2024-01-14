@@ -16,7 +16,7 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
     private readonly repository: IConsumidorRepository,
   ) {}
 
-  async createConsumidor (input: ConsumidorCreateDto): Promise<ConsumidorDto> {
+  async create (input: ConsumidorCreateDto): Promise<ConsumidorDto> {
     const consumidor = Consumidor.create(
       input.nome,
       input.cpf,
@@ -27,7 +27,7 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
     return ConsumidorMapper.toConsumidorDto(consumidor)
   }
 
-  async updateConsumidor (
+  async update (
     input: ConsumidorUpdateDto,
   ): Promise<ConsumidorDto | undefined> {
     const consumidor = await this.repository.findById(input.id)
@@ -43,7 +43,7 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
     return ConsumidorMapper.toConsumidorDto(consumidor)
   }
 
-  async listConsumidores (): Promise<ConsumidorDto[]> {
+  async list (): Promise<ConsumidorDto[]> {
     const consumidores = await this.repository.find()
 
     return consumidores.map((consumidor) => {
