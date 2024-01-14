@@ -49,8 +49,8 @@ migration.recreatedb:
 	docker exec -it ${CONTAINER_MYSQL} mysql -uroot -ppassword -e "DROP DATABASE IF EXISTS ${DATABASE}; CREATE DATABASE ${DATABASE};"
 	make migration.run
 	make seed.run
-	make seedDev.run
 
+# make migration.generate name=create_table_pedido
 migration.generate:
 	DB_HOSTNAME=localhost npm run migration:generate ./src/database/migrations/$(name)
 migration.run:
