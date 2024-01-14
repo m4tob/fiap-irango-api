@@ -6,4 +6,5 @@ export default interface ProdutoDto {
   readonly descricao: string;
   readonly preco: number;
   readonly categoria: ProdutoCategoriaEnum;
+  readonly deletedAt: Date | null
 }

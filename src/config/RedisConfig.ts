@@ -1,6 +1,6 @@
 import type { ClientOpts } from 'redis'
 
-import { Environment as envs } from '@/environment'
+import { Environment as envs } from '@/Environment'
 
 interface RedisConfig extends ClientOpts {
   enabled: boolean;

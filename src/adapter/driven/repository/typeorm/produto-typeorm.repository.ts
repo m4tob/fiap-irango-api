@@ -40,7 +40,11 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
   }
 
   async find (): Promise<Produto[]> {
-    return []
+    const produtos = await this.repository.find()
+
+    return produtos.map((produto) => {
+      return ProdutoMapper.toDtoForProduto(produto)
+    })
   }
 
   async findByCategoria (categoria: ProdutoCategoriaEnum): Promise<Produto[]> {

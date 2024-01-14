@@ -7,7 +7,6 @@ import { DataSource, DataSourceOptions } from 'typeorm'
 // import { addTransactionalDataSource } from 'typeorm-transactional'
 
 import { ConsumidoresModule } from '@/adapter/driver/nestjs/consumidores/consumidores.module'
-import { PedidosModule } from '@/adapter/driver/nestjs/pedido/pedidos.module'
 import { ProdutosModule } from '@/adapter/driver/nestjs/produtos/produtos.module'
 import AppController from '@/app.controller'
 import RedisConfig from '@/config/RedisConfig'
@@ -34,7 +33,6 @@ import TypeOrmConfig from '@/config/typeorm/TypeOrmConfig'
     }),
     ConsumidoresModule,
     ProdutosModule,
-    PedidosModule,
   ],
   controllers: [
     AppController

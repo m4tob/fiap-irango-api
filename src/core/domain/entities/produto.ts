@@ -11,6 +11,7 @@ export default class Produto {
     public descricao: string,
     public preco: number,
     public categoria: ProdutoCategoriaEnum,
+    public deletedAt: Date | null = null,
   ) {}
 
   static create (
@@ -23,10 +24,14 @@ export default class Produto {
     return new Produto(userId, nome, descricao, preco, categoria)
   }
 
-  update (input: ProdutoUpdateDto) {
+  update (input: ProdutoUpdateDto): void {
     this.nome = input.nome
     this.preco = input.preco
     this.descricao = input.descricao
     this.categoria = input.categoria
+  }
+
+  delete (date: Date = new Date()): void {
+    this.deletedAt = date
   }
 }
