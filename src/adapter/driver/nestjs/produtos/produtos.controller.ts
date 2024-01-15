@@ -14,6 +14,7 @@ import IProdutoUseCase, {
   IProdutoUseCase as Itest,
 } from 'src/core/application/iproduto.use-case'
 
+import UpdateProdutoDto from '@/adapter/driver/nestjs/produtos/dto/update-produto.dto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 import CreateProdutoDto from './dto/create-produto.dto'
@@ -63,14 +64,14 @@ export class ProdutosController {
   @Put(':id')
   @ApiOperation({ summary: 'Update produto' })
   @ApiBody({
-    type: CreateProdutoDto,
+    type: UpdateProdutoDto,
   })
   @ApiResponse({
     status: 200,
     description: 'The found record',
     type: Produto,
   })
-  update (@Param('id') id: string, @Body() input: CreateProdutoDto) {
+  update (@Param('id') id: string, @Body() input: UpdateProdutoDto) {
     return this.produtoUseCase.update({ ...input, id })
   }
 
