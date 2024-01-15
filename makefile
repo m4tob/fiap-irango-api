@@ -10,7 +10,7 @@ CONTAINER_BACKEND = service-irango-api
 DATABASE = irango
 
 .PHONY: setup
-setup: down add-network create.env.file build up logs
+setup: down add-network create.env.file build up migration.run seed.run
 
 create.env.file:
 	if [ ! -f .env ]; then \
@@ -31,6 +31,7 @@ build:
 .PHONY: up
 up:
 	docker-compose up --remove-orphans -d
+	make logs
 .PHONY: down
 down:
 	docker-compose down
@@ -52,18 +53,18 @@ migration.recreatedb:
 
 # make migration.generate name=create_table_pedido
 migration.generate:
-	DB_HOSTNAME=localhost npm run migration:generate ./src/database/migrations/$(name)
+	docker-compose exec -it ${CONTAINER_BACKEND} npm run migration:generate ./src/database/migrations/$(name)
 migration.run:
-	DB_HOSTNAME=localhost npm run migration:run
+	docker-compose exec -it ${CONTAINER_BACKEND} npm run migration:run
 migration.revert:
-	DB_HOSTNAME=localhost npm run migration:revert
+	docker-compose exec -it ${CONTAINER_BACKEND} npm run migration:revert
 
 seed.generate:
-	DB_HOSTNAME=localhost npm run seed:generate ./src/database/seeds/$(name)
+	docker-compose exec -it ${CONTAINER_BACKEND} npm run seed:generate ./src/database/seeds/$(name)
 seed.run:
-	DB_HOSTNAME=localhost npm run seed:run
+	docker-compose exec -it ${CONTAINER_BACKEND} npm run seed:run
 seed.revert:
-	DB_HOSTNAME=localhost npm run seed:revert
+	docker-compose exec -it ${CONTAINER_BACKEND} npm run seed:revert
 
 test: test.unit test.integration
 	npm run test:unit

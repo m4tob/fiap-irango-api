@@ -30,4 +30,4 @@ RUN npm ci --include=dev --ignore-scripts
 COPY . .
 RUN npm run build
 
-ENTRYPOINT [ "/bin/sh", "/app/.infra/start.sh" ]
+ENTRYPOINT [ "npm", "run", "start:dev" ]
