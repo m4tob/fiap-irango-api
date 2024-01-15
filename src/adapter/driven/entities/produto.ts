@@ -22,4 +22,11 @@ export class Produto {
     enum: ProdutoCategoriaEnum
   })
   public categoria: ProdutoCategoriaEnum
+
+  @Column({
+    name: 'deleted_at',
+    type: 'timestamp',
+    nullable: true
+  })
+  public deletedAt: Date | null = null
 }

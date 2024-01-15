@@ -3,7 +3,7 @@ import * as Sentry from '@sentry/node'
 import { NodeOptions } from '@sentry/node/types/types'
 import { ProfilingIntegration } from '@sentry/profiling-node'
 
-import { Environment as envs } from '@/environment'
+import { Environment as envs } from '@/Environment'
 
 const envAllowList = ['production', 'homolog']
 

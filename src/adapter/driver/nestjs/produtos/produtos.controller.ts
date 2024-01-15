@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Inject,
   Param,
@@ -24,6 +25,12 @@ export class ProdutosController {
   constructor (@Inject(Itest) private readonly produtoUseCase: IProdutoUseCase) {}
 
   @Get()
+  @ApiOperation({ summary: 'products' })
+  @ApiResponse({
+    status: 200,
+    description: 'The found record',
+    type: [Produto],
+  })
   list () {
     return this.produtoUseCase.list()
   }
@@ -65,5 +72,16 @@ export class ProdutosController {
   })
   update (@Param('id') id: string, @Body() input: CreateProdutoDto) {
     return this.produtoUseCase.update({ ...input, id })
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Remove produto' })
+  @ApiResponse({
+    status: 200,
+    description: 'The found record',
+    type: Produto,
+  })
+  remove (@Param('id') id: string) {
+    return this.produtoUseCase.remove(id)
   }
 }

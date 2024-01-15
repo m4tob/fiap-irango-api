@@ -39,4 +39,11 @@ export default class Produto implements ProdutoDto {
     enum: ProdutoCategoriaEnum,
   })
   readonly categoria: ProdutoCategoriaEnum
+
+  @ApiProperty({
+    example: new Date(),
+    description: 'Data de remoção',
+    type: Date,
+  })
+  readonly deletedAt: Date | null
 }

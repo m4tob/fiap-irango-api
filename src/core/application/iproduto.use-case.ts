@@ -7,6 +7,7 @@ import ProdutoDto from '../domain/dto/output/produto.dto'
 export default interface IProdutoUseCase {
   create(input: ProdutoCreateDto): Promise<ProdutoDto>;
   update(input: ProdutoUpdateDto): Promise<ProdutoDto | undefined>;
+  remove(productId: string): Promise<ProdutoDto | undefined>;
   list(): Promise<ProdutoDto[]>;
   findByCategoria(categoria: ProdutoCategoriaEnum): Promise<ProdutoDto[]>;
 }
