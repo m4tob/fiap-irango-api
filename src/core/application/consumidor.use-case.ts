@@ -9,6 +9,7 @@ import IConsumidorRepository, {
   IConsumidorRepository as IConsumidorRepositorySymbol,
 } from '../domain/repositories/iconsumidor.repository'
 import IConsumidorUseCase from './iconsumidor.use-case'
+import Cpf from '@/core/domain/value-object/Cpf'
 
 export default class ConsumidorUseCase implements IConsumidorUseCase {
   constructor (
@@ -50,4 +51,18 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
       return ConsumidorMapper.toConsumidorDto(consumidor)
     })
   }
+
+  async findByCpf (cpf: Cpf): Promise<ConsumidorDto| undefined> {
+    const consumidor = await this.repository.findByCPF(cpf)
+
+    if (!consumidor) {
+      return undefined
+    }
+
+
+    return ConsumidorMapper.toConsumidorDto(consumidor)
+
+  }
+
+
 }

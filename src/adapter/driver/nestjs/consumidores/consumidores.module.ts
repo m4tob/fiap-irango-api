@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import ProdutoUseCase from 'src/core/application/consumidor.use-case'
+import ConsumidorUseCase from 'src/core/application/consumidor.use-case'
 import { IConsumidorUseCase } from 'src/core/application/iconsumidor.use-case'
 import { IConsumidorRepository } from 'src/core/domain/repositories/iconsumidor.repository'
 
@@ -15,7 +15,7 @@ import { ConsumidoresController } from './consumidores.controller'
     TypeOrmModule.forFeature([Consumidor]),
   ],
   providers: [
-    { provide: IConsumidorUseCase, useClass: ProdutoUseCase },
+    { provide: IConsumidorUseCase, useClass: ConsumidorUseCase },
     { provide: IConsumidorRepository, useClass: ConsumidorTypeormRepository },
   ],
   controllers: [
