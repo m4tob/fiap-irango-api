@@ -8,6 +8,7 @@ import { Repository } from 'typeorm'
 import ConsumidorMapper from '@/core/domain/mappers/consumidor.mapper'
 
 import { Consumidor as Entity } from '../../entities/consumidor'
+import Cpf from '@/core/domain/value-object/Cpf'
 
 @Injectable()
 export default class ConsumidorTypeormRepository implements IConsumidorRepository {
@@ -39,6 +40,19 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
   }
 
   async find (): Promise<Consumidor[]> {
-    return []
+    const consumidors = await this.repository.find()
+
+    return  consumidors.map(consumidor=>{
+        return ConsumidorMapper.toDtoForConsumidor(consumidor)
+    })
+
+  }
+
+  async findByCPF(cpf: Cpf): Promise<Consumidor | undefined> {
+    const consumidor = await this.repository.findOneBy({
+        cpf:cpf.getValue()
+    })
+
+    return consumidor ? ConsumidorMapper.toDtoForConsumidor(consumidor) : undefined
   }
 }

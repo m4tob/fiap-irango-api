@@ -1,3 +1,4 @@
+import Cpf from '@/core/domain/value-object/Cpf'
 import { Injectable } from '@nestjs/common'
 
 import Consumidor from 'src/core/domain/entities/consumidor'
@@ -30,5 +31,11 @@ export default class ConsumidorMemoryRepository implements IConsumidorRepository
 
   async find (): Promise<Consumidor[]> {
     return this.consumidors
+  }
+
+  findByCPF(cpf: Cpf): Promise<Consumidor | undefined> {
+    return Promise.resolve(
+      this.consumidors.find((consumidor) => consumidor.cpf.getValue() === cpf.getValue()),
+    )
   }
 }
