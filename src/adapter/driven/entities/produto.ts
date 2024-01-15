@@ -4,6 +4,10 @@ import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum
 
 @Entity('Produto')
 export class Produto {
+  constructor (params?: Partial<Produto>) {
+    Object.assign(this, params)
+  }
+
   @PrimaryColumn()
   public readonly id: string
 
