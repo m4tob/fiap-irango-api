@@ -1,4 +1,5 @@
-import Cpf from '@/core/domain/value-object/Cpf';
+import Cpf from '@/core/domain/value-object/Cpf'
+
 import ConsumidorCreateDto from '../domain/dto/input/consumidor-create.dto'
 import ConsumidorUpdateDto from '../domain/dto/input/consumidor-update.dto'
 import ConsumidorDto from '../domain/dto/output/consumidor.dto'
