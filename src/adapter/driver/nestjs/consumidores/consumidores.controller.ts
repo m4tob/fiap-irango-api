@@ -15,6 +15,7 @@ import IConsumidorUseCase, {
 
 import Consumidor from './dto/consumidor'
 import CreateConsumidorDto from './dto/create-consumidor.dto'
+import Cpf from '@/core/domain/value-object/Cpf'
 
 @Controller('consumidores')
 @ApiTags('consumidores')
@@ -55,4 +56,20 @@ export class ConsumidoresController {
   update (@Param('id') id: string, @Body() input: CreateConsumidorDto) {
     return this.consumidorUseCase.update({ ...input, id })
   }
+
+
+  @Get(':cpf')
+  @ApiOperation({ summary: 'find consumidor by cpf' })
+  @ApiResponse({
+    status: 200,
+    description: 'The found record',
+    type: Consumidor,
+  })
+  findByCpf (@Param('cpf') cpf: string) {
+    const cpfValidated =new Cpf(cpf);
+    return this.consumidorUseCase.findByCpf(cpfValidated)
+  }
+
+
 }
+
