@@ -1,15 +1,15 @@
 import { Inject } from '@nestjs/common'
 
+import ProdutoCreateDto from '@/core/domain/dto/input/produto-create.dto'
+import ProdutoUpdateDto from '@/core/domain/dto/input/produto-update.dto'
+import ProdutoDto from '@/core/domain/dto/output/produto.dto'
+import Produto from '@/core/domain/entities/produto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
-
-import ProdutoCreateDto from '../domain/dto/input/produto-create.dto'
-import ProdutoUpdateDto from '../domain/dto/input/produto-update.dto'
-import ProdutoDto from '../domain/dto/output/produto.dto'
-import Produto from '../domain/entities/produto'
-import ProdutoMapper from '../domain/mappers/produto.mapper'
+import ProdutoMapper from '@/core/domain/mappers/produto.mapper'
 import IProdutoRepository, {
   IProdutoRepository as IProdutoRepositorySymbol,
-} from '../domain/repositories/iproduto.repository'
+} from '@/core/domain/repositories/iproduto.repository'
+
 import IProdutoUseCase from './iproduto.use-case'
 
 export default class ProdutoUseCase implements IProdutoUseCase {
@@ -25,7 +25,12 @@ export default class ProdutoUseCase implements IProdutoUseCase {
       input.descricao,
       input.preco,
       input.categoria,
+      input.imagemUrl
     )
+
+    input.ingredientes?.forEach(ingredienteInput => {
+      produto.addIngrediente(ingredienteInput.nome, ingredienteInput.descricao)
+    })
 
     await this.repository.create(produto)
     return ProdutoMapper.toProdutoDto(produto)
