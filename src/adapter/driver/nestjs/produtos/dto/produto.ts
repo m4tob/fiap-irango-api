@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import ProdutoDto from 'src/core/domain/dto/output/produto.dto'
-
+import ProdutoDto from '@/core/domain/dto/output/produto.dto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 export default class Produto implements ProdutoDto {
@@ -44,6 +43,7 @@ export default class Produto implements ProdutoDto {
     example: new Date(),
     description: 'Data de remoção',
     type: Date,
+    required: false
   })
-  readonly deletedAt: Date | null
+  readonly deletedAt?: Date
 }

@@ -2,7 +2,7 @@ import { Column, Entity, PrimaryColumn } from 'typeorm'
 
 @Entity('Consumidor')
 export class Consumidor {
-  @PrimaryColumn()
+  @PrimaryColumn({ length: 36 })
   public readonly id: string
 
   @Column()

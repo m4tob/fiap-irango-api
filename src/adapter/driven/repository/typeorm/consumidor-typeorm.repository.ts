@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
-import Consumidor from 'src/core/domain/entities/consumidor'
-import IConsumidorRepository from 'src/core/domain/repositories/iconsumidor.repository'
 import { Repository } from 'typeorm'
 
+import Consumidor from '@/core/domain/entities/consumidor'
 import ConsumidorMapper from '@/core/domain/mappers/consumidor.mapper'
+import IConsumidorRepository from '@/core/domain/repositories/iconsumidor.repository'
+import Cpf from '@/core/domain/value-object/Cpf'
 
 import { Consumidor as Entity } from '../../entities/consumidor'
-import Cpf from '@/core/domain/value-object/Cpf'
 
 @Injectable()
 export default class ConsumidorTypeormRepository implements IConsumidorRepository {
@@ -42,15 +42,14 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
   async find (): Promise<Consumidor[]> {
     const consumidors = await this.repository.find()
 
-    return  consumidors.map(consumidor=>{
-        return ConsumidorMapper.toDtoForConsumidor(consumidor)
+    return consumidors.map(consumidor => {
+      return ConsumidorMapper.toDtoForConsumidor(consumidor)
     })
-
   }
 
-  async findByCPF(cpf: Cpf): Promise<Consumidor | undefined> {
+  async findByCPF (cpf: Cpf): Promise<Consumidor | undefined> {
     const consumidor = await this.repository.findOneBy({
-        cpf:cpf.getValue()
+      cpf: cpf.getValue()
     })
 
     return consumidor ? ConsumidorMapper.toDtoForConsumidor(consumidor) : undefined

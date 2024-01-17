@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 
-import Produto from 'src/core/domain/entities/produto'
-import IProdutoRepository from 'src/core/domain/repositories/iproduto.repository'
+import Produto from '@/core/domain/entities/produto'
+import IProdutoRepository from '@/core/domain/repositories/iproduto.repository'
 
 @Injectable()
 export default class ProdutoMemoryRepository implements IProdutoRepository {

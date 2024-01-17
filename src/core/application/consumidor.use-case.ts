@@ -1,5 +1,7 @@
 import { Inject } from '@nestjs/common'
 
+import Cpf from '@/core/domain/value-object/Cpf'
+
 import ConsumidorCreateDto from '../domain/dto/input/consumidor-create.dto'
 import ConsumidorUpdateDto from '../domain/dto/input/consumidor-update.dto'
 import ConsumidorDto from '../domain/dto/output/consumidor.dto'
@@ -9,7 +11,6 @@ import IConsumidorRepository, {
   IConsumidorRepository as IConsumidorRepositorySymbol,
 } from '../domain/repositories/iconsumidor.repository'
 import IConsumidorUseCase from './iconsumidor.use-case'
-import Cpf from '@/core/domain/value-object/Cpf'
 
 export default class ConsumidorUseCase implements IConsumidorUseCase {
   constructor (
@@ -52,6 +53,16 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
     })
   }
 
+  async findById (id: string): Promise<ConsumidorDto| undefined> {
+    const consumidor = await this.repository.findById(id)
+
+    if (!consumidor) {
+      return undefined
+    }
+
+    return ConsumidorMapper.toConsumidorDto(consumidor)
+  }
+
   async findByCpf (cpf: Cpf): Promise<ConsumidorDto| undefined> {
     const consumidor = await this.repository.findByCPF(cpf)
 
@@ -59,10 +70,6 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
       return undefined
     }
 
-
     return ConsumidorMapper.toConsumidorDto(consumidor)
-
   }
-
-
 }

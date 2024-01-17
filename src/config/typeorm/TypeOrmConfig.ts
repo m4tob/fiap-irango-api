@@ -2,7 +2,7 @@ import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 
 import { join } from 'path'
 
-import { Environment as envs } from '@/Environment'
+import { Environment as envs } from '@/environment'
 
 export default {
   type: 'mysql',

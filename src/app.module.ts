@@ -1,7 +1,9 @@
+import { BullModule } from '@nestjs/bull'
 import { CacheModule } from '@nestjs/cache-manager'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
+import * as Bull from 'bull'
 import * as redisStore from 'cache-manager-redis-store'
 import { DataSource, DataSourceOptions } from 'typeorm'
 // import { addTransactionalDataSource } from 'typeorm-transactional'
@@ -31,6 +33,7 @@ import TypeOrmConfig from '@/config/typeorm/TypeOrmConfig'
       store: redisStore,
       ...RedisConfig
     }),
+    BullModule.forRoot({ redis: RedisConfig } as Bull.QueueOptions),
     ConsumidoresModule,
     ProdutosModule,
   ],

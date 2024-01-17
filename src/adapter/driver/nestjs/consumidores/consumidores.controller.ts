@@ -11,11 +11,11 @@ import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger'
 
 import IConsumidorUseCase, {
   IConsumidorUseCase as Itest,
-} from 'src/core/application/iconsumidor.use-case'
+} from '@/core/application/iconsumidor.use-case'
+import Cpf from '@/core/domain/value-object/Cpf'
 
 import Consumidor from './dto/consumidor'
 import CreateConsumidorDto from './dto/create-consumidor.dto'
-import Cpf from '@/core/domain/value-object/Cpf'
 
 @Controller('consumidores')
 @ApiTags('consumidores')
@@ -57,7 +57,6 @@ export class ConsumidoresController {
     return this.consumidorUseCase.update({ ...input, id })
   }
 
-
   @Get(':cpf')
   @ApiOperation({ summary: 'find consumidor by cpf' })
   @ApiResponse({
@@ -66,10 +65,8 @@ export class ConsumidoresController {
     type: Consumidor,
   })
   findByCpf (@Param('cpf') cpf: string) {
-    const cpfValidated =new Cpf(cpf);
+    const cpfValidated = new Cpf(cpf)
     return this.consumidorUseCase.findByCpf(cpfValidated)
   }
-
-
 }
 

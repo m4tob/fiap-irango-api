@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
-import Produto from 'src/core/domain/entities/produto'
-import IProdutoRepository from 'src/core/domain/repositories/iproduto.repository'
 import { Repository } from 'typeorm'
 
+import Produto from '@/core/domain/entities/produto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 import ProdutoMapper from '@/core/domain/mappers/produto.mapper'
+import IProdutoRepository from '@/core/domain/repositories/iproduto.repository'
 
 import { Produto as Entity } from '../../entities/produto'
 

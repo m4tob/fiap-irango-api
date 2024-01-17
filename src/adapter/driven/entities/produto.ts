@@ -8,7 +8,7 @@ export class Produto {
     Object.assign(this, params)
   }
 
-  @PrimaryColumn()
+  @PrimaryColumn({ length: 36 })
   public readonly id: string
 
   @Column()
@@ -32,5 +32,5 @@ export class Produto {
     type: 'timestamp',
     nullable: true
   })
-  public deletedAt: Date | null = null
+  public deletedAt?: Date
 }

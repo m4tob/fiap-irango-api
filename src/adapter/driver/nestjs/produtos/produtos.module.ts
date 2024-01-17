@@ -1,14 +1,12 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { IProdutoUseCase } from 'src/core/application/iproduto.use-case'
-import ProdutoUseCase from 'src/core/application/produto.use-case'
-import { IProdutoRepository } from 'src/core/domain/repositories/iproduto.repository'
-
 import { Produto } from '@/adapter/driven/entities/produto'
 import ProdutoTypeormRepository from '@/adapter/driven/repository/typeorm/produto-typeorm.repository'
-
-import { ProdutosController } from './produtos.controller'
+import { ProdutosController } from '@/adapter/driver/nestjs/produtos/produtos.controller'
+import { IProdutoUseCase } from '@/core/application/iproduto.use-case'
+import ProdutoUseCase from '@/core/application/produto.use-case'
+import { IProdutoRepository } from '@/core/domain/repositories/iproduto.repository'
 
 @Module({
   imports: [
@@ -21,5 +19,8 @@ import { ProdutosController } from './produtos.controller'
   controllers: [
     ProdutosController
   ],
+  exports: [
+    IProdutoRepository
+  ]
 })
 export class ProdutosModule {}

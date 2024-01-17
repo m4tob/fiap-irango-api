@@ -1,4 +1,5 @@
-import Cpf from '@/core/domain/value-object/Cpf';
+import Cpf from '@/core/domain/value-object/Cpf'
+
 import Consumidor from '../entities/consumidor'
 
 export default interface IConsumidorRepository {

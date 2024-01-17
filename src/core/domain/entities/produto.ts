@@ -1,18 +1,22 @@
 import { v4 as uuidv4 } from 'uuid'
 
+import Ingrediente from '@/core/domain/entities/ingrediente'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 import ProdutoUpdateDto from '../dto/input/produto-update.dto'
 
 export default class Produto {
-  public constructor (
-    public readonly id: string,
-    public nome: string,
-    public descricao: string,
-    public preco: number,
-    public categoria: ProdutoCategoriaEnum,
-    public deletedAt: Date | null = null,
-  ) {}
+  readonly id: string
+  nome: string
+  descricao: string
+  preco: number
+  categoria: ProdutoCategoriaEnum
+  deletedAt?: Date = undefined
+  ingredientes: Ingrediente[] = []
+
+  public constructor (params?: Partial<Produto>) {
+    Object.assign(this, params)
+  }
 
   static create (
      nome: string,
@@ -20,8 +24,8 @@ export default class Produto {
      preco: number,
      categoria: ProdutoCategoriaEnum,
   ): Produto {
-    const userId = uuidv4()
-    return new Produto(userId, nome, descricao, preco, categoria)
+    const id = uuidv4()
+    return new Produto({ id, nome, descricao, preco, categoria })
   }
 
   update (input: ProdutoUpdateDto): void {

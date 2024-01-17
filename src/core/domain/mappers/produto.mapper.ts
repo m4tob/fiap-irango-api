@@ -9,6 +9,13 @@ export default class ProdutoMapper {
   }
 
   static toDtoForProduto (input: ProdutoDto): Produto {
-    return new Produto(input.id, input.nome, input.descricao, input.preco, input.categoria, input.deletedAt)
+    return new Produto({
+      id: input.id,
+      nome: input.nome,
+      descricao: input.descricao,
+      preco: input.preco,
+      categoria: input.categoria,
+      deletedAt: input.deletedAt,
+    })
   }
 }
