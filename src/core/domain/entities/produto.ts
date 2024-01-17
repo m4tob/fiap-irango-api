@@ -28,12 +28,12 @@ export default class Produto {
     return new Produto(userId, nome, descricao, preco, categoria, imagemUrl)
   }
 
-  addIngrediente (nome: string, descricao: string):void {
+  addIngrediente (nome: string):void {
     if (this.ingredientes.some((ingrediente) => ingrediente.nome === nome)) {
       throw new Error('Ingrediente já adicionado')
     }
 
-    this.ingredientes.push(Ingrediente.create(nome, descricao))
+    this.ingredientes.push(Ingrediente.create(nome))
   };
 
   update (input: ProdutoUpdateDto): void {

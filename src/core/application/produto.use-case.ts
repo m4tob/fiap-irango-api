@@ -29,7 +29,7 @@ export default class ProdutoUseCase implements IProdutoUseCase {
     )
 
     input.ingredientes?.forEach(ingredienteInput => {
-      produto.addIngrediente(ingredienteInput.nome, ingredienteInput.descricao)
+      produto.addIngrediente(ingredienteInput.nome)
     })
 
     await this.repository.create(produto)

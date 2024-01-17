@@ -2,7 +2,6 @@ import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum
 
 export interface IngredienteDto {
   nome: string,
-  descricao: string
 }
 export default interface ProdutoCreateDto {
   readonly nome: string,
