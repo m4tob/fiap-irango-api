@@ -18,28 +18,36 @@ npm run install
 ```
 
 ## Start Project using Docker
-Install project dependencies with:
+Configure all docker containers and volumes and start the application
 ```bash
 make setup
 ```
-or
+or try without make
 ```bash
-cp .env.example .env
 docker network create -d bridge local-network
+cp .env.example .env
+docker-compose build --progress=plain
 docker-compose up
+docker-compose exec -it service-irango-api npm run migration:run
+docker-compose exec -it service-irango-api npm run seed:run
 ```
 
-## Start Project (Dev)
-Install project dependencies with:
+## Start project without Docker
+Watch mode:
 ```bash
 npm run start:dev
 ```
 
-## Start Project (Prod)
-Install project dependencies with:
+Compiled mode:
 ```bash
 npm run build
 npm run start
+```
+
+Migrations and Seeds:
+```bash
+npm run migration:run
+npm run seed:run
 ```
 
 ## Make commands
@@ -47,7 +55,6 @@ npm run start
 - Start Project: `make up`
 - Stop Projects: `make down`
 - Show logs: `make logs`
-- Run Tests: `make test`
 - Add Migration: `make migration.generate name=MigrationName`
 - Run Migrations: `make migration.run`
 - Add Seed: `make seed.generate name=SeedName`
