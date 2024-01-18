@@ -7,7 +7,7 @@ import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum
 
 export default class CreateProdutoDto implements ProdutoCreateDto {
   @ApiProperty({
-    example: 'Maine Coon',
+    example: 'X -bacon',
     description: 'Nome do Produto',
     type: String,
   })
@@ -42,7 +42,7 @@ export default class CreateProdutoDto implements ProdutoCreateDto {
   readonly imagemUrl: string
 
   @ApiProperty({
-    example: '10.20',
+    example: ['bacon'],
     description: 'Preço do Produto',
     type: Array<IngredienteProdutoDto>,
     isArray: true

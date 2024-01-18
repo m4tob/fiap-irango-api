@@ -1,6 +1,7 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
 
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
+import {Ingrediente} from './ingrediente'
 
 @Entity('Produto')
 export class Produto {
@@ -40,5 +41,10 @@ export class Produto {
     type: 'varchar'
   })
   public imagemUrl: string | null = null
+
+   @OneToMany(() => Ingrediente, (ingrediente) => ingrediente.produto,{
+    eager: true,
+   })
+   public ingredientes : Ingrediente[]
 
 }

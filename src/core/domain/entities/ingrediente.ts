@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid'
 export default class Ingrediente {
   readonly id: string
   public nome: string
+  public imagemUrl: string
+  public preco: number
 
   constructor (params?: Partial<Ingrediente>) {
     Object.assign(this, params)

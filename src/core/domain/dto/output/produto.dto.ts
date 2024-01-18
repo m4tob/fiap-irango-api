@@ -1,4 +1,5 @@
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
+import { IngredienteDto } from '@/core/domain/dto/input/produto-create.dto';
 
 export default interface ProdutoDto {
   readonly id: string;
@@ -6,5 +7,6 @@ export default interface ProdutoDto {
   readonly descricao: string;
   readonly preco: number;
   readonly categoria: ProdutoCategoriaEnum;
+  readonly ingredientes: IngredienteDto[];
   readonly deletedAt: Date | null
 }
