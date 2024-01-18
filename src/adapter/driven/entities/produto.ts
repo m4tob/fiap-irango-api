@@ -36,7 +36,9 @@ export class Produto {
 
   @Column({
     name: 'imagem_url',
-    nullable: true
+    nullable: true,
+    type: 'varchar'
   })
   public imagemUrl: string | null = null
+
 }
