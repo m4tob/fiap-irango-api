@@ -59,6 +59,24 @@ npm run migration:run
 npm run seed:run
 ```
 
+## Business Requirements:
+1. Cadastro do Cliente
+> POST http://localhost:3000/consumidores
+2. Identificação do Cliente via CPF
+> GET http://localhost:3000/consumidores/cpf
+3. Criar, editar e remover de produto
+> POST http://localhost:3000/produtos
+
+> PUT http://localhost:3000/produtos/:id
+
+> DELETE http://localhost:3000/produtos/:id
+4. Buscar produtos por categoria
+> GET http://localhost:3000/produtos/categorias/:termo
+5. Fake checkout, apenas enviar os produtos escolhidos para a fila
+> POST http://localhost:3000/pedidos
+6. Listar os pedidos
+> GET http://localhost:3000/pedidos
+
 ## Make commands
 - Setup Project: `make setup`. This command will create docker network, containers and volumes. It will also start the project and show its logs.
 - Start Project: `make up`
