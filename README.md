@@ -6,6 +6,9 @@ For this project, we utilized the [TypeScript](https://www.typescriptlang.org/) 
 
 To build the API documentation, we've used [Swagger](https://swagger.io/) tool integrated with Nest.js, accessible through the endpoint: http://localhost:3000/docs
 
+## Application Architecture and Technologies:
+![Alt text](./docs/application-diagram.png)
+
 ## Workspace Dependencies
 - [Node 20.10](https://nodejs.org/)
 - [Docker](https://www.docker.com/get-started/)
