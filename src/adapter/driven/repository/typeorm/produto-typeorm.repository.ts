@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 
 import Produto from 'src/core/domain/entities/produto'
 import IProdutoRepository from 'src/core/domain/repositories/iproduto.repository'
-import { Repository } from 'typeorm'
+import { IsNull, Repository } from 'typeorm'
 
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 import ProdutoMapper from '@/core/domain/mappers/produto.mapper'
@@ -18,30 +18,44 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
 
   async create (input: Produto): Promise<void> {
     const model = ProdutoMapper.toProdutoDto(input)
-    await this.repository.insert(model)
+    await this.repository.save(model)
   }
 
   async findById (id: string): Promise<Produto | undefined> {
-    const produto = await this.repository.findOneBy({
-      id
+    const produto = await this.repository.findOne({
+        where:{
+            id
+        },
+        relations:{
+            ingredientes: true,
+        }
     })
 
     return produto ? ProdutoMapper.toDtoForProduto(produto) : undefined
   }
 
   async save (input: Produto): Promise<void> {
-    const produto = await this.findById(input.id)
-
+    const {id}=input
+    const produto = await this.findById(id)
     if (!produto) {
       throw new Error('Produto não existe')
     }
 
-    await this.repository.update(input.id, ProdutoMapper.toProdutoDto(input))
+    await this.repository.save(ProdutoMapper.toProdutoDto(input))
+
   }
 
   async find (): Promise<Produto[]> {
-    const produtos = await this.repository.find()
-
+    const produtos = await this.repository
+    .find({
+        where:{
+            deletedAt:IsNull()
+        },
+        relations: {
+            ingredientes: true,
+        }
+    }
+    )
     return produtos.map((produto) => {
       return ProdutoMapper.toDtoForProduto(produto)
     })
@@ -51,6 +65,9 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
     const produtos = await this.repository.find({
       where: {
         categoria
+      },
+      relations: {
+            ingredientes: true,
       }
     })
 
