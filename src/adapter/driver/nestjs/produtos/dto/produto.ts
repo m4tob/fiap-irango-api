@@ -49,6 +49,13 @@ export default class Produto implements ProdutoDto {
   })
   readonly deletedAt: Date | null
 
+   @ApiProperty({
+      example: 'https://imagem/imagem.png',
+      description: '',
+      type: String,
+   })
+   readonly imagemUrl: string | null
+
 
   @ApiProperty({
     example: ['bacon'],
