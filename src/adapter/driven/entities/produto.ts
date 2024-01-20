@@ -43,7 +43,8 @@ export class Produto {
   public imagemUrl: string | null = null
 
    @OneToMany(() => Ingrediente, (ingrediente) => ingrediente.produto,{
-    eager: true,
+    eager:true,
+    cascade: true,
    })
    public ingredientes : Ingrediente[]
 
