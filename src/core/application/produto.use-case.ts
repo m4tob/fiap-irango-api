@@ -65,9 +65,10 @@ export default class ProdutoUseCase implements IProdutoUseCase {
       return ProdutoMapper.toProdutoDto(produto)
     })
   }
+
   async findById (id: string): Promise<ProdutoDto|undefined> {
     const produto = await this.repository.findById(id)
-    return produto ?ProdutoMapper.toProdutoDto(produto):undefined
+    return produto ? ProdutoMapper.toProdutoDto(produto) : undefined
   }
 
   async remove (productId: string): Promise<ProdutoDto | undefined> {

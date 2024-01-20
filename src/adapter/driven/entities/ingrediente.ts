@@ -1,5 +1,6 @@
-import {Produto} from './produto'
 import { Column, Entity, JoinTable, ManyToOne, PrimaryColumn } from 'typeorm'
+
+import { Produto } from './produto'
 
 @Entity('Ingrediente')
 export class Ingrediente {
@@ -25,5 +26,4 @@ export class Ingrediente {
   @ManyToOne(() => Produto, (produto) => produto.ingredientes)
   @JoinTable()
   public produto: Produto
-
 }
