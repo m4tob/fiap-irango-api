@@ -24,6 +24,11 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
       input.cpf,
       input.email,
     )
+    const consumerExists = await this.repository.findByCPF(consumidor.cpf)
+
+    if (consumerExists) {
+      throw new Error('Consumidor já cadastrado com esse cpf')
+    }
 
     await this.repository.create(consumidor)
     return ConsumidorMapper.toConsumidorDto(consumidor)
