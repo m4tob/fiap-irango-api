@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { IngredienteDto } from '@/core/domain/dto/input/produto-create.dto'
 import Ingrediente from '@/core/domain/entities/ingrediente'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
+import { BusinessException } from '@/core/domain/errors/business-exception'
 
 import ProdutoUpdateDto from '../dto/input/produto-update.dto'
 
@@ -31,7 +32,7 @@ export default class Produto {
 
   addIngrediente (nome: string, preco?:number | null, imagemUrl?: string | null):void {
     if (this.ingredientes.some((ingrediente) => ingrediente.nome === nome)) {
-      throw new Error('Ingrediente já adicionado')
+      throw new BusinessException('Ingrediente já adicionado')
     }
 
     this.ingredientes.push(Ingrediente.create(nome, preco, imagemUrl))

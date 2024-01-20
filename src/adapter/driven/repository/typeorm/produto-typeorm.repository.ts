@@ -6,6 +6,7 @@ import IProdutoRepository from 'src/core/domain/repositories/iproduto.repository
 import { IsNull, Repository } from 'typeorm'
 
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
+import { BusinessException } from '@/core/domain/errors/business-exception'
 import ProdutoMapper from '@/core/domain/mappers/produto.mapper'
 
 import { Produto as Entity } from '../../entities/produto'
@@ -37,8 +38,9 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
   async save (input: Produto): Promise<void> {
     const { id } = input
     const produto = await this.findById(id)
+
     if (!produto) {
-      throw new Error('Produto não existe')
+      throw new BusinessException('Produto não existe')
     }
 
     await this.repository.save(ProdutoMapper.toProdutoDto(input))
