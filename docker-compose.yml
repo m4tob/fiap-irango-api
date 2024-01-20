@@ -67,8 +67,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./src:/app/src # to sync code changes
-      - ./test:/app/test # to sync code changes
+      - .:/app # to sync code changes
     depends_on:
       - local-mysql
       - local-redis

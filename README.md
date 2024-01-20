@@ -1,5 +1,14 @@
 # iRango API
 
+This project involves the development of an API for a fast food self-service system, proposed as a Tech Challenge for the Software Architecture Postgraduate Course at FIAP.
+
+For this project, we utilized the [TypeScript](https://www.typescriptlang.org/) programming language with [Node.js](https://nodejs.org/) and the [Nest.js](https://nestjs.com/) framework. The database management includes [MySQL 5.7](https://www.mysql.com/) to handle information related to Consumidor, Produto, and Pedido. Additionally, an in-memory [Redis](https://redis.io/) database is employed for caching and serves as a structure to manage the Pedidos queue. This is achieved through the use of the [Bull](https://github.com/OptimalBits/bull) library in conjunction with the [Queues](https://docs.nestjs.com/techniques/queues) module provided by Nest.js.
+
+To build the API documentation, we've used [Swagger](https://swagger.io/) tool integrated with Nest.js, accessible through the endpoint: http://localhost:3000/docs
+
+## Application Architecture and Technologies:
+![Alt text](./docs/application-diagram.png)
+
 ## Workspace Dependencies
 - [Node 20.10](https://nodejs.org/)
 - [Docker](https://www.docker.com/get-started/)
@@ -18,36 +27,61 @@ npm run install
 ```
 
 ## Start Project using Docker
-Install project dependencies with:
+Configure all docker containers and volumes and start the application
 ```bash
 make setup
 ```
-or
+or try without make
 ```bash
-cp .env.example .env
 docker network create -d bridge local-network
+cp .env.example .env
+docker-compose build --progress=plain
 docker-compose up
+docker-compose exec -it service-irango-api npm run migration:run
+docker-compose exec -it service-irango-api npm run seed:run
 ```
 
-## Start Project (Dev)
-Install project dependencies with:
+## Start project without Docker
+Watch mode:
 ```bash
 npm run start:dev
 ```
 
-## Start Project (Prod)
-Install project dependencies with:
+Compiled mode:
 ```bash
 npm run build
 npm run start
 ```
+
+Migrations and Seeds:
+```bash
+npm run migration:run
+npm run seed:run
+```
+
+## Business Requirements:
+1. Cadastro do Cliente
+> POST http://localhost:3000/consumidores
+2. Identificação do Cliente via CPF
+> GET http://localhost:3000/consumidores/cpf
+3. Criar, editar e remover de produto
+> POST http://localhost:3000/produtos
+
+> PUT http://localhost:3000/produtos/:id
+
+> DELETE http://localhost:3000/produtos/:id
+4. Buscar produtos por categoria
+> GET http://localhost:3000/produtos/categorias/:termo
+5. Fake checkout, apenas enviar os produtos escolhidos para a fila
+> POST http://localhost:3000/pedidos
+6. Listar os pedidos
+> GET http://localhost:3000/pedidos
 
 ## Make commands
 - Setup Project: `make setup`. This command will create docker network, containers and volumes. It will also start the project and show its logs.
 - Start Project: `make up`
 - Stop Projects: `make down`
 - Show logs: `make logs`
-- Run Tests: `make test`
 - Add Migration: `make migration.generate name=MigrationName`
 - Run Migrations: `make migration.run`
 - Add Seed: `make seed.generate name=SeedName`
