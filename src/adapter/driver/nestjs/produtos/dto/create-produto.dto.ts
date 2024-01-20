@@ -42,7 +42,7 @@ export default class CreateProdutoDto implements ProdutoCreateDto {
   readonly imagemUrl: string
 
   @ApiProperty({
-    example: ['bacon'],
+    example: [{"nome":'bacon'}],
     description: 'Preço do Produto',
     type: Array<IngredienteProdutoDto>,
     isArray: true

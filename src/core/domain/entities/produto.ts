@@ -4,6 +4,7 @@ import Ingrediente from '@/core/domain/entities/ingrediente'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 import ProdutoUpdateDto from '../dto/input/produto-update.dto'
+import { IngredienteDto } from '@/core/domain/dto/input/produto-create.dto'
 
 export default class Produto {
   public constructor (
@@ -41,6 +42,14 @@ export default class Produto {
     this.preco = input.preco
     this.descricao = input.descricao
     this.categoria = input.categoria
+    const ingredientes =input
+        .ingredientes?.map(ingrediente=>{
+            if('id' in  ingrediente){
+                return new Ingrediente(ingrediente as IngredienteDto)
+            }
+            return Ingrediente.create(ingrediente.nome)
+        })
+    this.ingredientes =ingredientes??[]
   }
 
   delete (date: Date = new Date()): void {

@@ -10,6 +10,7 @@ export default interface IProdutoUseCase {
   remove(productId: string): Promise<ProdutoDto | undefined>;
   list(): Promise<ProdutoDto[]>;
   findByCategoria(categoria: ProdutoCategoriaEnum): Promise<ProdutoDto[]>;
+  findById(id: string): Promise<ProdutoDto | undefined>;
 }
 
 export const IProdutoUseCase = Symbol('IProdutoUseCase')
