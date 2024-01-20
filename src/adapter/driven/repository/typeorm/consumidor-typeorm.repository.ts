@@ -5,6 +5,7 @@ import Consumidor from 'src/core/domain/entities/consumidor'
 import IConsumidorRepository from 'src/core/domain/repositories/iconsumidor.repository'
 import { Repository } from 'typeorm'
 
+import { BusinessException } from '@/core/domain/errors/business-exception'
 import ConsumidorMapper from '@/core/domain/mappers/consumidor.mapper'
 import Cpf from '@/core/domain/value-object/Cpf'
 
@@ -17,8 +18,8 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
   ) {}
 
   async create (input: Consumidor): Promise<void> {
-    const tt = ConsumidorMapper.toConsumidorDto(input)
-    await this.repository.insert(tt)
+    const consumidor = ConsumidorMapper.toConsumidorDto(input)
+    await this.repository.insert(consumidor)
   }
 
   async findById (id: string): Promise<Consumidor | undefined> {
@@ -33,7 +34,7 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
     const consumidor = await this.findById(input.id)
 
     if (!consumidor) {
-      throw new Error('Consumidor não existe')
+      throw new BusinessException('Consumidor não existe')
     }
 
     await this.repository.update(input.id, ConsumidorMapper.toConsumidorDto(input))
