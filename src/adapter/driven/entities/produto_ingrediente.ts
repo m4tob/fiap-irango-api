@@ -1,7 +1,6 @@
-import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm'
+import { Column, Entity, PrimaryColumn } from 'typeorm'
 
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
-import {Ingrediente} from './ingrediente'
 
 @Entity('Produto')
 export class Produto {
@@ -37,15 +36,7 @@ export class Produto {
 
   @Column({
     name: 'imagem_url',
-    nullable: true,
-    type: 'varchar'
+    nullable: true
   })
   public imagemUrl: string | null = null
-
-   @OneToMany(() => Ingrediente, (ingrediente) => ingrediente.produto,{
-    eager:true,
-    cascade: true,
-   })
-   public ingredientes : Ingrediente[]
-
 }

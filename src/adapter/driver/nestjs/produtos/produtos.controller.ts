@@ -35,6 +35,16 @@ export class ProdutosController {
   list () {
     return this.produtoUseCase.list()
   }
+  @Get(':id')
+  @ApiOperation({ summary: 'product find by Id' })
+  @ApiResponse({
+    status: 200,
+    description: 'The found record',
+    type: [Produto],
+  })
+  findById (@Param('id') id: string) {
+    return this.produtoUseCase.findById(id)
+  }
 
   @Get('/categorias/:categoria')
   @ApiOperation({ summary: 'products Find By categoria' })

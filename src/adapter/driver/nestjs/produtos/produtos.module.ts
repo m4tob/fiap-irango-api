@@ -6,13 +6,14 @@ import ProdutoUseCase from 'src/core/application/produto.use-case'
 import { IProdutoRepository } from 'src/core/domain/repositories/iproduto.repository'
 
 import { Produto } from '@/adapter/driven/entities/produto'
+import { Ingrediente } from '@/adapter/driven/entities/ingrediente'
 import ProdutoTypeormRepository from '@/adapter/driven/repository/typeorm/produto-typeorm.repository'
 
 import { ProdutosController } from './produtos.controller'
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Produto]),
+    TypeOrmModule.forFeature([Produto,Ingrediente]),
   ],
   providers: [
     { provide: IProdutoUseCase, useClass: ProdutoUseCase },
