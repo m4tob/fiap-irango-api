@@ -1,5 +1,5 @@
+import { IngredienteDto } from '@/core/domain/dto/input/produto-create.dto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
-import { IngredienteDto } from '@/core/domain/dto/input/produto-create.dto';
 
 export default interface ProdutoDto {
   readonly id: string;

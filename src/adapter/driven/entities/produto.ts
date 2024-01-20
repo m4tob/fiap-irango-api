@@ -47,5 +47,5 @@ export class Produto {
      eager: true,
      cascade: true,
    })
-   public ingredientes : Ingrediente[]
+  public ingredientes : Ingrediente[]
 }

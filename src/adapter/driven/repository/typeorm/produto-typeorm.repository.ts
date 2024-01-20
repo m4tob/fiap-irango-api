@@ -23,39 +23,38 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
 
   async findById (id: string): Promise<Produto | undefined> {
     const produto = await this.repository.findOne({
-        where:{
-            id
-        },
-        relations:{
-            ingredientes: true,
-        }
+      where: {
+        id
+      },
+      relations: {
+        ingredientes: true,
+      }
     })
 
     return produto ? ProdutoMapper.toDtoForProduto(produto) : undefined
   }
 
   async save (input: Produto): Promise<void> {
-    const {id}=input
+    const { id } = input
     const produto = await this.findById(id)
     if (!produto) {
       throw new Error('Produto não existe')
     }
 
     await this.repository.save(ProdutoMapper.toProdutoDto(input))
-
   }
 
   async find (): Promise<Produto[]> {
     const produtos = await this.repository
-    .find({
-        where:{
-            deletedAt:IsNull()
+      .find({
+        where: {
+          deletedAt: IsNull()
         },
         relations: {
-            ingredientes: true,
+          ingredientes: true,
         }
-    }
-    )
+      }
+      )
     return produtos.map((produto) => {
       return ProdutoMapper.toDtoForProduto(produto)
     })
@@ -67,7 +66,7 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
         categoria
       },
       relations: {
-            ingredientes: true,
+        ingredientes: true,
       }
     })
 

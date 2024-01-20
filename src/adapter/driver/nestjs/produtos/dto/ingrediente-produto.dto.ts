@@ -9,4 +9,18 @@ export default class IngredienteProdutoDto implements IngredienteDto {
     type: String,
   })
   readonly nome: string
+
+  @ApiProperty({
+    example: '10.20',
+    description: 'Preço do Produto',
+    type: Number,
+  })
+  readonly preco?: number
+
+   @ApiProperty({
+     example: 'https://imagem/imagem.png',
+     description: '',
+     type: String,
+   })
+   readonly imagemUrl?: string
 }

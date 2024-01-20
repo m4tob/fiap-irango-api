@@ -14,14 +14,14 @@ export class Ingrediente {
     type: 'float',
     nullable: true,
   })
-  public preco: number
+  public preco?: number | null = null
 
   @Column({
     name: 'imagem_url',
     nullable: true,
     type: 'varchar'
   })
-  public imagemUrl: string | null = null
+  public imagemUrl?: string | null = null
 
   @ManyToOne(() => Produto, (produto) => produto.ingredientes)
   @JoinTable()

@@ -2,11 +2,10 @@ import { ApiProperty } from '@nestjs/swagger'
 
 import ProdutoDto from 'src/core/domain/dto/output/produto.dto'
 
-import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 import IngredienteProdutoDto from '@/adapter/driver/nestjs/produtos/dto/ingrediente-produto.dto'
+import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 export default class Produto implements ProdutoDto {
-
   @ApiProperty({
     example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805',
     description: 'ID',
@@ -50,22 +49,17 @@ export default class Produto implements ProdutoDto {
   readonly deletedAt: Date | null
 
    @ApiProperty({
-      example: 'https://imagem/imagem.png',
-      description: '',
-      type: String,
+     example: 'https://imagem/imagem.png',
+     description: '',
+     type: String,
    })
    readonly imagemUrl: string | null
 
-
   @ApiProperty({
-    example: [{"nome":'bacon'}],
+    example: [{ nome: 'bacon' }],
     description: 'ingredientes',
     type: Array<IngredienteProdutoDto>,
     isArray: true
   })
- readonly  ingredientes:[]
-
-
-
-
+ readonly ingredientes:[]
 }
