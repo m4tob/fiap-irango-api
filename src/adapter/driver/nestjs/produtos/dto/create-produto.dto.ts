@@ -14,7 +14,7 @@ export default class CreateProdutoDto implements ProdutoCreateDto {
   readonly nome: string
 
   @ApiProperty({
-    example: 'Maine Coon',
+    example: 'Tem  bacon',
     description: 'Descrição do Produto',
     type: String,
   })

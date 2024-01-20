@@ -36,7 +36,7 @@ export default class Produto implements ProdutoDto {
   readonly preco: number
 
   @ApiProperty({
-    example: [ProdutoCategoriaEnum.ACOMPANHAMENTO],
+    example: ProdutoCategoriaEnum.ACOMPANHAMENTO,
     description: 'Categoria',
     enum: ProdutoCategoriaEnum,
   })
@@ -58,7 +58,7 @@ export default class Produto implements ProdutoDto {
 
 
   @ApiProperty({
-    example: ['bacon'],
+    example: [{"nome":'bacon'}],
     description: 'ingredientes',
     type: Array<IngredienteProdutoDto>,
     isArray: true
