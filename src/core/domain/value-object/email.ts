@@ -1,11 +1,20 @@
 export default class Email {
-  // TODO: criar regras do value Object
-  constructor (private value: string) {}
+  constructor (private value: string) {
+    if (!value || !this.validate()) {
+      throw new Error('Invalid Email')
+    }
+  }
 
   /**
-   * toString
+   * toStrings
    */
   public toString (): string {
     return this.value
+  }
+
+  private validate (): boolean {
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    return regexEmail.test(this.value)
   }
 }
