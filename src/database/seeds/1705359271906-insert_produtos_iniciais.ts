@@ -1,39 +1,21 @@
-import * as fs from 'fs'
 import { MigrationInterface, QueryRunner } from 'typeorm'
+import { v4 as uuidv4 } from 'uuid'
 
+import { Ingrediente } from '@/adapter/driven/entities/ingrediente'
 import { Produto } from '@/adapter/driven/entities/produto'
-import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
-
-interface IngredienteJson {
-  nome: string
-  preco: number
-  imagemUrl: string
-}
-
-interface ProdutoJson {
-  nome: string
-  descricao: string
-  preco: number
-  categoria: ProdutoCategoriaEnum
-  imagemUrl: string
-  ingredientes: IngredienteJson[]
-}
-
-const FILE_PATH = '../data/1705359271906-produtos.json'
-
+import { produtos } from '@/database/seeds/data/1705359271906-produtos'
 export class InsertProdutosIniciais1705359271906 implements MigrationInterface {
   public async up (queryRunner: QueryRunner): Promise<void> {
-    const produtos = this.readFile()
-
     for (const product of produtos) {
       const { ingredientes, ...params } = product
       let entity = new Produto(params)
+      entity.id = uuidv4()
       entity = await queryRunner.manager.save(entity)
 
-      for (const ingrediente of ingredientes) {
-        await queryRunner.query(
-          `INSERT INTO ProdutoIngrediente (produto_id, nome) VALUES (${entity.id}, '${ingrediente}');`
-        )
+      for (const ingrediente of (ingredientes ?? [])) {
+        let ingredienteEntity = new Ingrediente({ ...ingrediente, produto: entity })
+        ingredienteEntity.id = uuidv4()
+        ingredienteEntity = await queryRunner.manager.save(ingredienteEntity)
       }
     }
   }
@@ -41,10 +23,5 @@ export class InsertProdutosIniciais1705359271906 implements MigrationInterface {
   public async down (queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query('DELETE FROM ProdutoIngrediente;')
     await queryRunner.query('DELETE FROM Produto;')
-  }
-
-  private readFile (): ProdutoJson[] {
-    const json = fs.readFileSync(FILE_PATH, 'utf8')
-    return JSON.parse(json) as ProdutoJson[]
   }
 }
