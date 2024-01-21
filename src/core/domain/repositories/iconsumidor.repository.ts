@@ -1,6 +1,5 @@
+import Consumidor from '@/core/domain/entities/consumidor'
 import Cpf from '@/core/domain/value-object/Cpf'
-
-import Consumidor from '../entities/consumidor'
 
 export default interface IConsumidorRepository {
   create(input: Consumidor): Promise<void>;

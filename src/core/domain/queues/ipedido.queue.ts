@@ -1,4 +1,4 @@
-import Pedido from '../entities/pedido'
+import Pedido from '@/core/domain/entities/pedido'
 
 export default interface IPedidoQueue {
   add(input: Pedido): Promise<void>;

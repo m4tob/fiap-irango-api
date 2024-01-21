@@ -1,7 +1,6 @@
-
-import PedidoCreateDto from '../domain/dto/input/pedido-create.dto'
-import PedidoUpdateDto from '../domain/dto/input/pedido-update.dto'
-import PedidoDto from '../domain/dto/output/pedido.dto'
+import PedidoCreateDto from '@/core/domain/dto/input/pedido-create.dto'
+import PedidoUpdateDto from '@/core/domain/dto/input/pedido-update.dto'
+import PedidoDto from '@/core/domain/dto/output/pedido.dto'
 
 export default interface IPedidoUseCase {
   list(): Promise<PedidoDto[]>;

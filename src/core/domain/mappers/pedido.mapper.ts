@@ -1,8 +1,7 @@
+import PedidoDto from '@/core/domain/dto/output/pedido.dto'
+import Pedido from '@/core/domain/entities/pedido'
 import ConsumidorMapper from '@/core/domain/mappers/consumidor.mapper'
 import ItemPedidoMapper from '@/core/domain/mappers/item-pedido.mapper'
-
-import PedidoDto from '../dto/output/pedido.dto'
-import Pedido from '../entities/pedido'
 
 export default class PedidoMapper {
   static toDto (pedido: Pedido): PedidoDto {

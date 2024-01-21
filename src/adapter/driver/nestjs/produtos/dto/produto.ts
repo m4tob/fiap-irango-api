@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import ProdutoDto from 'src/core/domain/dto/output/produto.dto'
-
 import IngredienteProdutoDto from '@/adapter/driver/nestjs/produtos/dto/ingrediente-produto.dto'
+import ProdutoDto from '@/core/domain/dto/output/produto.dto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 export default class Produto implements ProdutoDto {

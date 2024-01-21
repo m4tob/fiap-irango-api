@@ -3,13 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm'
 
 import { Repository } from 'typeorm'
 
+import { Consumidor as Entity } from '@/adapter/driven/entities/consumidor'
 import Consumidor from '@/core/domain/entities/consumidor'
 import { BusinessException } from '@/core/domain/errors/business-exception'
 import ConsumidorMapper from '@/core/domain/mappers/consumidor.mapper'
 import IConsumidorRepository from '@/core/domain/repositories/iconsumidor.repository'
 import Cpf from '@/core/domain/value-object/Cpf'
-
-import { Consumidor as Entity } from '../../entities/consumidor'
 
 @Injectable()
 export default class ConsumidorTypeormRepository implements IConsumidorRepository {

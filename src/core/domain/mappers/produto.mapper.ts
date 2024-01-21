@@ -1,7 +1,6 @@
+import ProdutoDto from '@/core/domain/dto/output/produto.dto'
 import Ingrediente from '@/core/domain/entities/ingrediente'
-
-import ProdutoDto from '../dto/output/produto.dto'
-import Produto from '../entities/produto'
+import Produto from '@/core/domain/entities/produto'
 
 export default class ProdutoMapper {
   static toProdutoDto (produto: Produto): ProdutoDto {

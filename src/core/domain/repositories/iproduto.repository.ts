@@ -1,6 +1,5 @@
+import Produto from '@/core/domain/entities/produto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
-
-import Produto from '../entities/produto'
 
 export default interface IProdutoRepository {
   findByCategoria(categoria: ProdutoCategoriaEnum): Promise<Produto[]>;

@@ -3,11 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm'
 
 import { Repository } from 'typeorm'
 
+import { Pedido as Entity } from '@/adapter/driven/entities/pedido'
 import Pedido from '@/core/domain/entities/pedido'
 import PedidoMapper from '@/core/domain/mappers/pedido.mapper'
 import IPedidoRepository from '@/core/domain/repositories/ipedido.repository'
-
-import { Pedido as Entity } from '../../entities/pedido'
 
 @Injectable()
 export default class PedidoTypeormRepository implements IPedidoRepository {

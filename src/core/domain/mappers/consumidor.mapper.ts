@@ -1,8 +1,7 @@
+import ConsumidorDto from '@/core/domain/dto/output/consumidor.dto'
+import Consumidor from '@/core/domain/entities/consumidor'
 import Cpf from '@/core/domain/value-object/Cpf'
 import Email from '@/core/domain/value-object/email'
-
-import ConsumidorDto from '../dto/output/consumidor.dto'
-import Consumidor from '../entities/consumidor'
 
 export default class ConsumidorMapper {
   static toConsumidorDto (consumidor: Consumidor): ConsumidorDto {

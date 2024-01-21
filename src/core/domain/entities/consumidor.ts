@@ -1,9 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
 
+import ConsumidorUpdateDto from '@/core/domain/dto/input/consumidor-update.dto'
 import Cpf from '@/core/domain/value-object/Cpf'
-
-import ConsumidorUpdateDto from '../dto/input/consumidor-update.dto'
-import Email from '../value-object/email'
+import Email from '@/core/domain/value-object/email'
 
 export default class Consumidor {
   public constructor (

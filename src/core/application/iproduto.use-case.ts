@@ -1,8 +1,7 @@
+import ProdutoCreateDto from '@/core/domain/dto/input/produto-create.dto'
+import ProdutoUpdateDto from '@/core/domain/dto/input/produto-update.dto'
+import ProdutoDto from '@/core/domain/dto/output/produto.dto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
-
-import ProdutoCreateDto from '../domain/dto/input/produto-create.dto'
-import ProdutoUpdateDto from '../domain/dto/input/produto-update.dto'
-import ProdutoDto from '../domain/dto/output/produto.dto'
 
 export default interface IProdutoUseCase {
   create(input: ProdutoCreateDto): Promise<ProdutoDto>;
