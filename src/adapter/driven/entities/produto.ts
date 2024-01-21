@@ -20,6 +20,13 @@ export class Produto {
   public descricao: string
 
   @Column({
+    name: 'imagem_url',
+    nullable: true,
+    type: 'varchar'
+  })
+  public imagemUrl: string | null = null
+
+  @Column({
     type: 'float'
   })
   public preco: number
@@ -35,13 +42,6 @@ export class Produto {
     nullable: true
   })
   public deletedAt: Date | null = null
-
-  @Column({
-    name: 'imagem_url',
-    nullable: true,
-    type: 'varchar'
-  })
-  public imagemUrl: string | null = null
 
    @OneToMany(() => Ingrediente, (ingrediente) => ingrediente.produto, {
      eager: true,
