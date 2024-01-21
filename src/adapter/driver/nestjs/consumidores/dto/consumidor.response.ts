@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger'
 
 import ConsumidorDto from '@/core/domain/dto/output/consumidor.dto'
 
-export default class Consumidor implements ConsumidorDto {
+export default class ConsumidorResponse implements ConsumidorDto {
   @ApiProperty({
     example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805',
     description: 'ID',

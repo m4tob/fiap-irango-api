@@ -17,7 +17,7 @@ import IProdutoUseCase, {
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 import CreateProdutoDto from './dto/create-produto.dto'
-import Produto from './dto/produto'
+import ProdutoResponse from './dto/produto.response'
 
 @Controller('produtos')
 @ApiTags('produtos')
@@ -29,7 +29,7 @@ export class ProdutosController {
   @ApiResponse({
     status: 200,
     description: 'The found record',
-    type: [Produto],
+    type: [ProdutoResponse],
   })
   list () {
     return this.produtoUseCase.list()
@@ -40,7 +40,7 @@ export class ProdutosController {
   @ApiResponse({
     status: 200,
     description: 'The found record',
-    type: [Produto],
+    type: [ProdutoResponse],
   })
   findById (@Param('id') id: string) {
     return this.produtoUseCase.findById(id)
@@ -51,7 +51,7 @@ export class ProdutosController {
   @ApiResponse({
     status: 200,
     description: 'The found record',
-    type: [Produto],
+    type: [ProdutoResponse],
   })
   findByCategoria (@Param('categoria') categoria: ProdutoCategoriaEnum) {
     return this.produtoUseCase.findByCategoria(categoria)
@@ -65,7 +65,7 @@ export class ProdutosController {
   @ApiResponse({
     status: 200,
     description: 'The found record',
-    type: Produto,
+    type: ProdutoResponse,
   })
   create (@Body() input: CreateProdutoDto) {
     return this.produtoUseCase.create(input)
@@ -79,7 +79,7 @@ export class ProdutosController {
   @ApiResponse({
     status: 200,
     description: 'The found record',
-    type: Produto,
+    type: ProdutoResponse,
   })
   update (@Param('id') id: string, @Body() input: UpdateProdutoDto) {
     return this.produtoUseCase.update({ ...input, id })
@@ -90,7 +90,7 @@ export class ProdutosController {
   @ApiResponse({
     status: 200,
     description: 'The found record',
-    type: Produto,
+    type: ProdutoResponse,
   })
   remove (@Param('id') id: string) {
     return this.produtoUseCase.remove(id)

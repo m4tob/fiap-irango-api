@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import IngredienteProdutoDto from '@/adapter/driver/nestjs/produtos/dto/ingrediente-produto.dto'
+import IngredienteProdutoResponse from '@/adapter/driver/nestjs/produtos/dto/ingrediente-produto.response'
 import ProdutoDto from '@/core/domain/dto/output/produto.dto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
-export default class Produto implements ProdutoDto {
+export default class ProdutoResponse implements ProdutoDto {
   @ApiProperty({
     example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805',
     description: 'ID',
@@ -51,7 +51,7 @@ export default class Produto implements ProdutoDto {
  @ApiProperty({
    example: [{ nome: 'bacon' }],
    description: 'ingredientes',
-   type: Array<IngredienteProdutoDto>,
+   type: Array<IngredienteProdutoResponse>,
    isArray: true
  })
 readonly ingredientes:[]

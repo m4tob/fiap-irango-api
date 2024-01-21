@@ -14,7 +14,7 @@ import IConsumidorUseCase, {
 } from '@/core/application/iconsumidor.use-case'
 import Cpf from '@/core/domain/value-object/Cpf'
 
-import Consumidor from './dto/consumidor'
+import ConsumidorResponse from './dto/consumidor.response'
 import CreateConsumidorDto from './dto/create-consumidor.dto'
 
 @Controller('consumidores')
@@ -37,7 +37,7 @@ export class ConsumidoresController {
   @ApiResponse({
     status: 200,
     description: 'The found record',
-    type: Consumidor,
+    type: ConsumidorResponse,
   })
   create (@Body() input: CreateConsumidorDto) {
     return this.consumidorUseCase.create(input)
@@ -51,7 +51,7 @@ export class ConsumidoresController {
   @ApiResponse({
     status: 200,
     description: 'The found record',
-    type: Consumidor,
+    type: ConsumidorResponse,
   })
   update (@Param('id') id: string, @Body() input: CreateConsumidorDto) {
     return this.consumidorUseCase.update({ ...input, id })
@@ -62,7 +62,7 @@ export class ConsumidoresController {
   @ApiResponse({
     status: 200,
     description: 'The found record',
-    type: Consumidor,
+    type: ConsumidorResponse,
   })
   findByCpf (@Param('cpf') cpf: string) {
     const cpfValidated = new Cpf(cpf)

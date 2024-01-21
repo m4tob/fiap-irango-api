@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger'
 
 import { IngredienteDto } from '@/core/domain/dto/input/produto-create.dto'
 
-export default class IngredienteProdutoDto implements IngredienteDto {
+export default class IngredienteProdutoResponse implements IngredienteDto {
   @ApiProperty({
     example: 'Alface',
     description: 'Nome do Ingrediente',

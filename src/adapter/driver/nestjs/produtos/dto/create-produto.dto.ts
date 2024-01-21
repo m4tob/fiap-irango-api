@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import IngredienteProdutoDto from '@/adapter/driver/nestjs/produtos/dto/ingrediente-produto.dto'
+import IngredienteProdutoResponse from '@/adapter/driver/nestjs/produtos/dto/ingrediente-produto.response'
 import ProdutoCreateDto from '@/core/domain/dto/input/produto-create.dto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
@@ -43,7 +43,7 @@ export default class CreateProdutoDto implements ProdutoCreateDto {
   @ApiProperty({
     example: [{ nome: 'bacon' }],
     description: 'Preço do Produto',
-    type: Array<IngredienteProdutoDto>,
+    type: Array<IngredienteProdutoResponse>,
     isArray: true
   })
   readonly ingredientes: []

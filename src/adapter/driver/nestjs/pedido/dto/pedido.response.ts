@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import Consumidor from '@/adapter/driver/nestjs/consumidores/dto/consumidor'
+import ConsumidorResponse from '@/adapter/driver/nestjs/consumidores/dto/consumidor.response'
 import ItemPedidoResponse from '@/adapter/driver/nestjs/pedido/dto/item-pedido.response'
 import PedidoDto from '@/core/domain/dto/output/pedido.dto'
 import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
@@ -24,10 +24,10 @@ export default class PedidoResponse implements PedidoDto {
 
   @ApiProperty({
     description: 'Consumidor',
-    type: Consumidor,
+    type: ConsumidorResponse,
     required: false,
   })
-  readonly consumidor?: Consumidor
+  readonly consumidor?: ConsumidorResponse
 
   @ApiProperty({
     example: 50.00,

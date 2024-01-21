@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 
 import IngredienteResponse from '@/adapter/driver/nestjs/produtos/dto/ingrediente.response'
-import Produto from '@/adapter/driver/nestjs/produtos/dto/produto'
+import ProdutoResponse from '@/adapter/driver/nestjs/produtos/dto/produto.response'
 import ItemPedidoDto from '@/core/domain/dto/output/item-pedido.dto'
 
 export default class ItemPedidoResponse implements ItemPedidoDto {
@@ -14,9 +14,9 @@ export default class ItemPedidoResponse implements ItemPedidoDto {
 
   @ApiProperty({
     description: 'Produto',
-    type: Produto,
+    type: ProdutoResponse,
   })
-  readonly produto: Produto
+  readonly produto: ProdutoResponse
 
   @ApiProperty({
     example: 50.00,
