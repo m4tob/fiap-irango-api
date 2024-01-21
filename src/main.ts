@@ -3,7 +3,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-import { Environment as envs } from '@/Environment'
+import { Environment as envs } from '@/environment'
 envs.validate()
 
 import { INestApplication, ValidationPipe } from '@nestjs/common'
