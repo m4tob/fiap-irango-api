@@ -19,7 +19,7 @@ import CreateConsumidorDto from './dto/create-consumidor.dto'
 
 @Controller('v1/consumidores')
 @ApiTags('v1/consumidores')
-export class ConsumidoresController {
+export default class ConsumidoresController {
   constructor (
     @Inject(Itest) private readonly consumidorUseCase: IConsumidorUseCase,
   ) {}

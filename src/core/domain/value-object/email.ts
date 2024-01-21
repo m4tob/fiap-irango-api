@@ -1,4 +1,4 @@
-import { BusinessException } from '@/core/domain/errors/business-exception'
+import BusinessException from '@/core/domain/errors/business-exception'
 
 export default class Email {
   constructor (private value: string) {

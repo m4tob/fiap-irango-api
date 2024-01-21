@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common'
 import { Queue } from 'bull'
 
 import { PEDIDOS_QUEUE } from '@/adapter/driver/nestjs/pedido/pedidos.module'
-import { PedidosQueueMessage } from '@/adapter/driver/nestjs/pedido/pedidos.queue-messsage'
+import PedidosQueueMessage from '@/adapter/driver/nestjs/pedido/pedidos.queue-messsage'
 import Pedido from '@/core/domain/entities/pedido'
 import IPedidoQueue from '@/core/domain/queues/ipedido.queue'
 

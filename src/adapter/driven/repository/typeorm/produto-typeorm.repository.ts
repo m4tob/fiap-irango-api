@@ -6,7 +6,7 @@ import { IsNull, Repository } from 'typeorm'
 import { Produto as Entity } from '@/adapter/driven/entities/produto'
 import Produto from '@/core/domain/entities/produto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
-import { BusinessException } from '@/core/domain/errors/business-exception'
+import BusinessException from '@/core/domain/errors/business-exception'
 import ProdutoMapper from '@/core/domain/mappers/produto.mapper'
 import IProdutoRepository from '@/core/domain/repositories/iproduto.repository'
 

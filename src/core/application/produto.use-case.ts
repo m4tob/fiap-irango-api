@@ -5,7 +5,7 @@ import ProdutoUpdateDto from '@/core/domain/dto/input/produto-update.dto'
 import ProdutoDto from '@/core/domain/dto/output/produto.dto'
 import Produto from '@/core/domain/entities/produto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
-import { BusinessException } from '@/core/domain/errors/business-exception'
+import BusinessException from '@/core/domain/errors/business-exception'
 import ProdutoMapper from '@/core/domain/mappers/produto.mapper'
 import IProdutoRepository, {
   IProdutoRepository as IProdutoRepositorySymbol,

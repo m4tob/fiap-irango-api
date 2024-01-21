@@ -5,7 +5,7 @@ import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from
 import * as Sentry from '@sentry/node'
 import { Response } from 'express'
 
-import { BusinessException } from '@/core/domain/errors/business-exception'
+import BusinessException from '@/core/domain/errors/business-exception'
 import ErrorMessages from '@/core/helpers/ErrorMessages'
 
 @Catch()

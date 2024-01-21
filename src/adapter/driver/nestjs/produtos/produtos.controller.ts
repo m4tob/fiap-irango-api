@@ -21,7 +21,7 @@ import ProdutoResponse from './dto/produto.response'
 
 @Controller('v1/produtos')
 @ApiTags('v1/produtos')
-export class ProdutosController {
+export default class ProdutosController {
   constructor (@Inject(Itest) private readonly produtoUseCase: IProdutoUseCase) {}
 
   @Get()

@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { Consumidor } from '@/adapter/driven/entities/consumidor'
 import ConsumidorTypeormRepository from '@/adapter/driven/repository/typeorm/consumidor-typeorm.repository'
-import { ConsumidoresController } from '@/adapter/driver/nestjs/consumidores/consumidores.controller'
+import ConsumidoresController from '@/adapter/driver/nestjs/consumidores/consumidores.controller'
 import ConsumidorUseCase from '@/core/application/consumidor.use-case'
 import { IConsumidorUseCase } from '@/core/application/iconsumidor.use-case'
 import { IConsumidorRepository } from '@/core/domain/repositories/iconsumidor.repository'
@@ -23,4 +23,4 @@ import { IConsumidorRepository } from '@/core/domain/repositories/iconsumidor.re
     IConsumidorRepository
   ]
 })
-export class ConsumidoresModule {}
+export default class ConsumidoresModule {}

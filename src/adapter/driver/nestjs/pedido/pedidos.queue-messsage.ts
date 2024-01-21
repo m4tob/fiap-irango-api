@@ -1,3 +1,3 @@
-export interface PedidosQueueMessage {
+export default interface PedidosQueueMessage {
   id: number
 }

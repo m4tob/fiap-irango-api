@@ -5,7 +5,7 @@ import { Repository } from 'typeorm'
 
 import { Consumidor as Entity } from '@/adapter/driven/entities/consumidor'
 import Consumidor from '@/core/domain/entities/consumidor'
-import { BusinessException } from '@/core/domain/errors/business-exception'
+import BusinessException from '@/core/domain/errors/business-exception'
 import ConsumidorMapper from '@/core/domain/mappers/consumidor.mapper'
 import IConsumidorRepository from '@/core/domain/repositories/iconsumidor.repository'
 import Cpf from '@/core/domain/value-object/Cpf'

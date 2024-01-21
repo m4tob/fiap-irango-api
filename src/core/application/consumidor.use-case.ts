@@ -4,7 +4,7 @@ import ConsumidorCreateDto from '@/core/domain/dto/input/consumidor-create.dto'
 import ConsumidorUpdateDto from '@/core/domain/dto/input/consumidor-update.dto'
 import ConsumidorDto from '@/core/domain/dto/output/consumidor.dto'
 import Consumidor from '@/core/domain/entities/consumidor'
-import { BusinessException } from '@/core/domain/errors/business-exception'
+import BusinessException from '@/core/domain/errors/business-exception'
 import ConsumidorMapper from '@/core/domain/mappers/consumidor.mapper'
 import IConsumidorRepository, {
   IConsumidorRepository as IConsumidorRepositorySymbol,

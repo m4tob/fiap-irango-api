@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import ProdutoUpdateDto from '@/core/domain/dto/input/produto-update.dto'
 import Ingrediente from '@/core/domain/entities/ingrediente'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
-import { BusinessException } from '@/core/domain/errors/business-exception'
+import BusinessException from '@/core/domain/errors/business-exception'
 
 export default class Produto {
   readonly id: string

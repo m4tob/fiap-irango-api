@@ -19,7 +19,7 @@ import CreatePedidoDto from './dto/create-pedido.dto'
 
 @Controller('v1/pedidos')
 @ApiTags('v1/pedidos')
-export class PedidosController {
+export default class PedidosController {
   constructor (
     private readonly pedidoUseCase: IPedidoUseCase
   ) {}
