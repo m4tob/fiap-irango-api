@@ -4,19 +4,23 @@ import { Produto } from './produto'
 
 @Entity('Ingrediente')
 export class Ingrediente {
-  @PrimaryColumn()
-  public readonly id: string
+  constructor (params?: Partial<Ingrediente>) {
+    Object.assign(this, params)
+  }
+
+  @PrimaryColumn({ length: 36 })
+  id: string
 
   @Column()
-  public nome: string
+  nome: string
 
   @Column({ name: 'imagem_url', nullable: true })
-  public imagemUrl?: string | null = null
+  imagemUrl?: string
 
   @Column({ type: 'float', nullable: true })
-  public preco?: number | null = null
+  preco?: number
 
   @ManyToOne(() => Produto, (produto) => produto.ingredientes)
   @JoinTable()
-  public produto: Produto
+  produto: Produto
 }

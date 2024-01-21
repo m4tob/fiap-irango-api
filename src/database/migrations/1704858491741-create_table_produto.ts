@@ -5,22 +5,23 @@ export class CreateTableProduto1704858491741 implements MigrationInterface {
 
     public async up (queryRunner: QueryRunner): Promise<void> {
       await queryRunner.query('CREATE TABLE `Produto` ( ' +
-      '  `id` varchar(255) NOT NULL, ' +
+      '  `id` varchar(36) NOT NULL, ' +
       '  `nome` varchar(255) NOT NULL, ' +
       '  `imagem_url` varchar(255) NULL, ' +
-      '  `descricao` varchar(255) NOT NULL, ' +
+      '  `descricao` text NOT NULL, ' +
       '  `preco` float NOT NULL, ' +
-      '  `categoria` int NOT NULL, ' +
+      '  `categoria` varchar(20) NOT NULL, ' +
+      '  `deleted_at` timestamp NULL, ' +
 
       '  PRIMARY KEY (`id`) ' +
       ') ENGINE=InnoDB')
 
       await queryRunner.query('CREATE TABLE `Ingrediente` ( ' +
-      '  `id` varchar(255) NOT NULL, ' +
+      '  `id` varchar(36) NOT NULL, ' +
       '  `nome` varchar(255) NOT NULL, ' +
       '  `imagem_url` varchar(255) NULL, ' +
       '  `preco` float NULL, ' +
-      '  `produtoId` varchar(255) NULL, ' +
+      '  `produtoId` varchar(36) NULL, ' +
 
       '  PRIMARY KEY (`id`) ' +
       ') ENGINE=InnoDB')

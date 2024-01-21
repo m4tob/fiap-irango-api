@@ -2,9 +2,9 @@ import { v4 as uuidv4 } from 'uuid'
 
 export default class Ingrediente {
   readonly id: string
-  public nome: string
-  public imagemUrl: string | null
-  public preco: number | null
+  nome: string
+  imagemUrl?: string
+  preco?: number
 
   constructor (params?: Partial<Ingrediente>) {
     Object.assign(this, params)
@@ -12,10 +12,10 @@ export default class Ingrediente {
 
   static create (
     nome: string,
-    preco?:number | null,
-    imagemUrl?: string | null
+    imagemUrl?: string,
+    preco?:number,
  ): Ingrediente {
     const id = uuidv4()
-    return new Ingrediente({ id, nome, preco, imagemUrl })
+    return new Ingrediente({ id, nome, imagemUrl, preco })
   }
 }

@@ -28,6 +28,14 @@ export default class Produto implements ProdutoDto {
   readonly descricao: string
 
   @ApiProperty({
+    example: 'https://imagem/imagem.png',
+    description: '',
+    type: String,
+    required: false,
+  })
+  readonly imagemUrl?: string
+
+  @ApiProperty({
     example: '10.20',
     description: 'Preço do Produto',
     type: Number,
@@ -41,25 +49,19 @@ export default class Produto implements ProdutoDto {
   })
   readonly categoria: ProdutoCategoriaEnum
 
+ @ApiProperty({
+   example: [{ nome: 'bacon' }],
+   description: 'ingredientes',
+   type: Array<IngredienteProdutoDto>,
+   isArray: true
+ })
+readonly ingredientes:[]
+
   @ApiProperty({
     example: new Date(),
     description: 'Data de remoção',
     type: Date,
+    required: false
   })
-  readonly deletedAt: Date | null
-
-   @ApiProperty({
-     example: 'https://imagem/imagem.png',
-     description: '',
-     type: String,
-   })
-   readonly imagemUrl: string | null
-
-  @ApiProperty({
-    example: [{ nome: 'bacon' }],
-    description: 'ingredientes',
-    type: Array<IngredienteProdutoDto>,
-    isArray: true
-  })
- readonly ingredientes:[]
+  readonly deletedAt?: Date
 }

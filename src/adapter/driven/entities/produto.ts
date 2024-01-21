@@ -10,42 +10,34 @@ export class Produto {
     Object.assign(this, params)
   }
 
-  @PrimaryColumn()
-  public readonly id: string
+  @PrimaryColumn({ length: 36 })
+  id: string
 
   @Column()
-  public nome: string
+  nome: string
 
-  @Column()
-  public descricao: string
+  @Column({ name: 'imagem_url', nullable: true })
+  imagemUrl?: string
 
-  @Column({
-    name: 'imagem_url',
-    nullable: true,
-    type: 'varchar'
+  @Column({ type: 'text' })
+  descricao: string
+
+  @Column({ type: 'float' })
+  preco: number
+
+  @Column({ type: 'varchar', length: 20 })
+  categoria: ProdutoCategoriaEnum
+
+  @OneToMany(() => Ingrediente, (ingrediente) => ingrediente.produto, {
+    eager: true,
+    cascade: true,
   })
-  public imagemUrl: string | null = null
-
-  @Column({
-    type: 'float'
-  })
-  public preco: number
-
-  @Column({
-    enum: ProdutoCategoriaEnum
-  })
-  public categoria: ProdutoCategoriaEnum
+  ingredientes : Ingrediente[]
 
   @Column({
     name: 'deleted_at',
     type: 'timestamp',
     nullable: true
   })
-  public deletedAt: Date | null = null
-
-   @OneToMany(() => Ingrediente, (ingrediente) => ingrediente.produto, {
-     eager: true,
-     cascade: true,
-   })
-  public ingredientes : Ingrediente[]
+  deletedAt?: Date
 }

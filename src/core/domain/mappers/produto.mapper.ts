@@ -14,13 +14,15 @@ export default class ProdutoMapper {
     const ingredientes = input
       .ingredientes.map(ingrediente => new Ingrediente(ingrediente))
 
-    return new Produto(input.id,
-      input.nome,
-      input.descricao,
-      input.preco,
-      input.categoria,
-      input.imagemUrl,
-      input.deletedAt,
-      ingredientes)
+    return new Produto({
+      id: input.id,
+      nome: input.nome,
+      imagemUrl: input.imagemUrl,
+      descricao: input.descricao,
+      preco: input.preco,
+      categoria: input.categoria,
+      deletedAt: input.deletedAt,
+      ingredientes
+    })
   }
 }
