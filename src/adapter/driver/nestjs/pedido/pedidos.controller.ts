@@ -17,8 +17,8 @@ import PedidoDto from '@/core/domain/dto/output/pedido.dto'
 
 import CreatePedidoDto from './dto/create-pedido.dto'
 
-@Controller('pedidos')
-@ApiTags('pedidos')
+@Controller('v1/pedidos')
+@ApiTags('v1/pedidos')
 export class PedidosController {
   constructor (
     private readonly pedidoUseCase: IPedidoUseCase

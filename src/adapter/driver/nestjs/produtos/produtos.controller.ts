@@ -19,8 +19,8 @@ import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum
 import CreateProdutoDto from './dto/create-produto.dto'
 import ProdutoResponse from './dto/produto.response'
 
-@Controller('produtos')
-@ApiTags('produtos')
+@Controller('v1/produtos')
+@ApiTags('v1/produtos')
 export class ProdutosController {
   constructor (@Inject(Itest) private readonly produtoUseCase: IProdutoUseCase) {}
 
