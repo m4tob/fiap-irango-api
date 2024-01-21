@@ -17,7 +17,7 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
   ) {}
 
   async create (input: Produto): Promise<void> {
-    const model = ProdutoMapper.toProdutoDto(input)
+    const model = ProdutoMapper.toDto(input)
     await this.repository.save(model)
   }
 
@@ -32,7 +32,7 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
       }
     })
 
-    return produto ? ProdutoMapper.toDtoForProduto(produto) : undefined
+    return produto ? ProdutoMapper.toDomainEntity(produto) : undefined
   }
 
   async save (input: Produto): Promise<void> {
@@ -43,7 +43,7 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
       throw new BusinessException('Produto não existe')
     }
 
-    await this.repository.save(ProdutoMapper.toProdutoDto(input))
+    await this.repository.save(ProdutoMapper.toDto(input))
   }
 
   async find (): Promise<Produto[]> {
@@ -58,7 +58,7 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
       }
       )
     return produtos.map((produto) => {
-      return ProdutoMapper.toDtoForProduto(produto)
+      return ProdutoMapper.toDomainEntity(produto)
     })
   }
 
@@ -74,7 +74,7 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
     })
 
     return produtos.map((produto) => {
-      return ProdutoMapper.toDtoForProduto(produto)
+      return ProdutoMapper.toDomainEntity(produto)
     })
   }
 }

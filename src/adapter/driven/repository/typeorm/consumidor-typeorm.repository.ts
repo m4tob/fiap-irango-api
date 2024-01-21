@@ -17,7 +17,7 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
   ) {}
 
   async create (input: Consumidor): Promise<void> {
-    const consumidor = ConsumidorMapper.toConsumidorDto(input)
+    const consumidor = ConsumidorMapper.toDto(input)
     await this.repository.insert(consumidor)
   }
 
@@ -26,7 +26,7 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
       id
     })
 
-    return consumidor ? ConsumidorMapper.toDtoForConsumidor(consumidor) : undefined
+    return consumidor ? ConsumidorMapper.toDomainEntity(consumidor) : undefined
   }
 
   async save (input: Consumidor): Promise<void> {
@@ -36,14 +36,14 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
       throw new BusinessException('Consumidor não existe')
     }
 
-    await this.repository.update(input.id, ConsumidorMapper.toConsumidorDto(input))
+    await this.repository.update(input.id, ConsumidorMapper.toDto(input))
   }
 
   async find (): Promise<Consumidor[]> {
     const consumidors = await this.repository.find()
 
     return consumidors.map(consumidor => {
-      return ConsumidorMapper.toDtoForConsumidor(consumidor)
+      return ConsumidorMapper.toDomainEntity(consumidor)
     })
   }
 
@@ -52,6 +52,6 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
       cpf: cpf.getValue()
     })
 
-    return consumidor ? ConsumidorMapper.toDtoForConsumidor(consumidor) : undefined
+    return consumidor ? ConsumidorMapper.toDomainEntity(consumidor) : undefined
   }
 }

@@ -5,7 +5,7 @@ import ItemPedidoMapper from '@/core/domain/mappers/item-pedido.mapper'
 
 export default class PedidoMapper {
   static toDto (pedido: Pedido): PedidoDto {
-    const consumidor = pedido.consumidor ? ConsumidorMapper.toConsumidorDto(pedido.consumidor) : undefined
+    const consumidor = pedido.consumidor ? ConsumidorMapper.toDto(pedido.consumidor) : undefined
     return {
       id: pedido.id,
       consumidor,
@@ -18,7 +18,7 @@ export default class PedidoMapper {
   }
 
   static toDomainEntity (input: PedidoDto): Pedido {
-    const consumidor = input.consumidor ? ConsumidorMapper.toDtoForConsumidor(input.consumidor) : undefined
+    const consumidor = input.consumidor ? ConsumidorMapper.toDomainEntity(input.consumidor) : undefined
     return new Pedido({
       id: input.id,
       consumidor,

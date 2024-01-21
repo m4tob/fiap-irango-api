@@ -38,7 +38,7 @@ export default class ProdutoUseCase implements IProdutoUseCase {
     })
 
     await this.repository.create(produto)
-    return ProdutoMapper.toProdutoDto(produto)
+    return ProdutoMapper.toDto(produto)
   }
 
   async update (input: ProdutoUpdateDto): Promise<ProdutoDto | undefined> {
@@ -52,14 +52,14 @@ export default class ProdutoUseCase implements IProdutoUseCase {
 
     await this.repository.save(produto)
 
-    return ProdutoMapper.toProdutoDto(produto)
+    return ProdutoMapper.toDto(produto)
   }
 
   async list (): Promise<ProdutoDto[]> {
     const produtos = await this.repository.find()
 
     return produtos.map((produto) => {
-      return ProdutoMapper.toProdutoDto(produto)
+      return ProdutoMapper.toDto(produto)
     })
   }
 
@@ -67,7 +67,7 @@ export default class ProdutoUseCase implements IProdutoUseCase {
     const produtos = await this.repository.findByCategoria(categoria)
 
     return produtos.map((produto) => {
-      return ProdutoMapper.toProdutoDto(produto)
+      return ProdutoMapper.toDto(produto)
     })
   }
 
@@ -78,7 +78,7 @@ export default class ProdutoUseCase implements IProdutoUseCase {
       throw new BusinessException('Produto não encontrado')
     }
 
-    return ProdutoMapper.toProdutoDto(produto)
+    return ProdutoMapper.toDto(produto)
   }
 
   async remove (productId: string): Promise<ProdutoDto | undefined> {
@@ -92,6 +92,6 @@ export default class ProdutoUseCase implements IProdutoUseCase {
 
     await this.repository.save(produto)
 
-    return ProdutoMapper.toProdutoDto(produto)
+    return ProdutoMapper.toDto(produto)
   }
 }

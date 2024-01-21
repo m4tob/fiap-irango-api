@@ -4,7 +4,7 @@ import Cpf from '@/core/domain/value-object/Cpf'
 import Email from '@/core/domain/value-object/email'
 
 export default class ConsumidorMapper {
-  static toConsumidorDto (consumidor: Consumidor): ConsumidorDto {
+  static toDto (consumidor: Consumidor): ConsumidorDto {
     return {
       ...consumidor,
       email: consumidor.email.toString(),
@@ -12,7 +12,7 @@ export default class ConsumidorMapper {
     }
   }
 
-  static toDtoForConsumidor (input: ConsumidorDto): Consumidor {
+  static toDomainEntity (input: ConsumidorDto): Consumidor {
     return new Consumidor(input.id, input.nome, new Cpf(input.cpf), new Email(input.email))
   }
 }

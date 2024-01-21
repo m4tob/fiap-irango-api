@@ -3,13 +3,13 @@ import Ingrediente from '@/core/domain/entities/ingrediente'
 import Produto from '@/core/domain/entities/produto'
 
 export default class ProdutoMapper {
-  static toProdutoDto (produto: Produto): ProdutoDto {
+  static toDto (produto: Produto): ProdutoDto {
     return {
       ...produto,
     }
   }
 
-  static toDtoForProduto (input: ProdutoDto): Produto {
+  static toDomainEntity (input: ProdutoDto): Produto {
     const ingredientes = input
       .ingredientes.map(ingrediente => new Ingrediente(ingrediente))
 

@@ -32,7 +32,7 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
     }
 
     await this.repository.create(consumidor)
-    return ConsumidorMapper.toConsumidorDto(consumidor)
+    return ConsumidorMapper.toDto(consumidor)
   }
 
   async update (
@@ -48,14 +48,14 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
 
     await this.repository.save(consumidor)
 
-    return ConsumidorMapper.toConsumidorDto(consumidor)
+    return ConsumidorMapper.toDto(consumidor)
   }
 
   async list (): Promise<ConsumidorDto[]> {
     const consumidores = await this.repository.find()
 
     return consumidores.map((consumidor) => {
-      return ConsumidorMapper.toConsumidorDto(consumidor)
+      return ConsumidorMapper.toDto(consumidor)
     })
   }
 
@@ -66,7 +66,7 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
       throw new BusinessException('Consumidor não encontrado')
     }
 
-    return ConsumidorMapper.toConsumidorDto(consumidor)
+    return ConsumidorMapper.toDto(consumidor)
   }
 
   async findByCpf (cpf: Cpf): Promise<ConsumidorDto| undefined> {
@@ -76,6 +76,6 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
       throw new BusinessException('Consumidor não encontrado')
     }
 
-    return ConsumidorMapper.toConsumidorDto(consumidor)
+    return ConsumidorMapper.toDto(consumidor)
   }
 }
