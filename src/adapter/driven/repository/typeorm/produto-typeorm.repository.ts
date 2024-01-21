@@ -25,7 +25,8 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
   async findById (id: string): Promise<Produto | undefined> {
     const produto = await this.repository.findOne({
       where: {
-        id
+        id,
+        deletedAt: IsNull()
       },
       relations: {
         ingredientes: true,
@@ -65,7 +66,8 @@ export default class ProdutoTypeormRepository implements IProdutoRepository {
   async findByCategoria (categoria: ProdutoCategoriaEnum): Promise<Produto[]> {
     const produtos = await this.repository.find({
       where: {
-        categoria
+        categoria,
+        deletedAt: IsNull()
       },
       relations: {
         ingredientes: true,
