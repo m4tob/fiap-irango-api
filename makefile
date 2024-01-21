@@ -10,7 +10,7 @@ CONTAINER_BACKEND = service-irango-api
 DATABASE = irango
 
 .PHONY: setup
-setup: down add-network create.env.file build up migration.run seed.run
+setup: clean down add-network create.env.file build up migration.run seed.run logs
 
 create.env.file:
 	if [ ! -f .env ]; then \
@@ -31,7 +31,6 @@ build:
 .PHONY: up
 up:
 	docker-compose up --remove-orphans -d
-	make logs
 .PHONY: down
 down:
 	docker-compose down
@@ -43,7 +42,6 @@ restart: down up
 .PHONY:
 clean:
 	rm -rf dist/
-	rm -rf node_modules/
 	rm -rf coverage/
 
 migration.recreatedb:
