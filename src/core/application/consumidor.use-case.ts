@@ -41,7 +41,7 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
     const consumidor = await this.repository.findById(input.id)
 
     if (!consumidor) {
-      return undefined
+      throw new BusinessException('Consumidor não encontrado')
     }
 
     consumidor.update(input)
@@ -59,11 +59,21 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
     })
   }
 
+  async findById (id: string): Promise<ConsumidorDto| undefined> {
+    const consumidor = await this.repository.findById(id)
+
+    if (!consumidor) {
+      throw new BusinessException('Consumidor não encontrado')
+    }
+
+    return ConsumidorMapper.toConsumidorDto(consumidor)
+  }
+
   async findByCpf (cpf: Cpf): Promise<ConsumidorDto| undefined> {
     const consumidor = await this.repository.findByCPF(cpf)
 
     if (!consumidor) {
-      return undefined
+      throw new BusinessException('Consumidor não encontrado')
     }
 
     return ConsumidorMapper.toConsumidorDto(consumidor)

@@ -7,7 +7,8 @@ import ConsumidorDto from '../domain/dto/output/consumidor.dto'
 export default interface IConsumidorUseCase {
   create(input: ConsumidorCreateDto): Promise<ConsumidorDto>;
   update(input: ConsumidorUpdateDto): Promise<ConsumidorDto | undefined>;
-  findByCpf(cpf:Cpf): Promise<ConsumidorDto | undefined>;
+  findById(id: string): Promise<ConsumidorDto | undefined>;
+  findByCpf(cpf: Cpf): Promise<ConsumidorDto | undefined>;
   list(): Promise<ConsumidorDto[]>;
 }
 

@@ -5,6 +5,7 @@ import ProdutoUpdateDto from '@/core/domain/dto/input/produto-update.dto'
 import ProdutoDto from '@/core/domain/dto/output/produto.dto'
 import Produto from '@/core/domain/entities/produto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
+import { BusinessException } from '@/core/domain/errors/business-exception'
 import ProdutoMapper from '@/core/domain/mappers/produto.mapper'
 import IProdutoRepository, {
   IProdutoRepository as IProdutoRepositorySymbol,
@@ -23,9 +24,9 @@ export default class ProdutoUseCase implements IProdutoUseCase {
     const produto = Produto.create(
       input.nome,
       input.descricao,
+      input.imagemUrl,
       input.preco,
       input.categoria,
-      input.imagemUrl
     )
 
     input.ingredientes?.forEach(ingredienteInput => {
@@ -44,7 +45,7 @@ export default class ProdutoUseCase implements IProdutoUseCase {
     const produto = await this.repository.findById(input.id)
 
     if (!produto) {
-      return undefined
+      throw new BusinessException('Produto não encontrado')
     }
 
     produto.update(input)
@@ -70,16 +71,21 @@ export default class ProdutoUseCase implements IProdutoUseCase {
     })
   }
 
-  async findById (id: string): Promise<ProdutoDto|undefined> {
+  async findById (id: string): Promise<ProdutoDto | undefined> {
     const produto = await this.repository.findById(id)
-    return produto ? ProdutoMapper.toProdutoDto(produto) : undefined
+
+    if (!produto) {
+      throw new BusinessException('Produto não encontrado')
+    }
+
+    return ProdutoMapper.toProdutoDto(produto)
   }
 
   async remove (productId: string): Promise<ProdutoDto | undefined> {
     const produto = await this.repository.findById(productId)
 
     if (!produto) {
-      return undefined
+      throw new BusinessException('Produto não encontrado')
     }
 
     produto.delete()
