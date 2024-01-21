@@ -1,7 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import ProdutoUpdateDto from 'src/core/domain/dto/input/produto-update.dto'
-
+import ProdutoUpdateDto from '@/core/domain/dto/input/produto-update.dto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 export default class UpdateProdutoDto implements ProdutoUpdateDto {

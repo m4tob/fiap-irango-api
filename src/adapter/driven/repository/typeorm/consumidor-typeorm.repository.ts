@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
-import Consumidor from 'src/core/domain/entities/consumidor'
-import IConsumidorRepository from 'src/core/domain/repositories/iconsumidor.repository'
 import { Repository } from 'typeorm'
 
+import Consumidor from '@/core/domain/entities/consumidor'
 import { BusinessException } from '@/core/domain/errors/business-exception'
 import ConsumidorMapper from '@/core/domain/mappers/consumidor.mapper'
+import IConsumidorRepository from '@/core/domain/repositories/iconsumidor.repository'
 import Cpf from '@/core/domain/value-object/Cpf'
 
 import { Consumidor as Entity } from '../../entities/consumidor'

@@ -10,11 +10,10 @@ import {
 } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger'
 
+import UpdateProdutoDto from '@/adapter/driver/nestjs/produtos/dto/update-produto.dto'
 import IProdutoUseCase, {
   IProdutoUseCase as Itest,
-} from 'src/core/application/iproduto.use-case'
-
-import UpdateProdutoDto from '@/adapter/driver/nestjs/produtos/dto/update-produto.dto'
+} from '@/core/application/iproduto.use-case'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 import CreateProdutoDto from './dto/create-produto.dto'
@@ -35,6 +34,7 @@ export class ProdutosController {
   list () {
     return this.produtoUseCase.list()
   }
+
   @Get(':id')
   @ApiOperation({ summary: 'product find by Id' })
   @ApiResponse({

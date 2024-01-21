@@ -11,8 +11,7 @@ import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger'
 
 import IConsumidorUseCase, {
   IConsumidorUseCase as Itest,
-} from 'src/core/application/iconsumidor.use-case'
-
+} from '@/core/application/iconsumidor.use-case'
 import Cpf from '@/core/domain/value-object/Cpf'
 
 import Consumidor from './dto/consumidor'
