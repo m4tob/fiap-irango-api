@@ -23,11 +23,11 @@ RUN dpkg-reconfigure -f noninteractive tzdata
 ADD https://www.google.com /time.now
 
 # Install
-COPY ./package*.json .
+COPY ./package*.json ./
 RUN npm ci --include=dev --ignore-scripts
 
 # Build the application
-COPY . .
+COPY ./ ./
 RUN npm run build
 
 ENTRYPOINT [ "npm", "run", "start:dev" ]
