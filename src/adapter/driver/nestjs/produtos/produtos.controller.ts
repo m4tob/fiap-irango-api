@@ -1,3 +1,4 @@
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import {
   Body,
   Controller,
@@ -10,6 +11,8 @@ import {
 } from '@nestjs/common'
 import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger'
 
+import { Cache } from 'cache-manager'
+
 import UpdateProdutoDto from '@/adapter/driver/nestjs/produtos/dto/update-produto.dto'
 import IProdutoUseCase, {
   IProdutoUseCase as Itest,
@@ -19,10 +22,17 @@ import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum
 import CreateProdutoDto from './dto/create-produto.dto'
 import ProdutoResponse from './dto/produto.response'
 
+const PRODUTOS_CACHE_KEY = 'cache:produtos:list'
+const PRODUTOS_CATEGORIA_CACHE_KEY = (categoria: string) => 'cache:produtos:findByCategoria:' + categoria
+const PRODUTOS_CACHE_TTL = 1 * 60 * 60 * 1000 // 1 hour
+
 @Controller('v1/produtos')
 @ApiTags('v1/produtos')
 export default class ProdutosController {
-  constructor (@Inject(Itest) private readonly produtoUseCase: IProdutoUseCase) {}
+  constructor (
+    @Inject(Itest) private readonly produtoUseCase: IProdutoUseCase,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  ) {}
 
   @Get()
   @ApiOperation({ summary: 'products' })
@@ -31,8 +41,16 @@ export default class ProdutosController {
     description: 'The found record',
     type: [ProdutoResponse],
   })
-  list () {
-    return this.produtoUseCase.list()
+  async list () {
+    const cached = await this.cacheManager.get(PRODUTOS_CACHE_KEY)
+    if (cached) {
+      return cached
+    }
+
+    const output = await this.produtoUseCase.list()
+    await this.cacheManager.set(PRODUTOS_CACHE_KEY, output, PRODUTOS_CACHE_TTL)
+
+    return output
   }
 
   @Get(':id')
@@ -53,8 +71,16 @@ export default class ProdutosController {
     description: 'The found record',
     type: [ProdutoResponse],
   })
-  findByCategoria (@Param('categoria') categoria: ProdutoCategoriaEnum) {
-    return this.produtoUseCase.findByCategoria(categoria)
+  async findByCategoria (@Param('categoria') categoria: ProdutoCategoriaEnum) {
+    const cached = await this.cacheManager.get(PRODUTOS_CATEGORIA_CACHE_KEY(categoria))
+    if (cached) {
+      return cached
+    }
+
+    const output = await this.produtoUseCase.findByCategoria(categoria)
+    await this.cacheManager.set(PRODUTOS_CATEGORIA_CACHE_KEY(categoria), output, PRODUTOS_CACHE_TTL)
+
+    return output
   }
 
   @Post()
@@ -67,8 +93,13 @@ export default class ProdutosController {
     description: 'The found record',
     type: ProdutoResponse,
   })
-  create (@Body() input: CreateProdutoDto) {
-    return this.produtoUseCase.create(input)
+  async create (@Body() input: CreateProdutoDto) {
+    const output = await this.produtoUseCase.create(input)
+
+    await this.cacheManager.del(PRODUTOS_CACHE_KEY)
+    await this.cacheManager.del(PRODUTOS_CATEGORIA_CACHE_KEY(input.categoria))
+
+    return output
   }
 
   @Put(':id')
@@ -81,8 +112,15 @@ export default class ProdutosController {
     description: 'The found record',
     type: ProdutoResponse,
   })
-  update (@Param('id') id: string, @Body() input: UpdateProdutoDto) {
-    return this.produtoUseCase.update({ ...input, id })
+  async update (@Param('id') id: string, @Body() input: UpdateProdutoDto) {
+    const output = await this.produtoUseCase.update({ ...input, id })
+
+    await this.cacheManager.del(PRODUTOS_CACHE_KEY)
+    await Promise.all(Object.values(ProdutoCategoriaEnum).map(async (categoria) => {
+      await this.cacheManager.del(PRODUTOS_CATEGORIA_CACHE_KEY(categoria))
+    }))
+
+    return output
   }
 
   @Delete(':id')
@@ -92,7 +130,14 @@ export default class ProdutosController {
     description: 'The found record',
     type: ProdutoResponse,
   })
-  remove (@Param('id') id: string) {
-    return this.produtoUseCase.remove(id)
+  async remove (@Param('id') id: string) {
+    const output = await this.produtoUseCase.remove(id)
+
+    await this.cacheManager.del(PRODUTOS_CACHE_KEY)
+    await Promise.all(Object.values(ProdutoCategoriaEnum).map(async (categoria) => {
+      await this.cacheManager.del(PRODUTOS_CATEGORIA_CACHE_KEY(categoria))
+    }))
+
+    return output
   }
 }
