@@ -6,60 +6,31 @@ import PedidoDto from '@/core/domain/dto/output/pedido.dto'
 import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
 
 export default class PedidoResponse implements PedidoDto {
-  @ApiProperty({
-    example: 1,
-    description: 'ID',
-    type: String,
-    required: false,
-  })
+  @ApiProperty({ description: 'ID', type: String, required: false, example: 12345 })
   readonly id?: number
 
   @ApiProperty({
-    example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805',
-    description: 'ID do Consumidor',
-    type: String,
+    description: 'ID do Consumidor no formato uuid',
     required: false,
+    example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805'
   })
   readonly consumidorId?: string
 
-  @ApiProperty({
-    description: 'Consumidor',
-    type: ConsumidorResponse,
-    required: false,
-  })
+  @ApiProperty({ description: 'Consumidor', type: ConsumidorResponse, required: false })
   readonly consumidor?: ConsumidorResponse
 
-  @ApiProperty({
-    example: 50.00,
-    description: 'Total do pedido',
-    type: Number,
-  })
+  @ApiProperty({ description: 'Total do Pedido', type: Number, example: 50.00 })
   readonly total: number
 
-  @ApiProperty({
-    description: 'Ingredientes removidos',
-    type: [ItemPedidoResponse],
-  })
+  @ApiProperty({ description: 'Itens do Pedido', type: [ItemPedidoResponse], isArray: true })
   readonly itens: ItemPedidoResponse[]
 
-  @ApiProperty({
-    example: [PedidoStatusEnum.RECEBIDO],
-    description: 'Status',
-    enum: PedidoStatusEnum,
-  })
+  @ApiProperty({ description: 'Status atual do Pedido', enum: PedidoStatusEnum, example: PedidoStatusEnum.RECEBIDO })
   readonly status: PedidoStatusEnum
 
-  @ApiProperty({
-    example: new Date(),
-    description: 'Data de criação',
-    type: Date,
-  })
+  @ApiProperty({ description: 'Data de criação do Pedido', type: Date, example: new Date() })
   readonly createdAt: Date
 
-  @ApiProperty({
-    example: new Date(),
-    description: 'Data de atualização',
-    type: Date,
-  })
+  @ApiProperty({ description: 'Data da última atualização do Pedido', type: Date, example: new Date() })
   readonly updatedAt: Date
 }

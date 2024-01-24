@@ -37,7 +37,7 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
 
   async update (
     input: ConsumidorUpdateDto,
-  ): Promise<ConsumidorDto | undefined> {
+  ): Promise<ConsumidorDto> {
     const consumidor = await this.repository.findById(input.id)
 
     if (!consumidor) {
@@ -59,7 +59,7 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
     })
   }
 
-  async findById (id: string): Promise<ConsumidorDto| undefined> {
+  async findById (id: string): Promise<ConsumidorDto> {
     const consumidor = await this.repository.findById(id)
 
     if (!consumidor) {
@@ -69,7 +69,7 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
     return ConsumidorMapper.toDto(consumidor)
   }
 
-  async findByCpf (cpf: Cpf): Promise<ConsumidorDto| undefined> {
+  async findByCpf (cpf: Cpf): Promise<ConsumidorDto> {
     const consumidor = await this.repository.findByCPF(cpf)
 
     if (!consumidor) {

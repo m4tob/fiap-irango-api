@@ -8,6 +8,7 @@ import Ingrediente from '@/core/domain/entities/ingrediente'
 import ItemPedido from '@/core/domain/entities/item-pedido'
 import Pedido from '@/core/domain/entities/pedido'
 import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
+import BusinessException from '@/core/domain/errors/business-exception'
 import PedidoMapper from '@/core/domain/mappers/pedido.mapper'
 import IConsumidorRepository, {
   IConsumidorRepository as IConsumidorRepositorySymbol,
@@ -89,6 +90,16 @@ export default class PedidoUseCase implements IPedidoUseCase {
     pedido.update(input)
 
     await this.repository.save(pedido)
+
+    return PedidoMapper.toDto(pedido)
+  }
+
+  async findById (id: number): Promise<PedidoDto> {
+    const pedido = await this.repository.findById(id)
+
+    if (!pedido) {
+      throw new BusinessException('Pedido não encontrado')
+    }
 
     return PedidoMapper.toDto(pedido)
   }

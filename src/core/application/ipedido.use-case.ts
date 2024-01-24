@@ -6,6 +6,7 @@ export default interface IPedidoUseCase {
   list(): Promise<PedidoDto[]>;
   create(input: PedidoCreateDto): Promise<PedidoDto>;
   update(id: number, input: PedidoUpdateDto): Promise<PedidoDto>;
+  findById(id: number): Promise<PedidoDto>;
 }
 
 export const IPedidoUseCase = Symbol('IPedidoUseCase')

@@ -1,13 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger'
 
 import IngredienteResponse from '@/adapter/driver/nestjs/produtos/dto/ingrediente.response'
-import ProdutoDto from '@/core/domain/dto/output/produto.dto'
+import ProdutoCreateDto from '@/core/domain/dto/input/produto-create.dto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
-export default class ProdutoResponse implements ProdutoDto {
-  @ApiProperty({ description: 'ID no formato uuid', example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805' })
-  readonly id: string
-
+export default class CreateProdutoRequest implements ProdutoCreateDto {
   @ApiProperty({ description: 'Nome do Produto', example: 'Hamburguer de Picanha' })
   readonly nome: string
 
@@ -30,7 +27,4 @@ export default class ProdutoResponse implements ProdutoDto {
     example: [{ nome: 'picanha' }, { nome: 'bacon' }, { nome: 'alface' }, { nome: 'tomate' }],
   })
   readonly ingredientes: IngredienteResponse[]
-
-  @ApiProperty({ description: 'Data de exclusão', type: Date, required: false, example: new Date() })
-  readonly deletedAt?: Date
 }

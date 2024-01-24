@@ -60,7 +60,7 @@ npm run seed:run
 ```
 
 ## How to Use
-We have developed a seed to populate database with some products and one Consumidor with CPF `111.111.111-11`. You can use it or create a new Consumidor.
+We have developed a seed to populate database with some products and one Consumidor with CPF `123.456.789-00`. You can use it or create a new Consumidor.
 
 ## Endpoints
 We have developed few endpoints which can be found in [consumidores.controller.ts](./src/adapter/driver/nestjs/consumidores/consumidores.controller.ts), [produtos.controller.ts](./src/adapter/driver/nestjs/produtos/produtos.controller.ts) and [pedidos.controller.ts](./src/adapter/driver/nestjs/pedidos/pedidos.controller.ts) files

@@ -1,11 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import ConsumidorDto from '@/core/domain/dto/output/consumidor.dto'
+import ConsumidorCreateDto from '@/core/domain/dto/input/consumidor-create.dto'
 
-export default class ConsumidorResponse implements ConsumidorDto {
-  @ApiProperty({ description: 'ID no formato uuid', example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805' })
-  readonly id: string
-
+export default class CreateConsumidorRequest implements ConsumidorCreateDto {
   @ApiProperty({ description: 'Nome', example: 'Maine Coon' })
   readonly nome: string
 
