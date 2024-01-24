@@ -10,7 +10,7 @@ import {
 import { ApiOperation, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger'
 
 import IConsumidorUseCase, {
-  IConsumidorUseCase as Itest,
+  IConsumidorUseCase as IConsumidorUseCaseSymbol,
 } from '@/core/application/iconsumidor.use-case'
 import Cpf from '@/core/domain/value-object/Cpf'
 
@@ -21,7 +21,7 @@ import CreateConsumidorDto from './dto/create-consumidor.dto'
 @ApiTags('v1/consumidores')
 export default class ConsumidoresController {
   constructor (
-    @Inject(Itest) private readonly consumidorUseCase: IConsumidorUseCase,
+    @Inject(IConsumidorUseCaseSymbol) private readonly consumidorUseCase: IConsumidorUseCase,
   ) {}
 
   @Get()

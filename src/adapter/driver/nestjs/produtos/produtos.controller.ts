@@ -15,7 +15,7 @@ import { Cache } from 'cache-manager'
 
 import UpdateProdutoDto from '@/adapter/driver/nestjs/produtos/dto/update-produto.dto'
 import IProdutoUseCase, {
-  IProdutoUseCase as Itest,
+  IProdutoUseCase as IProdutoUseCaseSymbol,
 } from '@/core/application/iproduto.use-case'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
@@ -30,7 +30,7 @@ const PRODUTOS_CACHE_TTL = 1 * 60 * 60 * 1000 // 1 hour
 @ApiTags('v1/produtos')
 export default class ProdutosController {
   constructor (
-    @Inject(Itest) private readonly produtoUseCase: IProdutoUseCase,
+    @Inject(IProdutoUseCaseSymbol) private readonly produtoUseCase: IProdutoUseCase,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 

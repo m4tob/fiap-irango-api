@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Inject,
   Param,
   Post,
   Put,
@@ -12,7 +13,9 @@ import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestj
 
 import PedidoResponse from '@/adapter/driver/nestjs/pedido/dto/pedido.response'
 import UpdatePedidoDto from '@/adapter/driver/nestjs/pedido/dto/update-pedido.dto'
-import IPedidoUseCase from '@/core/application/ipedido.use-case'
+import IPedidoUseCase, {
+  IPedidoUseCase as IPedidoUseCaseSymbol,
+} from '@/core/application/ipedido.use-case'
 import PedidoDto from '@/core/domain/dto/output/pedido.dto'
 
 import CreatePedidoDto from './dto/create-pedido.dto'
@@ -21,7 +24,7 @@ import CreatePedidoDto from './dto/create-pedido.dto'
 @ApiTags('v1/pedidos')
 export default class PedidosController {
   constructor (
-    private readonly pedidoUseCase: IPedidoUseCase
+    @Inject(IPedidoUseCaseSymbol) private readonly pedidoUseCase: IPedidoUseCase
   ) {}
 
   @Get()

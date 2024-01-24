@@ -20,7 +20,7 @@ import { IConsumidorRepository } from '@/core/domain/repositories/iconsumidor.re
     ConsumidoresController
   ],
   exports: [
-    IConsumidorRepository
+    IConsumidorRepository,
   ]
 })
 export default class ConsumidoresModule {}

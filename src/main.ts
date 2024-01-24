@@ -13,7 +13,6 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 import * as Sentry from '@sentry/node'
 import * as bodyParser from 'body-parser'
 import helmet from 'helmet'
-import { initializeTransactionalContext } from 'typeorm-transactional'
 
 import AppModule from '@/app.module'
 import SentryConfig from '@/config/SentryConfig'
@@ -40,8 +39,6 @@ const configureSwagger = (app: INestApplication) => {
 }
 
 async function bootstrap () {
-  initializeTransactionalContext()
-
   const app = await NestFactory.create(AppModule)
 
   configureSentry(app)

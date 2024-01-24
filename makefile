@@ -64,15 +64,12 @@ seed.run:
 seed.revert:
 	docker-compose exec -it ${CONTAINER_BACKEND} npm run seed:revert
 
-# test: test.unit test.integration
-# 	npm run test:unit
-# test.unit:
-# 	npm run test:unit
-# test.integration: test.integration.createdb
-# 	npm run test:integration
-# test.integration.createdb:
-# 	docker exec -it ${CONTAINER_MYSQL} mysql -uroot -ppassword -e "DROP DATABASE IF EXISTS ${DATABASE}_test; CREATE DATABASE ${DATABASE}_test;"
-# 	npm run migration:run:test
+test: test.integration
+test.integration: test.integration.createdb
+	npm run test:integration
+test.integration.createdb:
+	docker exec -it ${CONTAINER_MYSQL} mysql -uroot -ppassword -e "DROP DATABASE IF EXISTS ${DATABASE}_test; CREATE DATABASE ${DATABASE}_test;"
+	npm run migration:run:test
 
 bash:
 	docker exec -it ${CONTAINER_BACKEND} /bin/bash

@@ -1,4 +1,4 @@
-import { Inject } from '@nestjs/common'
+import { Inject, Injectable } from '@nestjs/common'
 
 import IPedidoUseCase from '@/core/application/ipedido.use-case'
 import PedidoCreateDto, { ItemPedidoCreateDto } from '@/core/domain/dto/input/pedido-create.dto'
@@ -19,6 +19,7 @@ import IProdutoRepository, {
   IProdutoRepository as IProdutoRepositorySymbol,
 } from '@/core/domain/repositories/iproduto.repository'
 
+@Injectable()
 export default class PedidoUseCase implements IPedidoUseCase {
   constructor (
     @Inject(IPedidoRepositorySymbol) private readonly repository: IPedidoRepository,
