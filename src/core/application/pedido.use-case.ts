@@ -9,9 +9,6 @@ import ItemPedido from '@/core/domain/entities/item-pedido'
 import Pedido from '@/core/domain/entities/pedido'
 import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
 import PedidoMapper from '@/core/domain/mappers/pedido.mapper'
-import IPedidoQueue, {
-  IPedidoQueue as IPedidoQueueSymbol,
-} from '@/core/domain/queues/ipedido.queue'
 import IConsumidorRepository, {
   IConsumidorRepository as IConsumidorRepositorySymbol,
 } from '@/core/domain/repositories/iconsumidor.repository'
@@ -27,7 +24,6 @@ export default class PedidoUseCase implements IPedidoUseCase {
     @Inject(IPedidoRepositorySymbol) private readonly repository: IPedidoRepository,
     @Inject(IConsumidorRepositorySymbol) private readonly consumidorRepository: IConsumidorRepository,
     @Inject(IProdutoRepositorySymbol) private readonly produtoRepository: IProdutoRepository,
-    @Inject(IPedidoQueueSymbol) private readonly pedidoQueue: IPedidoQueue,
   ) {}
 
   async list (): Promise<PedidoDto[]> {
@@ -58,8 +54,6 @@ export default class PedidoUseCase implements IPedidoUseCase {
     })
 
     pedido = await this.repository.create(pedido)
-
-    await this.pedidoQueue.add(pedido)
 
     return PedidoMapper.toDto(pedido)
   }

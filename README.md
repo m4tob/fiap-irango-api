@@ -2,12 +2,12 @@
 
 This project involves the development of an API for a fast food self-service system, proposed as a Tech Challenge for the Software Architecture Postgraduate Course at FIAP.
 
-For this project, we utilized the [TypeScript](https://www.typescriptlang.org/) programming language with [Node.js](https://nodejs.org/) and the [Nest.js](https://nestjs.com/) framework. The database management includes [MySQL 5.7](https://www.mysql.com/) to handle information related to Consumidor, Produto, and Pedido. Additionally, an in-memory [Redis](https://redis.io/) database is employed for caching and serves as a structure to manage the Pedidos queue. This is achieved through the use of the [Bull](https://github.com/OptimalBits/bull) library in conjunction with the [Queues](https://docs.nestjs.com/techniques/queues) module provided by Nest.js.
+For this project, we utilized the [TypeScript](https://www.typescriptlang.org/) programming language with [Node.js](https://nodejs.org/) and the [Nest.js](https://nestjs.com/) framework. The database management includes [MySQL 5.7](https://www.mysql.com/) to handle information related to Consumidor, Produto, and Pedido. Additionally, an in-memory [Redis](https://redis.io/) database is employed for caching.
 
 To build the API documentation, we've used [Swagger](https://swagger.io/) tool integrated with Nest.js, accessible through the endpoint: http://localhost:3000/docs
 
 ## Application Architecture and Technologies:
-![Alt text](./docs/application-diagram.png)
+![Architecture diagram](./docs/application-diagram.png)
 
 ## Workspace Dependencies
 - [Node 20.10](https://nodejs.org/)
