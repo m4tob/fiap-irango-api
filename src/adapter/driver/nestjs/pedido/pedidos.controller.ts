@@ -16,7 +16,6 @@ import UpdatePedidoRequest from '@/adapter/driver/nestjs/pedido/dto/update-pedid
 import IPedidoUseCase, {
   IPedidoUseCase as IPedidoUseCaseSymbol,
 } from '@/core/application/ipedido.use-case'
-import PedidoDto from '@/core/domain/dto/output/pedido.dto'
 
 import CreatePedidoRequest from './dto/create-pedido.request'
 
@@ -30,7 +29,7 @@ export default class PedidosController {
   @Get()
   @ApiOperation({ summary: 'Listar todos os Pedidos' })
   @ApiOkResponse({ description: 'Todos os Pedidos', type: [PedidoResponse], isArray: true })
-  list (): Promise<PedidoDto[]> {
+  list (): Promise<PedidoResponse[]> {
     return this.pedidoUseCase.list()
   }
 
@@ -41,7 +40,7 @@ export default class PedidosController {
   @ApiCreatedResponse({ description: 'Registro criado', type: PedidoResponse })
   create (
     @Body() input: CreatePedidoRequest
-  ): Promise<PedidoDto> {
+  ): Promise<PedidoResponse> {
     return this.pedidoUseCase.create(input)
   }
 
@@ -53,7 +52,7 @@ export default class PedidosController {
   update (
     @Param('id') id: number,
     @Body() input: UpdatePedidoRequest
-  ): Promise<PedidoDto> {
+  ): Promise<PedidoResponse> {
     return this.pedidoUseCase.update(id, input)
   }
 
@@ -63,7 +62,7 @@ export default class PedidosController {
   @ApiOkResponse({ description: 'O registro encontrado', type: PedidoResponse })
   findById (
     @Param('id') id: number,
-  ) {
+  ): Promise<PedidoResponse> {
     return this.pedidoUseCase.findById(id)
   }
 }

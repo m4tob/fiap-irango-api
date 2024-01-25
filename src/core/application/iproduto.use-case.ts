@@ -5,11 +5,11 @@ import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum
 
 export default interface IProdutoUseCase {
   create(input: ProdutoCreateDto): Promise<ProdutoDto>;
-  update(input: ProdutoUpdateDto): Promise<ProdutoDto | undefined>;
-  remove(productId: string): Promise<ProdutoDto | undefined>;
+  update(input: ProdutoUpdateDto): Promise<ProdutoDto>;
+  remove(productId: string): Promise<ProdutoDto>;
   list(): Promise<ProdutoDto[]>;
   findByCategoria(categoria: ProdutoCategoriaEnum): Promise<ProdutoDto[]>;
-  findById(id: string): Promise<ProdutoDto | undefined>;
+  findById(id: string): Promise<ProdutoDto>;
 }
 
 export const IProdutoUseCase = Symbol('IProdutoUseCase')

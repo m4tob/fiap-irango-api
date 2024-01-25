@@ -21,7 +21,12 @@ export class ServerUtils {
         }
         return this._server.post(url).use(authPlugin)
       },
-      put: () => this._server.put(url).use(authPlugin),
+      put: (payload?: any) => {
+        if (payload) {
+          return this._server.put(url).use(authPlugin).send(payload)
+        }
+        return this._server.put(url).use(authPlugin)
+      },
       patch: () => this._server.patch(url).use(authPlugin),
       delete: () => this._server.delete(url).use(authPlugin)
     }

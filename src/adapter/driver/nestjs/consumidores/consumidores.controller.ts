@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common'
 import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger'
 
+import UpdateConsumidorRequest from '@/adapter/driver/nestjs/consumidores/dto/update-consumidor.request'
 import IConsumidorUseCase, {
   IConsumidorUseCase as IConsumidorUseCaseSymbol,
 } from '@/core/application/iconsumidor.use-case'
@@ -30,7 +31,7 @@ export default class ConsumidoresController {
   @Get()
   @ApiOperation({ summary: 'Listar todos os Consumidores' })
   @ApiOkResponse({ description: 'Todos os Consumidor', type: [ConsumidorResponse], isArray: true })
-  list () {
+  list (): Promise<ConsumidorResponse[]> {
     return this.consumidorUseCase.list()
   }
 
@@ -41,19 +42,19 @@ export default class ConsumidoresController {
   @ApiCreatedResponse({ description: 'Registro criado', type: ConsumidorResponse })
   create (
     @Body() input: CreateConsumidorRequest
-  ) {
+  ): Promise<ConsumidorResponse> {
     return this.consumidorUseCase.create(input)
   }
 
   @Put(':id')
   @ApiOperation({ summary: 'Atualizar um dado Consumidor' })
   @ApiParam({ name: 'id', required: true, example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805' })
-  @ApiBody({ type: CreateConsumidorRequest })
+  @ApiBody({ type: UpdateConsumidorRequest })
   @ApiOkResponse({ description: 'O registro atualizado', type: ConsumidorResponse })
   update (
     @Param('id') id: string,
-    @Body() input: CreateConsumidorRequest
-  ) {
+    @Body() input: UpdateConsumidorRequest
+  ): Promise<ConsumidorResponse> {
     return this.consumidorUseCase.update({ ...input, id })
   }
 
@@ -63,8 +64,10 @@ export default class ConsumidoresController {
   @ApiOkResponse({ description: 'O registro encontrado', type: ConsumidorResponse })
   search (
     @Query('cpf') cpf: string
-  ) {
-    const cpfValidated = new Cpf(cpf)
+  ): Promise<ConsumidorResponse> {
+    const validateCpf = false
+    const cpfValidated = new Cpf(cpf, validateCpf)
+
     return this.consumidorUseCase.findByCpf(cpfValidated)
   }
 
@@ -74,7 +77,7 @@ export default class ConsumidoresController {
   @ApiOkResponse({ description: 'O registro encontrado', type: ConsumidorResponse })
   findById (
     @Param('id') id: string,
-  ) {
+  ): Promise<ConsumidorResponse> {
     return this.consumidorUseCase.findById(id)
   }
 }

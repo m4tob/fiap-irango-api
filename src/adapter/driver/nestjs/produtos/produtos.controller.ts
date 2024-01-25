@@ -40,8 +40,8 @@ export default class ProdutosController {
   @Get()
   @ApiOperation({ summary: 'Listar todos os Produtos' })
   @ApiOkResponse({ description: 'Todos os Produtos', type: [ProdutoResponse], isArray: true })
-  async list () {
-    const cached = await this.cacheManager.get(PRODUTOS_CACHE_KEY)
+  async list (): Promise<ProdutoResponse[]> {
+    const cached = await this.cacheManager.get<ProdutoResponse[]>(PRODUTOS_CACHE_KEY)
     if (cached) {
       return cached
     }
@@ -59,7 +59,7 @@ export default class ProdutosController {
   @ApiCreatedResponse({ description: 'Registro criado', type: ProdutoResponse })
   async create (
     @Body() input: CreateProdutoRequest
-  ) {
+  ): Promise<ProdutoResponse> {
     const output = await this.produtoUseCase.create(input)
 
     await this.cacheManager.del(PRODUTOS_CACHE_KEY)
@@ -76,7 +76,7 @@ export default class ProdutosController {
   async update (
     @Param('id') id: string,
     @Body() input: UpdateProdutoRequest
-  ) {
+  ): Promise<ProdutoResponse> {
     const output = await this.produtoUseCase.update({ ...input, id })
 
     await this.cacheManager.del(PRODUTOS_CACHE_KEY)
@@ -93,7 +93,7 @@ export default class ProdutosController {
   @ApiOkResponse({ description: 'O registro excluído', type: ProdutoResponse })
   async remove (
     @Param('id') id: string
-  ) {
+  ): Promise<ProdutoResponse> {
     const output = await this.produtoUseCase.remove(id)
 
     await this.cacheManager.del(PRODUTOS_CACHE_KEY)
@@ -110,8 +110,8 @@ export default class ProdutosController {
   @ApiOkResponse({ description: 'O registro encontrado', type: ProdutoResponse })
   async search (
     @Query('categoria') categoria: ProdutoCategoriaEnum
-  ) {
-    const cached = await this.cacheManager.get(PRODUTOS_CATEGORIA_CACHE_KEY(categoria))
+  ): Promise<ProdutoResponse[]> {
+    const cached = await this.cacheManager.get<ProdutoResponse[]>(PRODUTOS_CATEGORIA_CACHE_KEY(categoria))
     if (cached) {
       return cached
     }
@@ -128,7 +128,7 @@ export default class ProdutosController {
   @ApiOkResponse({ description: 'O registro encontrado', type: ProdutoResponse })
   findById (
     @Param('id') id: string
-  ) {
+  ): Promise<ProdutoResponse> {
     return this.produtoUseCase.findById(id)
   }
 }

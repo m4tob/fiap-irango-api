@@ -13,6 +13,6 @@ export default class ConsumidorMapper {
   }
 
   static toDomainEntity (input: ConsumidorDto): Consumidor {
-    return new Consumidor(input.id, input.nome, new Cpf(input.cpf), new Email(input.email))
+    return new Consumidor(input.id, input.nome, new Cpf(input.cpf, false), new Email(input.email))
   }
 }

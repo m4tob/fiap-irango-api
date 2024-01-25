@@ -41,7 +41,7 @@ export default class ProdutoUseCase implements IProdutoUseCase {
     return ProdutoMapper.toDto(produto)
   }
 
-  async update (input: ProdutoUpdateDto): Promise<ProdutoDto | undefined> {
+  async update (input: ProdutoUpdateDto): Promise<ProdutoDto> {
     const produto = await this.repository.findById(input.id)
 
     if (!produto) {
@@ -71,7 +71,7 @@ export default class ProdutoUseCase implements IProdutoUseCase {
     })
   }
 
-  async findById (id: string): Promise<ProdutoDto | undefined> {
+  async findById (id: string): Promise<ProdutoDto> {
     const produto = await this.repository.findById(id)
 
     if (!produto) {
@@ -81,7 +81,7 @@ export default class ProdutoUseCase implements IProdutoUseCase {
     return ProdutoMapper.toDto(produto)
   }
 
-  async remove (productId: string): Promise<ProdutoDto | undefined> {
+  async remove (productId: string): Promise<ProdutoDto> {
     const produto = await this.repository.findById(productId)
 
     if (!produto) {

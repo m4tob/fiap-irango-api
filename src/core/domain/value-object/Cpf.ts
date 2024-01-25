@@ -3,8 +3,9 @@ import BusinessException from '@/core/domain/errors/business-exception'
 export default class Cpf {
   private value: string
   private DIGIT_VERIFY = 11
-  constructor (cpf?: string) {
-    if (!cpf || !this.validate(cpf)) {
+
+  constructor (cpf: string, mustValidate = true) {
+    if (mustValidate && (!cpf || !this.validate(cpf))) {
       throw new BusinessException('Invalid cpf')
     }
 

@@ -1,8 +1,8 @@
 import BusinessException from '@/core/domain/errors/business-exception'
 
 export default class Email {
-  constructor (private value: string) {
-    if (!value || !this.validate()) {
+  constructor (private value: string, mustValidate = true) {
+    if (mustValidate && (!value || !this.validate())) {
       throw new BusinessException('Invalid Email')
     }
   }

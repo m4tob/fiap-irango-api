@@ -16,9 +16,12 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
     @InjectRepository(Entity) private readonly repository: Repository<Entity>
   ) {}
 
-  async create (input: Consumidor): Promise<void> {
+  async create (input: Consumidor): Promise<Consumidor> {
     const consumidor = ConsumidorMapper.toDto(input)
+
     await this.repository.insert(consumidor)
+
+    return input
   }
 
   async findById (id: string): Promise<Consumidor | undefined> {
@@ -29,14 +32,15 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
     return consumidor ? ConsumidorMapper.toDomainEntity(consumidor) : undefined
   }
 
-  async save (input: Consumidor): Promise<void> {
+  async save (input: Consumidor): Promise<Consumidor> {
     const consumidor = await this.findById(input.id)
-
     if (!consumidor) {
-      throw new BusinessException('Consumidor não existe')
+      throw new BusinessException('Consumidor não encontrado')
     }
 
-    await this.repository.update(input.id, ConsumidorMapper.toDto(input))
+    await this.repository.update(consumidor.id, ConsumidorMapper.toDto(input))
+
+    return consumidor
   }
 
   async find (): Promise<Consumidor[]> {
@@ -48,6 +52,8 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
   }
 
   async findByCPF (cpf: Cpf): Promise<Consumidor | undefined> {
+    console.log(cpf.getValue())
+
     const consumidor = await this.repository.findOneBy({
       cpf: cpf.getValue()
     })

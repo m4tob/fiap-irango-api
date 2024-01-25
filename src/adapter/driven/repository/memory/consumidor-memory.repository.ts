@@ -7,17 +7,16 @@ import Cpf from '@/core/domain/value-object/Cpf'
 @Injectable()
 export default class ConsumidorMemoryRepository implements IConsumidorRepository {
   private consumidors: Consumidor[] = []
-  async create (input: Consumidor): Promise<void> {
+  async create (input: Consumidor): Promise<Consumidor> {
     this.consumidors.push(input)
+    return input
   }
 
-  findById (id: string): Promise<Consumidor | undefined> {
-    return Promise.resolve(
-      this.consumidors.find((consumidor) => consumidor.id === id),
-    )
+  async findById (id: string): Promise<Consumidor | undefined> {
+    return this.consumidors.find((c) => c.id === id)
   }
 
-  async save (input: Consumidor): Promise<void> {
+  async save (input: Consumidor): Promise<Consumidor> {
     const index = this.consumidors.findIndex(
       (consumidor) => consumidor.id === input.id,
     )
@@ -33,9 +32,7 @@ export default class ConsumidorMemoryRepository implements IConsumidorRepository
     return this.consumidors
   }
 
-  findByCPF (cpf: Cpf): Promise<Consumidor | undefined> {
-    return Promise.resolve(
-      this.consumidors.find((consumidor) => consumidor.cpf.getValue() === cpf.getValue()),
-    )
+  async findByCPF (cpf: Cpf): Promise<Consumidor | undefined> {
+    return this.consumidors.find((c) => c.cpf.getValue() === cpf.getValue())
   }
 }

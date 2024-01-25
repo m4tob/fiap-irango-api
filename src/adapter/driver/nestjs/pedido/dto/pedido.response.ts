@@ -29,8 +29,8 @@ export default class PedidoResponse implements PedidoDto {
   readonly status: PedidoStatusEnum
 
   @ApiProperty({ description: 'Data de criação do Pedido', type: Date, example: new Date() })
-  readonly createdAt: Date
+  readonly createdAt?: Date
 
   @ApiProperty({ description: 'Data da última atualização do Pedido', type: Date, example: new Date() })
-  readonly updatedAt: Date
+  readonly updatedAt?: Date
 }
