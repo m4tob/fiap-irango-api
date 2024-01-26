@@ -29,10 +29,11 @@ export class Produto {
   categoria: ProdutoCategoriaEnum
 
   @OneToMany(() => Ingrediente, (ingrediente) => ingrediente.produto, {
-    eager: true,
-    cascade: true,
+    cascade: ['insert', 'update', 'remove'],
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
   })
-  ingredientes : Ingrediente[]
+  ingredientes: Ingrediente[]
 
   @Column({
     name: 'deleted_at',

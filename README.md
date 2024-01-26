@@ -30,9 +30,9 @@ npm run install
 Configure all docker containers and volumes and start the application
 ```bash
 make setup
-```
-or try without make
-```bash
+
+# or try without make
+
 docker network create -d bridge local-network
 cp .env.example .env
 docker-compose build --progress=plain
@@ -60,10 +60,10 @@ npm run seed:run
 ```
 
 ## How to Use
-We have developed a seed to populate database with some products and one Consumidor with CPF `123.456.789-00`. You can use it or create a new Consumidor.
+We developed a seed to populate database with some products and one Consumidor with CPF `123.456.789-00`. You can use it or create a new Consumidor.
 
 ## Endpoints
-We have developed few endpoints which can be found in [consumidores.controller.ts](./src/adapter/driver/nestjs/consumidores/consumidores.controller.ts), [produtos.controller.ts](./src/adapter/driver/nestjs/produtos/produtos.controller.ts) and [pedidos.controller.ts](./src/adapter/driver/nestjs/pedidos/pedidos.controller.ts) files
+We developed few endpoints which can be found in [consumidores.controller.ts](./src/adapter/driver/nestjs/consumidores/consumidores.controller.ts), [produtos.controller.ts](./src/adapter/driver/nestjs/produtos/produtos.controller.ts) and [pedidos.controller.ts](./src/adapter/driver/nestjs/pedidos/pedidos.controller.ts) files
 
 ## Business Requirements:
 1. Cadastro do Cliente
@@ -82,6 +82,43 @@ We have developed few endpoints which can be found in [consumidores.controller.t
 > POST http://localhost:3000/pedidos
 6. Listar os pedidos
 > GET http://localhost:3000/pedidos
+
+## Automated Tests
+We developed integration tests which can be run using docker or in directly in local machine (in this case you need change the `DB_HOSTNAME` env to `localhost`). Before run the tests, we need to create the test database using:
+```bash
+make test.integration.createdb
+
+# or try without make
+docker exec -it ${CONTAINER_MYSQL} mysql -uroot -ppassword -e "DROP DATABASE IF EXISTS ${DATABASE}_test; CREATE DATABASE ${DATABASE}_test;"
+docker-compose exec -it ${CONTAINER_BACKEND} npm run migration:run:test
+```
+
+### Run all tests (We just have integrations for while)
+```bash
+# With docker
+docker-compose run service-irango-api npm run test
+
+# local
+npm run test
+```
+
+### Run only integration tests
+```bash
+# With docker
+docker-compose run service-irango-api npm run test:integration
+
+# local
+npm run test:integration
+```
+
+### Run a specifc test file
+```bash
+# With docker
+docker-compose run service-irango-api npm run test:integration:one <FILE_NAME>
+
+# local
+npm run test:integration:one <FILE_NAME>
+```
 
 ## Make commands
 - Setup Project: `make setup`. This command will create docker network, containers and volumes. It will also start the project and show its logs.

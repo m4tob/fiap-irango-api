@@ -19,7 +19,6 @@ export default class ProdutoUseCase implements IProdutoUseCase {
     private readonly repository: IProdutoRepository,
   ) {}
 
-  // TODO: alterar camada do mapper
   async create (input: ProdutoCreateDto): Promise<ProdutoDto> {
     const produto = Produto.create(
       input.nome,
@@ -29,15 +28,18 @@ export default class ProdutoUseCase implements IProdutoUseCase {
       input.categoria,
     )
 
+    await this.repository.create(produto)
+
     input.ingredientes?.forEach(ingredienteInput => {
       produto.addIngrediente(
+        produto,
         ingredienteInput.nome,
         ingredienteInput.preco,
         ingredienteInput.imagemUrl
       )
     })
 
-    await this.repository.create(produto)
+    await this.repository.save(produto)
     return ProdutoMapper.toDto(produto)
   }
 
@@ -58,17 +60,13 @@ export default class ProdutoUseCase implements IProdutoUseCase {
   async list (): Promise<ProdutoDto[]> {
     const produtos = await this.repository.find()
 
-    return produtos.map((produto) => {
-      return ProdutoMapper.toDto(produto)
-    })
+    return produtos.map((produto) => ProdutoMapper.toDto(produto))
   }
 
   async findByCategoria (categoria: ProdutoCategoriaEnum): Promise<ProdutoDto[]> {
     const produtos = await this.repository.findByCategoria(categoria)
 
-    return produtos.map((produto) => {
-      return ProdutoMapper.toDto(produto)
-    })
+    return produtos.map((produto) => ProdutoMapper.toDto(produto))
   }
 
   async findById (id: string): Promise<ProdutoDto> {

@@ -9,6 +9,7 @@ export default class ItemPedidoMapper {
       ingredientesRemovidos: item.ingredientesRemovidos.map(ingrediente => ({
         id: ingrediente.id,
         nome: ingrediente.nome,
+        produtoId: ingrediente.produtoId
       }))
     }
   }

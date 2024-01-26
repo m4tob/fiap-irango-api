@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import IngredienteResponse from '@/adapter/driver/nestjs/produtos/dto/ingrediente.response'
+import IngredienteRequest from '@/adapter/driver/nestjs/produtos/dto/ingrediente.request'
 import ProdutoUpdateDto from '@/core/domain/dto/input/produto-update.dto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
@@ -25,9 +25,9 @@ export default class UpdateProdutoRequest implements ProdutoUpdateDto {
 
   @ApiProperty({
     description: 'Ingredientes do Produto',
-    type: [IngredienteResponse],
+    type: [IngredienteRequest],
     isArray: true,
     example: [{ nome: 'picanha' }, { nome: 'bacon' }, { nome: 'alface' }, { nome: 'tomate' }],
   })
-  readonly ingredientes: IngredienteResponse[]
+  readonly ingredientes: IngredienteRequest[]
 }

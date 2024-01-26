@@ -54,9 +54,7 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
   async list (): Promise<ConsumidorDto[]> {
     const consumidores = await this.repository.find()
 
-    return consumidores.map((consumidor) => {
-      return ConsumidorMapper.toDto(consumidor)
-    })
+    return consumidores.map((consumidor) => ConsumidorMapper.toDto(consumidor))
   }
 
   async findById (id: string): Promise<ConsumidorDto> {

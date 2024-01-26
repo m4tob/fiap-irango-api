@@ -36,8 +36,9 @@ export class CreateTablePedido1705457218319 implements MigrationInterface {
         '  PRIMARY KEY (`itemPedidoId`, `ingredienteId`)' +
         ') ENGINE=InnoDB'
       )
-      await queryRunner.query('ALTER TABLE `ItemPedido` ADD CONSTRAINT `FK_355616aab641874d52a5a1d9447` FOREIGN KEY (`pedido_id`) REFERENCES `Pedido`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION')
-      await queryRunner.query('ALTER TABLE `ItemPedido` ADD CONSTRAINT `FK_253d048ad87d3579a5cd7935f4a` FOREIGN KEY (`produto_id`) REFERENCES `Produto`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION')
+      await queryRunner.query('ALTER TABLE `Pedido` ADD CONSTRAINT `FK_7c6d2423ee562c77254361ac756` FOREIGN KEY (`consumidor_id`) REFERENCES `Consumidor`(`id`) ON DELETE CASCADE ON UPDATE CASCADE')
+      await queryRunner.query('ALTER TABLE `ItemPedido` ADD CONSTRAINT `FK_355616aab641874d52a5a1d9447` FOREIGN KEY (`pedido_id`) REFERENCES `Pedido`(`id`) ON DELETE CASCADE ON UPDATE CASCADE')
+      await queryRunner.query('ALTER TABLE `ItemPedido` ADD CONSTRAINT `FK_253d048ad87d3579a5cd7935f4a` FOREIGN KEY (`produto_id`) REFERENCES `Produto`(`id`) ON DELETE CASCADE ON UPDATE CASCADE')
       await queryRunner.query('ALTER TABLE `ItemPedidoIngrediente` ADD CONSTRAINT `FK_20fdb42bd9137b2a7819d0918d7` FOREIGN KEY (`itemPedidoId`) REFERENCES `ItemPedido`(`id`) ON DELETE CASCADE ON UPDATE CASCADE')
       await queryRunner.query('ALTER TABLE `ItemPedidoIngrediente` ADD CONSTRAINT `FK_7712989acde4d0129bd27a4bb70` FOREIGN KEY (`ingredienteId`) REFERENCES `Ingrediente`(`id`) ON DELETE CASCADE ON UPDATE CASCADE')
     }
@@ -47,6 +48,7 @@ export class CreateTablePedido1705457218319 implements MigrationInterface {
       await queryRunner.query('ALTER TABLE `ItemPedidoIngrediente` DROP FOREIGN KEY `FK_20fdb42bd9137b2a7819d0918d7`')
       await queryRunner.query('ALTER TABLE `ItemPedido` DROP FOREIGN KEY `FK_253d048ad87d3579a5cd7935f4a`')
       await queryRunner.query('ALTER TABLE `ItemPedido` DROP FOREIGN KEY `FK_355616aab641874d52a5a1d9447`')
+      await queryRunner.query('ALTER TABLE `Pedido` DROP FOREIGN KEY `FK_7c6d2423ee562c77254361ac756`')
       await queryRunner.query('DROP INDEX `IDX_7712989acde4d0129bd27a4bb7` ON `ItemPedidoIngrediente`')
       await queryRunner.query('DROP INDEX `IDX_20fdb42bd9137b2a7819d0918d` ON `ItemPedidoIngrediente`')
 

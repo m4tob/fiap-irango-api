@@ -12,14 +12,14 @@ export class ItemPedido {
   @Column({ name: 'pedido_id' })
   public pedidoId: number
 
-  @ManyToOne(() => Pedido, pedido => pedido.itens)
+  @ManyToOne(() => Pedido, pedido => pedido.itens, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'pedido_id' })
   public pedido: Pedido
 
   @Column({ name: 'produto_id', length: 36 })
   public produtoId: string
 
-  @ManyToOne(() => Produto, produto => produto.id)
+  @ManyToOne(() => Produto, produto => produto.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'produto_id' })
   public produto: Produto
 
@@ -28,7 +28,11 @@ export class ItemPedido {
   })
   public preco: number
 
-  @ManyToMany(() => Ingrediente, ingrediente => ingrediente.id, { cascade: ['insert'] })
+  @ManyToMany(() => Ingrediente, ingrediente => ingrediente.id, {
+    cascade: ['insert'],
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE'
+  })
   @JoinTable({ name: 'ItemPedidoIngrediente' })
   public ingredientesRemovidos: Ingrediente[]
 }

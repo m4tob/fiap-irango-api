@@ -31,6 +31,7 @@ export default class Produto {
   }
 
   addIngrediente (
+    produto: Produto,
     nome: string,
     preco?: number,
     imagemUrl?: string
@@ -39,7 +40,7 @@ export default class Produto {
       throw new BusinessException('Ingrediente já adicionado')
     }
 
-    this.ingredientes.push(Ingrediente.create(nome, imagemUrl, preco))
+    this.ingredientes.push(Ingrediente.create(produto, nome, imagemUrl, preco))
   };
 
   update (input: ProdutoUpdateDto): void {
@@ -53,7 +54,12 @@ export default class Produto {
       if ('id' in ingrediente) {
         return new Ingrediente(ingrediente)
       }
-      return Ingrediente.create(ingrediente.nome)
+      return Ingrediente.create(
+        this,
+        ingrediente.nome,
+        ingrediente.imagemUrl,
+        ingrediente.preco
+      )
     })
     this.ingredientes = ingredientes ?? []
   }

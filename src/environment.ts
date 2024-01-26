@@ -63,4 +63,8 @@ export class Environment {
   static get REDIS_ENABLED (): boolean {
     return process.env.REDIS_ENABLED === 'true'
   }
+
+  static get CACHE_ENABLED (): boolean {
+    return process.env.CACHE_ENABLED === 'true'
+  }
 }

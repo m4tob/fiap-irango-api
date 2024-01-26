@@ -1,4 +1,4 @@
-import { Column, Entity, JoinTable, ManyToOne, PrimaryColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm'
 
 import { Produto } from './produto'
 
@@ -20,7 +20,10 @@ export class Ingrediente {
   @Column({ type: 'float', nullable: true })
   preco?: number
 
+  @Column({ name: 'produto_id', length: 36 })
+  public produtoId?: string
+
   @ManyToOne(() => Produto, (produto) => produto.ingredientes)
-  @JoinTable()
+  @JoinColumn({ name: 'produto_id' })
   produto: Produto
 }

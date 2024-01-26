@@ -52,8 +52,6 @@ export default class ConsumidorTypeormRepository implements IConsumidorRepositor
   }
 
   async findByCPF (cpf: Cpf): Promise<Consumidor | undefined> {
-    console.log(cpf.getValue())
-
     const consumidor = await this.repository.findOneBy({
       cpf: cpf.getValue()
     })

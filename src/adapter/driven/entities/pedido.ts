@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm'
 
 import { Consumidor } from '@/adapter/driven/entities/consumidor'
 import { ItemPedido } from '@/adapter/driven/entities/item-pedido'
@@ -12,11 +12,15 @@ export class Pedido {
   @Column({ nullable: true, length: 36, name: 'consumidor_id' })
   consumidorId?: string
 
-  @OneToMany(() => Consumidor, consumidor => consumidor.id)
+  @ManyToOne(() => Consumidor, consumidor => consumidor.id, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'consumidor_id' })
   consumidor?: Consumidor
 
-  @OneToMany(() => ItemPedido, item => item.pedido, { cascade: ['insert'] })
+  @OneToMany(() => ItemPedido, item => item.pedido, {
+    cascade: ['insert', 'update', 'remove'],
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE'
+  })
   itens: ItemPedido[]
 
   @Column({ type: 'float' })

@@ -66,10 +66,10 @@ seed.revert:
 
 test: test.integration
 test.integration: test.integration.createdb
-	npm run test:integration
+	docker-compose exec -it ${CONTAINER_BACKEND} npm run test:integration
 test.integration.createdb:
 	docker exec -it ${CONTAINER_MYSQL} mysql -uroot -ppassword -e "DROP DATABASE IF EXISTS ${DATABASE}_test; CREATE DATABASE ${DATABASE}_test;"
-	npm run migration:run:test
+	docker-compose exec -it ${CONTAINER_BACKEND} npm run migration:run:test
 
 bash:
 	docker exec -it ${CONTAINER_BACKEND} /bin/bash

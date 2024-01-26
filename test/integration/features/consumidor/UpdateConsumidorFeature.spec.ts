@@ -31,12 +31,7 @@ describe('Update Consumidor Feature', () => {
           cpf: '42553451040',
         }
 
-        const expectedResponse = {
-          id: consumidor.id,
-          nome: requestBody.nome,
-          cpf: requestBody.cpf,
-          email: requestBody.email,
-        }
+        const expectedResponse = { ...requestBody }
 
         // Act
         const { status, body } = await setup.server
