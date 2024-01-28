@@ -2,21 +2,18 @@
 import { Consumidor } from '@/adapter/driven/entities/consumidor'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
-import { Factory } from '@/test/integration/setup/utils/FactoryUtils'
 
 describe('Find Consumidor By Id Feature', () => {
   describe('GET /v1/consumidores/:id', () => {
     let setup: ITestSetup
-    let consumidorFactory: Factory<Consumidor>
     let consumidor: Consumidor
 
     beforeAll(async () => {
       setup = await IntegrationTestSetup.getInstance()
-      consumidorFactory = setup.factory.consumidorFactory()
     })
 
     beforeEach(async () => {
-      consumidor = await consumidorFactory.create()
+      consumidor = await setup.factory.consumidor()
     })
 
     describe('when everything is valid', () => {
@@ -36,7 +33,6 @@ describe('Find Consumidor By Id Feature', () => {
 
         // Assert
         expect(status).toBe(200)
-        expect(body.data).toBeDefined()
         expect(body.data).toMatchObject(expectedResponse)
       })
     })

@@ -11,8 +11,8 @@ import {
 } from '@nestjs/common'
 import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 
-import PedidoResponse from '@/adapter/driver/nestjs/pedido/dto/pedido.response'
-import UpdatePedidoRequest from '@/adapter/driver/nestjs/pedido/dto/update-pedido.request'
+import PedidoResponse from '@/adapter/driver/nestjs/pedidos/dto/pedido.response'
+import UpdatePedidoRequest from '@/adapter/driver/nestjs/pedidos/dto/update-pedido.request'
 import IPedidoUseCase, {
   IPedidoUseCase as IPedidoUseCaseSymbol,
 } from '@/core/application/ipedido.use-case'

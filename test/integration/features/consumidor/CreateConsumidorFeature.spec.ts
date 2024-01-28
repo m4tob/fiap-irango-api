@@ -38,7 +38,6 @@ describe('Create Consumidor Feature', () => {
 
         // Assert
         expect(status).toBe(201)
-        expect(body.data).toBeDefined()
         expect(body.data).toMatchObject(expectedResponse)
 
         const createdConsumidor = await consumidorRepository.findById(body.data.id)

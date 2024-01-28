@@ -47,7 +47,6 @@ describe('Search Produtos Feature', () => {
 
         // Assert
         expect(status).toBe(200)
-        expect(body.data).toBeDefined()
 
         const response = (body.data as ProdutoResponse[]).sort((a, b) => a.id.localeCompare(b.id))
         expect(response).toMatchObject(expectedResponse)

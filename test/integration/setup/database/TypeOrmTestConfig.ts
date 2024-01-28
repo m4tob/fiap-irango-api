@@ -10,5 +10,5 @@ import { Environment as envs } from '@/environment'
 
 export default {
   ...TypeOrmConfig,
-  database: envs.DB_DATABASE + '_test'
+  database: envs.DB_DATABASE + '_test',
 } as DataSourceOptions

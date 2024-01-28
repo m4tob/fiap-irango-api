@@ -55,7 +55,6 @@ describe('Create Produto Feature', () => {
 
         // Assert
         expect(status).toBe(201)
-        expect(body.data).toBeDefined()
         expect(body.data).toMatchObject(expectedResponse)
         expect(body.data.ingredientes[0].id).toBeDefined()
 

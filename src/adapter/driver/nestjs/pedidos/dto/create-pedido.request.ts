@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger'
 
-import ItemPedidoResponse from '@/adapter/driver/nestjs/pedido/dto/item-pedido.response'
+import ItemPedidoResponse from '@/adapter/driver/nestjs/pedidos/dto/item-pedido.response'
 import PedidoCreateDto, { ItemPedidoCreateDto } from '@/core/domain/dto/input/pedido-create.dto'
 
 class CreateItemPedidoRequest implements ItemPedidoCreateDto {

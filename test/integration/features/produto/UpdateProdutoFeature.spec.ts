@@ -5,21 +5,18 @@ import UpdateProdutoRequest from '@/adapter/driver/nestjs/produtos/dto/update-pr
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
-import { Factory } from '@/test/integration/setup/utils/FactoryUtils'
 
 describe('Update Produto Feature', () => {
   describe('PUT /v1/produtos/:id', () => {
     let setup: ITestSetup
-    let produtoFactory: Factory<Produto>
     let produto: Produto
 
     beforeAll(async () => {
       setup = await IntegrationTestSetup.getInstance()
-      produtoFactory = setup.factory.produtoFactory()
     })
 
     beforeEach(async () => {
-      produto = await produtoFactory.create()
+      produto = await setup.factory.produto()
     })
 
     describe('when everything is valid', () => {
@@ -57,7 +54,6 @@ describe('Update Produto Feature', () => {
 
         // Assert
         expect(status).toBe(200)
-        expect(body.data).toBeDefined()
         expect(body.data).toMatchObject(expectedResponse)
       })
     })

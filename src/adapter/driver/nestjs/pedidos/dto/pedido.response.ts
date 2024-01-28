@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger'
 
 import ConsumidorResponse from '@/adapter/driver/nestjs/consumidores/dto/consumidor.response'
-import ItemPedidoResponse from '@/adapter/driver/nestjs/pedido/dto/item-pedido.response'
+import ItemPedidoResponse from '@/adapter/driver/nestjs/pedidos/dto/item-pedido.response'
 import PedidoDto from '@/core/domain/dto/output/pedido.dto'
 import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
 

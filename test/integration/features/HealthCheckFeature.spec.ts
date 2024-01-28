@@ -14,7 +14,7 @@ describe('Health Check Feature', () => {
         .get()
 
       expect(status).toBe(200)
-      expect(body.data).toEqual({ data: { status: 'ok' } })
+      expect(body.data).toEqual({ status: 'ok' })
     })
   })
 })

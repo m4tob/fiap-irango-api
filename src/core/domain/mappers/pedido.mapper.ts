@@ -8,8 +8,10 @@ export default class PedidoMapper {
     const consumidor = pedido.consumidor ? ConsumidorMapper.toDto(pedido.consumidor) : undefined
     return {
       id: pedido.id,
+      consumidorId: pedido.consumidorId,
       consumidor,
-      itens: pedido.itens.map(item => ItemPedidoMapper.toDto(item)),
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      itens: pedido.itens?.map(item => ItemPedidoMapper.toDto(item)),
       total: pedido.total,
       status: pedido.status,
       createdAt: pedido.createdAt,
@@ -21,8 +23,10 @@ export default class PedidoMapper {
     const consumidor = input.consumidor ? ConsumidorMapper.toDomainEntity(input.consumidor) : undefined
     return new Pedido({
       id: input.id,
+      consumidorId: input.consumidorId,
       consumidor,
-      itens: input.itens.map(item => ItemPedidoMapper.toDomainEntity(item)),
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      itens: input.itens?.map(item => ItemPedidoMapper.toDomainEntity(item)),
       total: input.total,
       status: input.status,
       createdAt: input.createdAt,

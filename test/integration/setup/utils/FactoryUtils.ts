@@ -8,6 +8,7 @@ import { DataSource, ObjectLiteral, Repository } from 'typeorm'
 import { Consumidor } from '@/adapter/driven/entities/consumidor'
 import { Pedido } from '@/adapter/driven/entities/pedido'
 import { Produto } from '@/adapter/driven/entities/produto'
+import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 
 type IConstructable<T> = new () => T
@@ -28,7 +29,7 @@ export class Factory<T extends ObjectLiteral> {
     return this.privateRepository
   }
 
-  async create (data?: Partial<T>) {
+  async create (data?: Partial<T>): Promise<T> {
     const obj: any = new this.Entity()
 
     for (const field in this.sequences) {
@@ -38,15 +39,15 @@ export class Factory<T extends ObjectLiteral> {
     return this.repository.save({ ...obj, ...(data || {}) } as T)
   }
 
-  async createMany (count: number, data?: Partial<T>[]) {
-    const objs = []
+  async createMany (count: number, data?: Partial<T>[]): Promise<T[]> {
+    const objs: Promise<T>[] = []
 
     for (let i = 0; i < count; i++) {
       const d = data?.[i] || {}
-      objs.push(await this.create(d))
+      objs.push(this.create(d))
     }
 
-    return objs
+    return Promise.all(objs)
   }
 
   sequence (field: keyof T, callback: (index: number, obj: any) => any) {
@@ -57,7 +58,14 @@ export class Factory<T extends ObjectLiteral> {
 
 @Injectable()
 export default class FactoryUtils {
+  factories: Record<string, Factory<any>> = {}
+
   constructor (private dataSource: DataSource) {
+    this.factories = {
+      consumidor: this.consumidorFactory(),
+      produto: this.produtoFactory(),
+      pedido: this.pedidoFactory()
+    }
   }
 
   consumidorFactory = (): Factory<Consumidor> => {
@@ -92,6 +100,35 @@ export default class FactoryUtils {
 
   pedidoFactory = (): Factory<Pedido> => {
     return new Factory(Pedido, this.dataSource)
-      .sequence('id', () => faker.number.int({ min: 1 }))
+      .sequence('id', () => faker.number.int({ min: 1, max: 999999 }))
+      .sequence('status', () => faker.helpers.enumValue(PedidoStatusEnum))
+      .sequence('total', () => faker.number.float({ min: 0.01, max: 100, precision: 2 }))
+      .sequence('consumidor', async () => this.consumidor())
+      .sequence('itens', async () => {
+        const itensFactory = async () => {
+          const produto = await this.produto()
+          return {
+            id: faker.string.uuid(),
+            produto,
+            produtoId: produto.id,
+            preco: produto.preco,
+            ingredientesRemovidos: faker.helpers.arrayElements(produto.ingredientes, faker.number.int({ min: 0, max: produto.ingredientes.length }))
+          }
+        }
+        const count = faker.number.int({ min: 0, max: 5 })
+        return Promise.all(Array(count).fill(1).map(itensFactory))
+      })
+  }
+
+  consumidor = async (data?: Partial<Consumidor>) => {
+    return this.factories.consumidor.create(data)
+  }
+
+  produto = async (data?: Partial<Produto>) => {
+    return this.factories.produto.create(data)
+  }
+
+  pedido = async (data?: Partial<Pedido>) => {
+    return this.factories.pedido.create(data)
   }
 }

@@ -20,15 +20,25 @@ export default class Pedido {
   static create (
     consumidor: Consumidor | undefined,
     itens: ItemPedido[],
-    total: number,
     status: PedidoStatusEnum,
   ): Pedido {
-    return new Pedido({
+    const total = itens.reduce((acc, item) => {
+      return acc + item.preco
+    }, 0)
+
+    const pedido = new Pedido({
       consumidor,
+      consumidorId: consumidor?.id,
       itens,
       total,
       status,
     })
+
+    itens.forEach((item) => {
+      item.pedido = pedido
+    })
+
+    return pedido
   }
 
   update (input: PedidoUpdateDto) {

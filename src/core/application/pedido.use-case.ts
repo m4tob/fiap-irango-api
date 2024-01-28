@@ -39,21 +39,14 @@ export default class PedidoUseCase implements IPedidoUseCase {
     if (input.consumidorId) {
       consumidor = await this.consumidorRepository.findById(input.consumidorId)
     }
-    const itens = await this.buildItens(input.itens)
 
-    const total = itens.reduce((acc, item) => {
-      return acc + item.preco
-    }, 0)
+    const itens = await this.buildItens(input.itens)
 
     let pedido = Pedido.create(
       consumidor,
       itens,
-      total,
       PedidoStatusEnum.RECEBIDO,
     )
-    itens.forEach((item) => {
-      item.pedido = pedido
-    })
 
     pedido = await this.repository.create(pedido)
 
@@ -69,12 +62,10 @@ export default class PedidoUseCase implements IPedidoUseCase {
       const ingredientes = item.ingredientesRemovidos.filter((ingredienteId) => produto.ingredientes.some((ingrediente) => ingrediente.id === ingredienteId))
       const ingredientesRemovidos = ingredientes.map((ingredienteId) => new Ingrediente({ id: ingredienteId }))
 
-      return {
+      return ItemPedido.create(
         produto,
-        produtoId: produto.id,
-        preco: produto.preco,
         ingredientesRemovidos,
-      }
+      )
     })
 
     return Promise.all(itensPromise)

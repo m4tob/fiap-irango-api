@@ -5,6 +5,9 @@ import ProdutoResponse from '@/adapter/driver/nestjs/produtos/dto/produto.respon
 import ItemPedidoDto from '@/core/domain/dto/output/item-pedido.dto'
 
 export default class ItemPedidoResponse implements ItemPedidoDto {
+  @ApiProperty({ description: 'ID do Item no formato uuid', example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805' })
+  readonly id?: string
+
   @ApiProperty({ description: 'ID do Produto no formato uuid', example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805' })
   readonly produtoId: string
 
