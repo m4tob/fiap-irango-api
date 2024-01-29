@@ -84,6 +84,7 @@ describe('Create Pedido Feature', () => {
 
         const createdPedido = await pedidoRepository.findById(body.data.id)
         expect(createdPedido).toBeDefined()
+        expect(createdPedido?.itens).toHaveLength(itens.length)
       }
 
       beforeEach(async () => {

@@ -34,10 +34,6 @@ export default class Pedido {
       status,
     })
 
-    itens.forEach((item) => {
-      item.pedido = pedido
-    })
-
     return pedido
   }
 

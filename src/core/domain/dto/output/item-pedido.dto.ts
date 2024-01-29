@@ -5,6 +5,7 @@ export default interface ItemPedidoDto {
   readonly id?: string;
   readonly produtoId: string;
   readonly produto: ProdutoDto;
+  pedidoId?: number;
   readonly preco: number;
   readonly ingredientesRemovidos: IngredienteDto[];
 }

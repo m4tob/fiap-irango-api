@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 
 import { Pedido as Entity } from '@/adapter/driven/entities/pedido'
+import PedidoDto from '@/core/domain/dto/output/pedido.dto'
 import Pedido from '@/core/domain/entities/pedido'
 import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
 import PedidoMapper from '@/core/domain/mappers/pedido.mapper'
@@ -16,9 +17,16 @@ export default class PedidoTypeormRepository implements IPedidoRepository {
   ) {}
 
   async create (input: Pedido): Promise<Pedido> {
-    const model = PedidoMapper.toDto(input)
-    await this.repository.insert(model)
-    return PedidoMapper.toDomainEntity(model)
+    let { itens, ...model } = PedidoMapper.toDto(input)
+    model = await this.repository.save(model)
+
+    itens.forEach((item) => {
+      item.pedidoId = model.id
+    })
+
+    model = await this.repository.save({ ...model, itens })
+
+    return PedidoMapper.toDomainEntity(model as PedidoDto)
   }
 
   async findById (id: number): Promise<Pedido | undefined> {

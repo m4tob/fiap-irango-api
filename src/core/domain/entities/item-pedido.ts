@@ -9,6 +9,7 @@ export default class ItemPedido implements ItemPedidoDto {
   readonly id?: string
   produtoId: string
   produto: Produto
+  pedidoId?: number
   pedido?: Pedido
   preco: number
   ingredientesRemovidos: Ingrediente[]

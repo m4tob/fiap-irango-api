@@ -9,6 +9,7 @@ export default class ItemPedidoMapper {
       ...item,
       produtoId: item.produto.id,
       produto: ProdutoMapper.toDto(item.produto),
+      pedidoId: item.pedido?.id,
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       ingredientesRemovidos: item.ingredientesRemovidos?.map(ingrediente => ({
         id: ingrediente.id,

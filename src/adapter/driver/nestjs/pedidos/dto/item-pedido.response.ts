@@ -14,6 +14,9 @@ export default class ItemPedidoResponse implements ItemPedidoDto {
   @ApiProperty({ description: 'Produto', type: ProdutoResponse })
   readonly produto: ProdutoResponse
 
+  @ApiProperty({ description: 'ID do Pedido', example: 1 })
+  readonly pedidoId?: number
+
   @ApiProperty({ description: 'Preço do Produto', type: Number, example: 50.00 })
   readonly preco: number
 
