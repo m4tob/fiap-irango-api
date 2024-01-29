@@ -1,7 +1,8 @@
-import { CacheModule } from '@nestjs/cache-manager'
-import { Global, Module } from '@nestjs/common'
+import { CACHE_MANAGER, CacheModule } from '@nestjs/cache-manager'
+import { Global, Inject, Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
+import { Cache } from 'cache-manager'
 import * as redisStore from 'cache-manager-redis-store'
 
 import ConsumidoresModule from '@/adapter/driver/nestjs/consumidores/consumidores.module'
@@ -39,4 +40,12 @@ export const appModules = [
     AppCache
   ]
 })
-export default class AppModule { }
+export default class AppModule {
+  constructor (@Inject(CACHE_MANAGER) private cacheManager: Cache
+  ) { }
+
+  async onApplicationShutdown () {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (this.cacheManager as any).store.getClient().quit()
+  }
+}
