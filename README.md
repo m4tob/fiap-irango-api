@@ -6,6 +6,8 @@ For this project, we utilized the [TypeScript](https://www.typescriptlang.org/) 
 
 To build the API documentation, we've used [Swagger](https://swagger.io/) tool integrated with Nest.js, accessible through the endpoint: http://localhost:3000/docs
 
+## [DDD - Domain Driven Design Diagrams](./docs/domain-driven-design.md)
+
 ## Application Architecture and Technologies:
 ![Architecture diagram](./docs/application-diagram.png)
 
@@ -131,12 +133,3 @@ npm run test:integration:one <FILE_NAME>
 - Run Seeds: `make seed.run`
 - Access container bash: `make bash`
 - Access Redis container: `make redis`
-
-## DDD Storytelling
-We built a storytelling diagram using [egon.io](https://egon.io) and this diagrams can be accessed in `./docs/storytelling` folder or in following images:
-
-### 01 - Create and Pay an Order workflow:
-<img src="./docs/storytelling/01_make-and-pay-an-order.png" alt="01 Make and Pay an Order" width="900" />
-
-### 02 - Cook and Deliver an Order workflow:
-<img src="./docs/storytelling/02_cook-and-deliver-an-order.png" alt="02 Cook and Deliver an Order" width="900" />
