@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: irango-api
+  namespace: irango
+spec:
+  selector:
+    app: irango-api
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
