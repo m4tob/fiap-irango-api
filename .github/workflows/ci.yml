@@ -1,8 +1,9 @@
-name: Deploy to EKS
+name: CI
 on:
   push:
     branches:
       - main
+      - feat/cicd
 jobs:
   deploy:
     runs-on: ubuntu-latest
