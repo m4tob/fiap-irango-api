@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - feat/cicd
+      # - feat/cicd
   pull_request:
     branches:
       - main
