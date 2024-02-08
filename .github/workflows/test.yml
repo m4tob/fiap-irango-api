@@ -1,0 +1,21 @@
+name: test
+on:
+  push:
+    branches:
+      - main
+      - feat/cicd
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: run test suite
+    env:
+      COMPOSE_FILE: docker-compose.yml
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Build docker images
+      run: docker-compose up local-mysql  local-redis
+
+    - name: check if containers are running
+      run: docker ps
