@@ -62,8 +62,8 @@ services:
     networks:
       - local-network
     build:
-      dockerfile: ./Dockerfile-test
-      context: ..
+      dockerfile: Dockerfile-test
+      context: .
     ports:
       - 3000:3000
     volumes:

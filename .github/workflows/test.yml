@@ -20,5 +20,12 @@ jobs:
     - name: check if containers are running
       run: docker ps
 
-    - name: run tests on containers
-      run: docker-compose up -d service-irango-api
+    - name: Install dependencies and copy env
+      run: npm ci && cp .env.example .env
+
+    - name: run migrtaions
+      run: npm run migration
+
+    - name: run test
+      run: DB_DATABASE=irango_test npm run migration
+
