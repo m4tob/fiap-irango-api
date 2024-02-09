@@ -24,7 +24,7 @@ jobs:
       run: npm ci && cp .env.example .env
 
     - name: run migrtaions
-      run: npm run migration
+      run: npm run migration:run
 
     - name: run test
       run: DB_DATABASE=irango_test npm run migration
