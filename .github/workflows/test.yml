@@ -32,5 +32,5 @@ jobs:
       run: DB_HOSTNAME=localhost DB_DATABASE=irango_test npm run migration:run
 
     - name: run test
-      run: DB_HOSTNAME=localhost REDIS_HOSTNAME=localhost DB_DATABASE=irango_test npm test
+      run: DB_HOSTNAME=localhost REDIS_HOSTNAME=localhost npm test
 
