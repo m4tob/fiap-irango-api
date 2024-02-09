@@ -24,7 +24,7 @@ jobs:
       run: npm ci && cp .env.example .env
 
     - name: run migrtaions
-      run: DB_HOSTNAME=localhost npm run migration:run
+      run: DB_HOSTNAME=localhost DB_DATABASE=irango_test npm run migration:run
 
     - name: run test
       run: DB_HOSTNAME=localhost REDIS_HOSTNAME=localhost DB_DATABASE=irango_test npm run migration
