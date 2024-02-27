@@ -5,11 +5,11 @@ import { Injectable } from '@nestjs/common'
 import { fakerPT_BR as faker } from '@faker-js/faker'
 import { DataSource, ObjectLiteral, Repository } from 'typeorm'
 
-import { Consumidor } from '@/adapter/driven/entities/consumidor'
-import { Pedido } from '@/adapter/driven/entities/pedido'
-import { Produto } from '@/adapter/driven/entities/produto'
 import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
+import { Consumidor } from '@/infra/persistence/typeorm/entities/consumidor'
+import { Pedido } from '@/infra/persistence/typeorm/entities/pedido'
+import { Produto } from '@/infra/persistence/typeorm/entities/produto'
 
 type IConstructable<T> = new () => T
 

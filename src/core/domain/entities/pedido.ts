@@ -10,6 +10,7 @@ export default class Pedido {
   itens: ItemPedido[]
   total: number
   status: PedidoStatusEnum
+  gatewayPagamentoId?: string
   createdAt?: Date
   updatedAt?: Date
 

@@ -1,5 +1,6 @@
-import { Pedido } from '@/adapter/driven/entities/pedido'
-import ItemPedidoResponse from '@/adapter/driver/nestjs/pedidos/dto/item-pedido.response'
+
+import { Pedido } from '@/infra/persistence/typeorm/entities/pedido'
+import ItemPedidoResponse from '@/infra/web/nestjs/pedidos/dto/item-pedido.response'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
 

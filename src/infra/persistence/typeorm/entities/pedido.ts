@@ -9,7 +9,7 @@ export class Pedido {
   @PrimaryGeneratedColumn()
   id: number
 
-  @Column({ nullable: true, length: 36, name: 'consumidor_id' })
+  @Column({ name: 'consumidor_id', length: 36, nullable: true })
   consumidorId?: string
 
   @ManyToOne(() => Consumidor, consumidor => consumidor.id, { onDelete: 'CASCADE' })
@@ -28,6 +28,9 @@ export class Pedido {
 
   @Column({ type: 'varchar', length: 20 })
   status: PedidoStatusEnum
+
+  @Column({ type: 'varchar', length: 36, nullable: true })
+  gatewayPagamentoId?: string
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt?: Date

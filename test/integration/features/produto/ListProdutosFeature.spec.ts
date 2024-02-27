@@ -1,7 +1,7 @@
 import { fakerPT_BR as faker } from '@faker-js/faker'
 
-import { Produto } from '@/adapter/driven/entities/produto'
-import ProdutoResponse from '@/adapter/driver/nestjs/produtos/dto/produto.response'
+import { Produto } from '@/infra/persistence/typeorm/entities/produto'
+import ProdutoResponse from '@/infra/web/nestjs/produtos/dto/produto.response'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
 import { Factory } from '@/test/integration/setup/utils/FactoryUtils'

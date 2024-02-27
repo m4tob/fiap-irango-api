@@ -1,10 +1,10 @@
 import { fakerPT_BR as faker } from '@faker-js/faker'
 
-import CreateProdutoRequest from '@/adapter/driver/nestjs/produtos/dto/create-produto.request'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 import IProdutoRepository, {
   IProdutoRepository as IProdutoRepositorySymbol,
 } from '@/core/domain/repositories/iproduto.repository'
+import CreateProdutoRequest from '@/infra/web/nestjs/produtos/dto/create-produto.request'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
 

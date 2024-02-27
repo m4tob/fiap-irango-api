@@ -6,7 +6,7 @@ dotenv.config()
 import { DataSourceOptions } from 'typeorm'
 
 import TypeOrmConfig from '@/config/typeorm/TypeOrmConfig'
-import { Environment as envs } from '@/environment'
+import { Environment as envs } from '@/infra/web/nestjs/environment'
 
 export default {
   ...TypeOrmConfig,

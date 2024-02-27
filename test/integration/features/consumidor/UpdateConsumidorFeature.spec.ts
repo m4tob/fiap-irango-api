@@ -1,7 +1,7 @@
 import { fakerPT_BR as faker } from '@faker-js/faker'
 
-import { Consumidor } from '@/adapter/driven/entities/consumidor'
-import UpdateConsumidorRequest from '@/adapter/driver/nestjs/consumidores/dto/update-consumidor.request'
+import { Consumidor } from '@/infra/persistence/typeorm/entities/consumidor'
+import UpdateConsumidorRequest from '@/infra/web/nestjs/consumidores/dto/update-consumidor.request'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
 

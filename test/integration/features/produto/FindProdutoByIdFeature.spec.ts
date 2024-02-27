@@ -1,5 +1,5 @@
 
-import { Produto } from '@/adapter/driven/entities/produto'
+import { Produto } from '@/infra/persistence/typeorm/entities/produto'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
 

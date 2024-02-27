@@ -6,9 +6,9 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { agent } from 'supertest'
 
-import AppModule, { appModules } from '@/app.module'
 import AllExceptionFilter from '@/core/helpers/AllExceptionFilter'
 import ResponseTransformInterceptor from '@/core/helpers/ResponseTransformInterceptor'
+import AppModule, { appModules } from '@/infra/web/nestjs/app.module'
 
 import TypeOrmTestConfig from '@/test/integration/setup/database/TypeOrmTestConfig'
 import FactoryUtils from '@/test/integration/setup/utils/FactoryUtils'

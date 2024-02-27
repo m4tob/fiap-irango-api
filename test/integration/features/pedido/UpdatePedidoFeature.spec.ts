@@ -1,8 +1,8 @@
 import { fakerPT_BR as faker } from '@faker-js/faker'
 
-import { Pedido } from '@/adapter/driven/entities/pedido'
-import UpdatePedidoRequest from '@/adapter/driver/nestjs/pedidos/dto/update-pedido.request'
 import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
+import { Pedido } from '@/infra/persistence/typeorm/entities/pedido'
+import UpdatePedidoRequest from '@/infra/web/nestjs/pedidos/dto/update-pedido.request'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
 

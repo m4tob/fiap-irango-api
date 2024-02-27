@@ -1,5 +1,5 @@
 
-import { Consumidor } from '@/adapter/driven/entities/consumidor'
+import { Consumidor } from '@/infra/persistence/typeorm/entities/consumidor'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
 

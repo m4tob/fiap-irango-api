@@ -1,14 +1,14 @@
 import { fakerPT_BR as faker } from '@faker-js/faker'
 
-import { Consumidor } from '@/adapter/driven/entities/consumidor'
-import { Produto } from '@/adapter/driven/entities/produto'
-import CreatePedidoRequest from '@/adapter/driver/nestjs/pedidos/dto/create-pedido.request'
-import ItemPedidoResponse from '@/adapter/driver/nestjs/pedidos/dto/item-pedido.response'
-import PedidoResponse from '@/adapter/driver/nestjs/pedidos/dto/pedido.response'
 import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
 import IPedidoRepository, {
   IPedidoRepository as IPedidoRepositorySymbol,
 } from '@/core/domain/repositories/ipedido.repository'
+import { Consumidor } from '@/infra/persistence/typeorm/entities/consumidor'
+import { Produto } from '@/infra/persistence/typeorm/entities/produto'
+import CreatePedidoRequest from '@/infra/web/nestjs/pedidos/dto/create-pedido.request'
+import ItemPedidoResponse from '@/infra/web/nestjs/pedidos/dto/item-pedido.response'
+import PedidoResponse from '@/infra/web/nestjs/pedidos/dto/pedido.response'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
 import { Factory } from '@/test/integration/setup/utils/FactoryUtils'
@@ -52,7 +52,8 @@ describe('Create Pedido Feature', () => {
         const expectedResponse = {
           id: expect.any(Number),
           total: expect.any(Number),
-          status: PedidoStatusEnum.RECEBIDO,
+          status: PedidoStatusEnum.PAGAMENTO_PENDENTE,
+          gatewayPagamentoId: expect.stringMatching(/^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$/),
           createdAt: expect.stringMatching(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z/),
           updatedAt: expect.stringMatching(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z/),
           itens: produtos

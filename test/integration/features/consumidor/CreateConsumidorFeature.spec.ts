@@ -1,6 +1,6 @@
 import { fakerPT_BR as faker } from '@faker-js/faker'
 
-import CreateConsumidorRequest from '@/adapter/driver/nestjs/consumidores/dto/create-consumidor.request'
+import CreateConsumidorRequest from '@/infra/web/nestjs/consumidores/dto/create-consumidor.request'
 import IConsumidorRepository, {
   IConsumidorRepository as IConsumidorRepositorySymbol,
 } from '@/core/domain/repositories/iconsumidor.repository'

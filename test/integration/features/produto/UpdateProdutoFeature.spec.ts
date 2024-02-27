@@ -1,8 +1,8 @@
 import { fakerPT_BR as faker } from '@faker-js/faker'
 
-import { Produto } from '@/adapter/driven/entities/produto'
-import UpdateProdutoRequest from '@/adapter/driver/nestjs/produtos/dto/update-produto.request'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
+import { Produto } from '@/infra/persistence/typeorm/entities/produto'
+import UpdateProdutoRequest from '@/infra/web/nestjs/produtos/dto/update-produto.request'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
 

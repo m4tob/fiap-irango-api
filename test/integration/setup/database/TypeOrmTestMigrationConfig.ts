@@ -7,7 +7,7 @@ import { join } from 'path'
 import { DataSource, DataSourceOptions } from 'typeorm'
 
 import TypeOrmConfig from '@/config/typeorm/TypeOrmConfig'
-import { Environment as envs } from '@/environment'
+import { Environment as envs } from '@/infra/web/nestjs/environment'
 
 export default new DataSource({
   ...({

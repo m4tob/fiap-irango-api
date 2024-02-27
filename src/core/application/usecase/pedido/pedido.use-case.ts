@@ -19,6 +19,9 @@ import IPedidoRepository, {
 import IProdutoRepository, {
   IProdutoRepository as IProdutoRepositorySymbol,
 } from '@/core/domain/repositories/iproduto.repository'
+import IPagamentoService, {
+  IPagamentoService as IPagamentoServiceSymbol,
+} from '@/core/domain/services/ipagamento.service'
 
 @Injectable()
 export default class PedidoUseCase implements IPedidoUseCase {
@@ -26,6 +29,7 @@ export default class PedidoUseCase implements IPedidoUseCase {
     @Inject(IPedidoRepositorySymbol) private readonly repository: IPedidoRepository,
     @Inject(IConsumidorRepositorySymbol) private readonly consumidorRepository: IConsumidorRepository,
     @Inject(IProdutoRepositorySymbol) private readonly produtoRepository: IProdutoRepository,
+    @Inject(IPagamentoServiceSymbol) private readonly pagamentoService: IPagamentoService,
   ) {}
 
   async list (): Promise<PedidoDto[]> {
@@ -45,10 +49,16 @@ export default class PedidoUseCase implements IPedidoUseCase {
     let pedido = Pedido.create(
       consumidor,
       itens,
-      PedidoStatusEnum.RECEBIDO,
+      PedidoStatusEnum.PAGAMENTO_PENDENTE,
     )
 
     pedido = await this.repository.create(pedido)
+
+    const gatewayPagamentoId = await this.pagamentoService.registerOrder(pedido)
+    console.log(gatewayPagamentoId)
+    pedido.gatewayPagamentoId = gatewayPagamentoId
+
+    pedido = await this.repository.save(pedido)
 
     return PedidoMapper.toDto(pedido)
   }
