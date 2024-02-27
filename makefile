@@ -51,14 +51,14 @@ migration.recreatedb:
 
 # make migration.generate name=create_table_pedido
 migration.generate:
-	docker-compose exec -it ${CONTAINER_BACKEND} npm run migration:generate ./src/database/migrations/$(name)
+	docker-compose exec -it ${CONTAINER_BACKEND} npm run migration:generate src/infra/persistence/typeorm/migrations/$(name)
 migration.run:
 	docker-compose exec -it ${CONTAINER_BACKEND} npm run migration:run
 migration.revert:
 	docker-compose exec -it ${CONTAINER_BACKEND} npm run migration:revert
 
 seed.generate:
-	docker-compose exec -it ${CONTAINER_BACKEND} npm run seed:generate ./src/database/seeds/$(name)
+	docker-compose exec -it ${CONTAINER_BACKEND} npm run seed:generate src/infra/persistence/typeorm/seeds/$(name)
 seed.run:
 	docker-compose exec -it ${CONTAINER_BACKEND} npm run seed:run
 seed.revert:
