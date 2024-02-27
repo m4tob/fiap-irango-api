@@ -65,12 +65,13 @@ export default class PedidoTypeormRepository implements IPedidoRepository {
       .leftJoinAndSelect('item.ingredientesRemovidos', 'ingredienteRemovido')
       .leftJoinAndSelect('item.produto', 'produto')
       .leftJoinAndSelect('produto.ingredientes', 'ingrediente')
+      .where(`pedido.status != '${PedidoStatusEnum.FINALIZADO}'`)
       .orderBy(`(
         CASE pedido.status
-          WHEN '${PedidoStatusEnum.RECEBIDO}' THEN 1
+          WHEN '${PedidoStatusEnum.PRONTO}' THEN 1
           WHEN '${PedidoStatusEnum.PREPARACAO}' THEN 2
-          WHEN '${PedidoStatusEnum.PRONTO}' THEN 3
-          WHEN '${PedidoStatusEnum.RECEBIDO}' THEN 4
+          WHEN '${PedidoStatusEnum.RECEBIDO}' THEN 3
+          WHEN '${PedidoStatusEnum.FINALIZADO}' THEN 4
           ELSE 99
         END
       )`, 'ASC')

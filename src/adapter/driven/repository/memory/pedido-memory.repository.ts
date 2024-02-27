@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 
 import Pedido from '@/core/domain/entities/pedido'
+import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
 import IPedidoRepository from '@/core/domain/repositories/ipedido.repository'
 
 @Injectable()
@@ -9,6 +10,17 @@ export default class PedidoMemoryRepository implements IPedidoRepository {
 
   async find (): Promise<Pedido[]> {
     return this.pedidos
+      .filter(p => p.status !== PedidoStatusEnum.FINALIZADO)
+      .sort((a, b) => {
+        const statusOrder = [PedidoStatusEnum.PRONTO, PedidoStatusEnum.PREPARACAO, PedidoStatusEnum.RECEBIDO]
+        const statusResult = statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)
+
+        if (statusResult !== 0) return statusResult
+
+        if (a.createdAt && b.createdAt) return a.createdAt.getTime() - b.createdAt.getTime()
+
+        return 0
+      })
   }
 
   findById (id: number): Promise<Pedido | undefined> {
