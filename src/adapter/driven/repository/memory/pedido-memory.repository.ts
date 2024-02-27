@@ -12,7 +12,12 @@ export default class PedidoMemoryRepository implements IPedidoRepository {
     return this.pedidos
       .filter(p => p.status !== PedidoStatusEnum.FINALIZADO)
       .sort((a, b) => {
-        const statusOrder = [PedidoStatusEnum.PRONTO, PedidoStatusEnum.PREPARACAO, PedidoStatusEnum.RECEBIDO]
+        const statusOrder = [
+          PedidoStatusEnum.PRONTO,
+          PedidoStatusEnum.PREPARACAO,
+          PedidoStatusEnum.RECEBIDO,
+          PedidoStatusEnum.PAGAMENTO_PENDENTE
+        ]
         const statusResult = statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)
 
         if (statusResult !== 0) return statusResult

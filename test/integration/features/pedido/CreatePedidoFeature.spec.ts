@@ -52,7 +52,8 @@ describe('Create Pedido Feature', () => {
         const expectedResponse = {
           id: expect.any(Number),
           total: expect.any(Number),
-          status: PedidoStatusEnum.RECEBIDO,
+          status: PedidoStatusEnum.PAGAMENTO_PENDENTE,
+          gatewayPagamentoId: expect.stringMatching(/^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$/),
           createdAt: expect.stringMatching(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z/),
           updatedAt: expect.stringMatching(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z/),
           itens: produtos

@@ -2,6 +2,7 @@ import { fakerPT_BR as faker } from '@faker-js/faker'
 
 import { Pedido } from '@/adapter/driven/entities/pedido'
 import PedidoResponse from '@/adapter/driver/nestjs/pedidos/dto/pedido.response'
+import { PedidoStatusEnum } from '@/core/domain/enums/pedido-status.enum'
 
 import IntegrationTestSetup, { ITestSetup } from '@/test/integration/setup/IntegrationTestSetup'
 import { Factory } from '@/test/integration/setup/utils/FactoryUtils'
@@ -44,7 +45,22 @@ describe('List Pedido Feature', () => {
             createdAt: expect.stringMatching(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z/),
             updatedAt: expect.stringMatching(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z/),
           }))
-          .sort((a, b) => a.id - b.id)
+          .filter(p => p.status !== PedidoStatusEnum.FINALIZADO)
+          .sort((a, b) => {
+            const statusOrder = [
+              PedidoStatusEnum.PRONTO,
+              PedidoStatusEnum.PREPARACAO,
+              PedidoStatusEnum.RECEBIDO,
+              PedidoStatusEnum.PAGAMENTO_PENDENTE
+            ]
+            const statusResult = statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)
+
+            if (statusResult !== 0) return statusResult
+
+            if (a.createdAt && b.createdAt) return a.createdAt.getTime() - b.createdAt.getTime()
+
+            return 0
+          })
 
         // Act
         const { status, body } = await setup.server
@@ -54,7 +70,7 @@ describe('List Pedido Feature', () => {
         // Assert
         expect(status).toBe(200)
 
-        const response = (body.data as PedidoResponse[]).sort((a, b) => (a.id || 0) - (b.id || 0))
+        const response = (body.data as PedidoResponse[])
         response.map((pedido) => ({
           ...pedido,
           itens: pedido.itens.sort((a, b) => a.id!.localeCompare(b.id!)),

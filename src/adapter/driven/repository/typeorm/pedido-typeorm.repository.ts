@@ -54,7 +54,12 @@ export default class PedidoTypeormRepository implements IPedidoRepository {
 
     await this.repository.update(input.id, toSave as Entity)
 
-    return pedido
+    const updated = await this.findById(input.id)
+    if (!updated) {
+      throw new Error('Pedido não existe')
+    }
+
+    return updated
   }
 
   async find (): Promise<Pedido[]> {
@@ -71,7 +76,9 @@ export default class PedidoTypeormRepository implements IPedidoRepository {
           WHEN '${PedidoStatusEnum.PRONTO}' THEN 1
           WHEN '${PedidoStatusEnum.PREPARACAO}' THEN 2
           WHEN '${PedidoStatusEnum.RECEBIDO}' THEN 3
-          WHEN '${PedidoStatusEnum.FINALIZADO}' THEN 4
+          WHEN '${PedidoStatusEnum.PAGAMENTO_PENDENTE}' THEN 4
+          WHEN '${PedidoStatusEnum.FINALIZADO}' THEN 5
+          
           ELSE 99
         END
       )`, 'ASC')
