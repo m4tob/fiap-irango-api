@@ -1,6 +1,6 @@
 import type { ClientOpts } from 'redis'
 
-import { Environment as envs } from '@/environment'
+import { Environment as envs } from '@/infra/web/nestjs/environment'
 
 interface RedisConfig extends ClientOpts {
   enabled: boolean;

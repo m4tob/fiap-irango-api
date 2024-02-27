@@ -6,7 +6,7 @@ import {
 
 import { Cache, Milliseconds } from 'cache-manager'
 
-import { Environment as envs } from '@/environment'
+import { Environment as envs } from '@/infra/web/nestjs/environment'
 
 @Injectable()
 export default class AppCache {
