@@ -1,25 +1,18 @@
-import { Inject } from '@nestjs/common'
-
 import ProdutoCreateDto from '@/core/domain/dto/input/produto-create.dto'
 import ProdutoUpdateDto from '@/core/domain/dto/input/produto-update.dto'
-import ProdutoDto from '@/core/domain/dto/output/produto.dto'
 import Produto from '@/core/domain/entities/produto'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
 import BusinessException from '@/core/domain/errors/business-exception'
-import ProdutoMapper from '@/core/domain/mappers/produto.mapper'
-import IProdutoRepository, {
-  IProdutoRepository as IProdutoRepositorySymbol,
-} from '@/core/domain/repositories/iproduto.repository'
+import { ProdutoGateway } from '@/core/operation/gateway/produto.gateway'
 
 import IProdutoUseCase from './iproduto.use-case'
 
 export default class ProdutoUseCase implements IProdutoUseCase {
   constructor (
-    @Inject(IProdutoRepositorySymbol)
-    private readonly repository: IProdutoRepository,
+    private readonly gateway: ProdutoGateway,
   ) {}
 
-  async create (input: ProdutoCreateDto): Promise<ProdutoDto> {
+  async create (input: ProdutoCreateDto): Promise<Produto> {
     const produto = Produto.create(
       input.nome,
       input.descricao,
@@ -28,7 +21,7 @@ export default class ProdutoUseCase implements IProdutoUseCase {
       input.categoria,
     )
 
-    await this.repository.create(produto)
+    await this.gateway.create(produto)
 
     input.ingredientes?.forEach(ingredienteInput => {
       produto.addIngrediente(
@@ -39,12 +32,12 @@ export default class ProdutoUseCase implements IProdutoUseCase {
       )
     })
 
-    await this.repository.save(produto)
-    return ProdutoMapper.toDto(produto)
+    await this.gateway.save(produto)
+    return produto
   }
 
-  async update (input: ProdutoUpdateDto): Promise<ProdutoDto> {
-    const produto = await this.repository.findById(input.id)
+  async update (input: ProdutoUpdateDto): Promise<Produto> {
+    const produto = await this.gateway.findById(input.id)
 
     if (!produto) {
       throw new BusinessException('Produto não encontrado')
@@ -52,35 +45,33 @@ export default class ProdutoUseCase implements IProdutoUseCase {
 
     produto.update(input)
 
-    await this.repository.save(produto)
+    await this.gateway.save(produto)
 
-    return ProdutoMapper.toDto(produto)
+    return produto
   }
 
-  async list (): Promise<ProdutoDto[]> {
-    const produtos = await this.repository.find()
+  async list (): Promise<Produto[]> {
+    const produtos = await this.gateway.find()
 
-    return produtos.map((produto) => ProdutoMapper.toDto(produto))
+    return produtos
   }
 
-  async findByCategoria (categoria: ProdutoCategoriaEnum): Promise<ProdutoDto[]> {
-    const produtos = await this.repository.findByCategoria(categoria)
-
-    return produtos.map((produto) => ProdutoMapper.toDto(produto))
+  async findByCategoria (categoria: ProdutoCategoriaEnum): Promise<Produto[]> {
+    return this.gateway.findByCategoria(categoria)
   }
 
-  async findById (id: string): Promise<ProdutoDto> {
-    const produto = await this.repository.findById(id)
+  async findById (id: string): Promise<Produto> {
+    const produto = await this.gateway.findById(id)
 
     if (!produto) {
       throw new BusinessException('Produto não encontrado')
     }
 
-    return ProdutoMapper.toDto(produto)
+    return produto
   }
 
-  async remove (productId: string): Promise<ProdutoDto> {
-    const produto = await this.repository.findById(productId)
+  async remove (productId: string): Promise<Produto> {
+    const produto = await this.gateway.findById(productId)
 
     if (!produto) {
       throw new BusinessException('Produto não encontrado')
@@ -88,8 +79,8 @@ export default class ProdutoUseCase implements IProdutoUseCase {
 
     produto.delete()
 
-    await this.repository.save(produto)
+    await this.gateway.save(produto)
 
-    return ProdutoMapper.toDto(produto)
+    return produto
   }
 }

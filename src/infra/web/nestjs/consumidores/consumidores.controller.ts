@@ -12,10 +12,8 @@ import {
 } from '@nestjs/common'
 import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger'
 
-import IConsumidorUseCase, {
-  IConsumidorUseCase as IConsumidorUseCaseSymbol,
-} from '@/core/application/usecase/consumidor/iconsumidor.use-case'
-import Cpf from '@/core/domain/value-object/Cpf'
+import Repository, { IConsumidorRepository } from '@/core/domain/repositories/iconsumidor.repository'
+import { ConsumidorController } from '@/core/operation/controllers/consumidor.controller'
 import UpdateConsumidorRequest from '@/infra/web/nestjs/consumidores/dto/update-consumidor.request'
 
 import ConsumidorResponse from './dto/consumidor.response'
@@ -25,14 +23,15 @@ import CreateConsumidorRequest from './dto/create-consumidor.request'
 @ApiTags('v1/consumidores')
 export default class ConsumidoresController {
   constructor (
-    @Inject(IConsumidorUseCaseSymbol) private readonly consumidorUseCase: IConsumidorUseCase,
+    @Inject(IConsumidorRepository) private readonly repository: Repository,
   ) {}
 
   @Get()
   @ApiOperation({ summary: 'Listar todos os Consumidores' })
   @ApiOkResponse({ description: 'Todos os Consumidor', type: [ConsumidorResponse], isArray: true })
   list (): Promise<ConsumidorResponse[]> {
-    return this.consumidorUseCase.list()
+    const controller = new ConsumidorController(this.repository)
+    return controller.list()
   }
 
   @Post()
@@ -43,7 +42,9 @@ export default class ConsumidoresController {
   create (
     @Body() input: CreateConsumidorRequest
   ): Promise<ConsumidorResponse> {
-    return this.consumidorUseCase.create(input)
+    const controller = new ConsumidorController(this.repository)
+
+    return controller.create(input)
   }
 
   @Put(':id')
@@ -55,7 +56,9 @@ export default class ConsumidoresController {
     @Param('id') id: string,
     @Body() input: UpdateConsumidorRequest
   ): Promise<ConsumidorResponse> {
-    return this.consumidorUseCase.update({ ...input, id })
+    const controller = new ConsumidorController(this.repository)
+
+    return controller.update({ ...input, id })
   }
 
   @Get('/search')
@@ -65,10 +68,8 @@ export default class ConsumidoresController {
   search (
     @Query('cpf') cpf: string
   ): Promise<ConsumidorResponse> {
-    const validateCpf = false
-    const cpfValidated = new Cpf(cpf, validateCpf)
-
-    return this.consumidorUseCase.findByCpf(cpfValidated)
+    const controller = new ConsumidorController(this.repository)
+    return controller.findByCpf(cpf)
   }
 
   @Get('/:id')
@@ -78,7 +79,9 @@ export default class ConsumidoresController {
   findById (
     @Param('id') id: string,
   ): Promise<ConsumidorResponse> {
-    return this.consumidorUseCase.findById(id)
+    const controller = new ConsumidorController(this.repository)
+
+    return controller.findById(id)
   }
 }
 

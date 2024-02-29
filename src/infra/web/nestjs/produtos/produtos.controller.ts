@@ -13,11 +13,10 @@ import {
 } from '@nestjs/common'
 import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger'
 
-import IProdutoUseCase, {
-  IProdutoUseCase as IProdutoUseCaseSymbol,
-} from '@/core/application/usecase/produto/iproduto.use-case'
 import { ProdutoCategoriaEnum } from '@/core/domain/enums/produto-categoria.enum'
+import Repository, { IProdutoRepository } from '@/core/domain/repositories/iproduto.repository'
 import AppCache from '@/core/helpers/AppCache'
+import { ProdutoController } from '@/core/operation/controllers/produto.controller'
 import UpdateProdutoRequest from '@/infra/web/nestjs/produtos/dto/update-produto.request'
 
 import CreateProdutoRequest from './dto/create-produto.request'
@@ -31,7 +30,7 @@ const PRODUTOS_CACHE_TTL = 1 * 60 * 60 * 1000 // 1 hour
 @ApiTags('v1/produtos')
 export default class ProdutosController {
   constructor (
-    @Inject(IProdutoUseCaseSymbol) private readonly produtoUseCase: IProdutoUseCase,
+    @Inject(IProdutoRepository) private readonly repository: Repository,
     private appCache: AppCache,
   ) {}
 
@@ -43,8 +42,9 @@ export default class ProdutosController {
     if (cached) {
       return cached
     }
+    const controller = new ProdutoController(this.repository)
 
-    const output = await this.produtoUseCase.list()
+    const output = await controller.list()
     await this.appCache.set(PRODUTOS_CACHE_KEY, output, PRODUTOS_CACHE_TTL)
 
     return output
@@ -58,7 +58,9 @@ export default class ProdutosController {
   async create (
     @Body() input: CreateProdutoRequest
   ): Promise<ProdutoResponse> {
-    const output = await this.produtoUseCase.create(input)
+    const controller = new ProdutoController(this.repository)
+
+    const output = await controller.create(input)
 
     await this.appCache.del(PRODUTOS_CACHE_KEY)
     await this.appCache.del(PRODUTOS_CATEGORIA_CACHE_KEY(input.categoria))
@@ -75,7 +77,9 @@ export default class ProdutosController {
     @Param('id') id: string,
     @Body() input: UpdateProdutoRequest
   ): Promise<ProdutoResponse> {
-    const output = await this.produtoUseCase.update({ ...input, id })
+    const controller = new ProdutoController(this.repository)
+
+    const output = await controller.update({ ...input, id })
 
     await this.appCache.del(PRODUTOS_CACHE_KEY)
     await Promise.all(Object.values(ProdutoCategoriaEnum).map(async (categoria) => {
@@ -92,7 +96,9 @@ export default class ProdutosController {
   async remove (
     @Param('id') id: string
   ): Promise<ProdutoResponse> {
-    const output = await this.produtoUseCase.remove(id)
+    const controller = new ProdutoController(this.repository)
+
+    const output = await controller.remove(id)
 
     await this.appCache.del(PRODUTOS_CACHE_KEY)
     await Promise.all(Object.values(ProdutoCategoriaEnum).map(async (categoria) => {
@@ -113,8 +119,9 @@ export default class ProdutosController {
     if (cached) {
       return cached
     }
+    const controller = new ProdutoController(this.repository)
 
-    const output = await this.produtoUseCase.findByCategoria(categoria)
+    const output = await controller.findByCategoria(categoria)
     await this.appCache.set(PRODUTOS_CATEGORIA_CACHE_KEY(categoria), output, PRODUTOS_CACHE_TTL)
 
     return output
@@ -127,6 +134,8 @@ export default class ProdutosController {
   findById (
     @Param('id') id: string
   ): Promise<ProdutoResponse> {
-    return this.produtoUseCase.findById(id)
+    const controller = new ProdutoController(this.repository)
+
+    return controller.findById(id)
   }
 }

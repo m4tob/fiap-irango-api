@@ -11,9 +11,19 @@ import {
 } from '@nestjs/common'
 import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger'
 
-import IPedidoUseCase, {
-  IPedidoUseCase as IPedidoUseCaseSymbol,
-} from '@/core/application/usecase/pedido/ipedido.use-case'
+import IConsumidorRepository, {
+  IConsumidorRepository as IConsumidorRepositorySymbol,
+} from '@/core/domain/repositories/iconsumidor.repository'
+import IPedidoRepository, {
+  IPedidoRepository as IPedidoRepositorySymbol,
+} from '@/core/domain/repositories/ipedido.repository'
+import IProdutoRepository, {
+  IProdutoRepository as IProdutoRepositorySymbol,
+} from '@/core/domain/repositories/iproduto.repository'
+import IPagamentoService, {
+  IPagamentoService as IPagamentoServiceSymbol,
+} from '@/core/domain/services/ipagamento.service'
+import { PedidoController } from '@/core/operation/controllers/pedido.controller'
 import PedidoResponse from '@/infra/web/nestjs/pedidos/dto/pedido.response'
 import UpdatePedidoRequest from '@/infra/web/nestjs/pedidos/dto/update-pedido.request'
 
@@ -23,14 +33,25 @@ import CreatePedidoRequest from './dto/create-pedido.request'
 @ApiTags('v1/pedidos')
 export default class PedidosController {
   constructor (
-    @Inject(IPedidoUseCaseSymbol) private readonly pedidoUseCase: IPedidoUseCase
+    @Inject(IPedidoRepositorySymbol) private readonly repository: IPedidoRepository,
+    @Inject(IConsumidorRepositorySymbol) private readonly consumidorRepository: IConsumidorRepository,
+    @Inject(IProdutoRepositorySymbol) private readonly produtoRepository: IProdutoRepository,
+    @Inject(IPagamentoServiceSymbol) private readonly pagamentoService: IPagamentoService,
+
   ) {}
 
   @Get()
   @ApiOperation({ summary: 'Listar todos os Pedidos' })
   @ApiOkResponse({ description: 'Todos os Pedidos', type: [PedidoResponse], isArray: true })
   list (): Promise<PedidoResponse[]> {
-    return this.pedidoUseCase.list()
+    const controller = new PedidoController(
+      this.repository,
+      this.consumidorRepository,
+      this.produtoRepository,
+      this.pagamentoService
+    )
+
+    return controller.list()
   }
 
   @Post()
@@ -41,7 +62,14 @@ export default class PedidosController {
   create (
     @Body() input: CreatePedidoRequest
   ): Promise<PedidoResponse> {
-    return this.pedidoUseCase.create(input)
+    const controller = new PedidoController(
+      this.repository,
+      this.consumidorRepository,
+      this.produtoRepository,
+      this.pagamentoService
+    )
+
+    return controller.create(input)
   }
 
   @Put(':id')
@@ -53,7 +81,14 @@ export default class PedidosController {
     @Param('id') id: number,
     @Body() input: UpdatePedidoRequest
   ): Promise<PedidoResponse> {
-    return this.pedidoUseCase.update(id, input)
+    const controller = new PedidoController(
+      this.repository,
+      this.consumidorRepository,
+      this.produtoRepository,
+      this.pagamentoService
+    )
+
+    return controller.update(id, input)
   }
 
   @Get('/:id')
@@ -63,6 +98,13 @@ export default class PedidosController {
   findById (
     @Param('id') id: number,
   ): Promise<PedidoResponse> {
-    return this.pedidoUseCase.findById(id)
+    const controller = new PedidoController(
+      this.repository,
+      this.consumidorRepository,
+      this.produtoRepository,
+      this.pagamentoService
+    )
+
+    return controller.findById(id)
   }
 }

@@ -1,44 +1,37 @@
-import { Inject } from '@nestjs/common'
-
 import ConsumidorCreateDto from '@/core/domain/dto/input/consumidor-create.dto'
 import ConsumidorUpdateDto from '@/core/domain/dto/input/consumidor-update.dto'
-import ConsumidorDto from '@/core/domain/dto/output/consumidor.dto'
 import Consumidor from '@/core/domain/entities/consumidor'
 import BusinessException from '@/core/domain/errors/business-exception'
-import ConsumidorMapper from '@/core/domain/mappers/consumidor.mapper'
-import IConsumidorRepository, {
-  IConsumidorRepository as IConsumidorRepositorySymbol,
-} from '@/core/domain/repositories/iconsumidor.repository'
 import Cpf from '@/core/domain/value-object/Cpf'
+import { ConsumidorGateway } from '@/core/operation/gateway/consumidor.gateway'
 
 import IConsumidorUseCase from './iconsumidor.use-case'
 
 export default class ConsumidorUseCase implements IConsumidorUseCase {
   constructor (
-    @Inject(IConsumidorRepositorySymbol)
-    private readonly repository: IConsumidorRepository,
+    private readonly gateway: ConsumidorGateway,
   ) {}
 
-  async create (input: ConsumidorCreateDto): Promise<ConsumidorDto> {
+  async create (input: ConsumidorCreateDto): Promise<Consumidor> {
     const consumidor = Consumidor.create(
       input.nome,
       input.cpf,
       input.email,
     )
-    const consumerExists = await this.repository.findByCPF(consumidor.cpf)
+    const consumerExists = await this.gateway.findByCPF(consumidor.cpf)
 
     if (consumerExists) {
       throw new BusinessException('Consumidor já cadastrado com esse cpf')
     }
 
-    await this.repository.create(consumidor)
-    return ConsumidorMapper.toDto(consumidor)
+    await this.gateway.create(consumidor)
+    return consumidor
   }
 
   async update (
     input: ConsumidorUpdateDto,
-  ): Promise<ConsumidorDto> {
-    const consumidor = await this.repository.findById(input.id)
+  ): Promise<Consumidor> {
+    const consumidor = await this.gateway.findById(input.id)
 
     if (!consumidor) {
       throw new BusinessException('Consumidor não encontrado')
@@ -46,34 +39,34 @@ export default class ConsumidorUseCase implements IConsumidorUseCase {
 
     consumidor.update(input)
 
-    await this.repository.save(consumidor)
+    await this.gateway.save(consumidor)
 
-    return ConsumidorMapper.toDto(consumidor)
+    return consumidor
   }
 
-  async list (): Promise<ConsumidorDto[]> {
-    const consumidores = await this.repository.find()
+  async list (): Promise<Consumidor[]> {
+    const consumidores = await this.gateway.find()
 
-    return consumidores.map((consumidor) => ConsumidorMapper.toDto(consumidor))
+    return consumidores.map((consumidor) => consumidor)
   }
 
-  async findById (id: string): Promise<ConsumidorDto> {
-    const consumidor = await this.repository.findById(id)
+  async findById (id: string): Promise<Consumidor> {
+    const consumidor = await this.gateway.findById(id)
 
     if (!consumidor) {
       throw new BusinessException('Consumidor não encontrado')
     }
 
-    return ConsumidorMapper.toDto(consumidor)
+    return consumidor
   }
 
-  async findByCpf (cpf: Cpf): Promise<ConsumidorDto> {
-    const consumidor = await this.repository.findByCPF(cpf)
+  async findByCpf (cpf: Cpf): Promise<Consumidor> {
+    const consumidor = await this.gateway.findByCPF(cpf)
 
     if (!consumidor) {
       throw new BusinessException('Consumidor não encontrado')
     }
 
-    return ConsumidorMapper.toDto(consumidor)
+    return consumidor
   }
 }
