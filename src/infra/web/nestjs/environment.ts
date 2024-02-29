@@ -21,7 +21,7 @@ export class Environment {
   }
 
   static get DB_HOSTNAME () {
-    return process.env.DB_HOSTNAME || '10.11.0.6'
+    return process.env.DB_HOSTNAME || 'localhost'
   }
 
   static get DB_PORT (): number {
@@ -33,7 +33,7 @@ export class Environment {
   }
 
   static get DB_PASSWORD () {
-    return process.env.DB_PASSWORD || 'A123456'
+    return process.env.DB_PASSWORD || 'password'
   }
 
   static get DB_DATABASE () {
@@ -49,7 +49,7 @@ export class Environment {
   }
 
   static get REDIS_HOSTNAME () {
-    return process.env.REDIS_HOSTNAME || '10.11.0.3'
+    return process.env.REDIS_HOSTNAME || 'localhost'
   }
 
   static get REDIS_PORT (): number {
