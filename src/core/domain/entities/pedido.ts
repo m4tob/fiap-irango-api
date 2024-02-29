@@ -41,4 +41,8 @@ export default class Pedido {
   update (input: PedidoUpdateDto) {
     this.status = input.status
   }
+
+  recebido () {
+    this.status = PedidoStatusEnum.RECEBIDO
+  }
 }

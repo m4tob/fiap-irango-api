@@ -69,7 +69,7 @@ export default class ProdutosController {
   }
 
   @Put(':id')
-  @ApiOperation({ summary: 'Atualizar um dado Produto' })
+  @ApiOperation({ summary: 'Atualizar um Produto' })
   @ApiParam({ name: 'id', required: true, example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805' })
   @ApiBody({ type: UpdateProdutoRequest })
   @ApiOkResponse({ description: 'O registro atualizado', type: ProdutoResponse })
@@ -90,7 +90,7 @@ export default class ProdutosController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Excluir um dado Produto' })
+  @ApiOperation({ summary: 'Excluir um Produto' })
   @ApiParam({ name: 'id', required: true, example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805' })
   @ApiOkResponse({ description: 'O registro excluído', type: ProdutoResponse })
   async remove (

@@ -16,6 +16,6 @@ export default new DataSource({
   } as DataSourceOptions),
   migrationsTableName: 'Migration',
   migrations: [
-    join(__dirname, '..', '..', '..', '..', 'src', 'database', 'migrations', '*{.ts,.js}')
+    join(__dirname, '..', '..', '..', '..', 'src', 'infra', 'persistence', 'typeorm', 'migrations', '*{.ts,.js}')
   ],
 })

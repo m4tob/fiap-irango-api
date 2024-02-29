@@ -1,6 +1,7 @@
 import Create from '@/core/application/usecase/pedido/create.use-case'
 import FindById from '@/core/application/usecase/pedido/findById.use-case'
 import List from '@/core/application/usecase/pedido/list.use-case'
+import UpdatePayment from '@/core/application/usecase/pedido/update-payment.use-case'
 import Update from '@/core/application/usecase/pedido/update.use-case'
 import PedidoDto from '@/core/domain/dto/output/pedido.dto'
 import PedidoMapper from '@/core/domain/mappers/pedido.mapper'
@@ -61,6 +62,17 @@ export class PedidoController {
     const useCase = new FindById(new PedidoGateway(this.repository))
 
     const pedido = await useCase.handle(id)
+
+    return PedidoMapper.toDto(pedido)
+  }
+
+  async updatePayment (
+    id: number,
+    paymentApproved: boolean
+ ): Promise<PedidoDto> {
+    const useCase = new UpdatePayment(new PedidoGateway(this.repository))
+
+    const pedido = await useCase.handle(id, paymentApproved)
 
     return PedidoMapper.toDto(pedido)
   }
