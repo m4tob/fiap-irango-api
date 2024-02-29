@@ -54,7 +54,7 @@ export default class PedidoTypeormRepository implements IPedidoRepository {
 
     await this.repository.update(input.id, toSave as Entity)
 
-    return pedido
+    return input
   }
 
   async find (): Promise<Pedido[]> {
