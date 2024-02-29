@@ -14,6 +14,7 @@ import { ApiBody, ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiParam, Api
 import IPedidoUseCase, {
   IPedidoUseCase as IPedidoUseCaseSymbol,
 } from '@/core/application/usecase/pedido/ipedido.use-case'
+import UpdatePagamentoPayload from '@/infra/web/mercado-pago/dto/update-pagamento-payload'
 import PedidoResponse from '@/infra/web/nestjs/pedidos/dto/pedido.response'
 import UpdatePedidoRequest from '@/infra/web/nestjs/pedidos/dto/update-pedido.request'
 
@@ -44,8 +45,22 @@ export default class PedidosController {
     return this.pedidoUseCase.create(input)
   }
 
+  @Post('/pagamento-webhook/mercado-pago')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Atualizar um Pedido a partir do evento do gateway de pagamento' })
+  @ApiBody({ type: UpdatePagamentoPayload })
+  @ApiOkResponse({ description: 'O registro atualizado', type: PedidoResponse })
+  pagamentoWebhook (
+    @Body() input: UpdatePagamentoPayload
+  ): Promise<PedidoResponse> {
+    const pedidoId = parseInt(input.external_reference)
+    const paymentApproved = !!input.date_approved
+
+    return this.pedidoUseCase.updatePayment(pedidoId, paymentApproved)
+  }
+
   @Put(':id')
-  @ApiOperation({ summary: 'Atualizar um dado Pedido' })
+  @ApiOperation({ summary: 'Atualizar um Pedido' })
   @ApiParam({ name: 'id', required: true, example: 12345 })
   @ApiBody({ type: UpdatePedidoRequest })
   @ApiOkResponse({ description: 'O registro atualizado', type: PedidoResponse })

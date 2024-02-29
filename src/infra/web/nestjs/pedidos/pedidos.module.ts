@@ -5,7 +5,7 @@ import { IPedidoUseCase } from '@/core/application/usecase/pedido/ipedido.use-ca
 import PedidoUseCase from '@/core/application/usecase/pedido/pedido.use-case'
 import { IPedidoRepository } from '@/core/domain/repositories/ipedido.repository'
 import { IPagamentoService } from '@/core/domain/services/ipagamento.service'
-import MercadoPagoPagamentoService from '@/infra/persistence/mercado-pago-payment.service'
+import MercadoPagoPagamentoService from '@/infra/persistence/service/mercado-pago-payment.service'
 import { ItemPedido } from '@/infra/persistence/typeorm/entities/item-pedido'
 import { Pedido } from '@/infra/persistence/typeorm/entities/pedido'
 import PedidoTypeormRepository from '@/infra/persistence/typeorm/repository/pedido-typeorm.repository'

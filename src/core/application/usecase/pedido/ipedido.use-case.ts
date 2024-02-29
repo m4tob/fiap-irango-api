@@ -6,6 +6,7 @@ export default interface IPedidoUseCase {
   list(): Promise<PedidoDto[]>;
   create(input: PedidoCreateDto): Promise<PedidoDto>;
   update(id: number, input: PedidoUpdateDto): Promise<PedidoDto>;
+  updatePayment(id: number, approved: boolean): Promise<PedidoDto>;
   findById(id: number): Promise<PedidoDto>;
 }
 

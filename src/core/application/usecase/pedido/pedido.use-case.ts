@@ -55,10 +55,9 @@ export default class PedidoUseCase implements IPedidoUseCase {
     pedido = await this.repository.create(pedido)
 
     const gatewayPagamentoId = await this.pagamentoService.registerOrder(pedido)
-    console.log(gatewayPagamentoId)
     pedido.gatewayPagamentoId = gatewayPagamentoId
 
-    pedido = await this.repository.save(pedido)
+    await this.repository.save(pedido)
 
     return PedidoMapper.toDto(pedido)
   }
@@ -90,6 +89,22 @@ export default class PedidoUseCase implements IPedidoUseCase {
 
     pedido.update(input)
 
+    await this.repository.save(pedido)
+
+    return PedidoMapper.toDto(pedido)
+  }
+
+  async updatePayment (id: number, paymentApproved: boolean): Promise<PedidoDto> {
+    const pedido = await this.repository.findById(id)
+    if (!pedido) {
+      throw new Error('Pedido não encontrado')
+    }
+
+    if (!paymentApproved) {
+      return PedidoMapper.toDto(pedido)
+    }
+
+    pedido.status = PedidoStatusEnum.RECEBIDO
     await this.repository.save(pedido)
 
     return PedidoMapper.toDto(pedido)

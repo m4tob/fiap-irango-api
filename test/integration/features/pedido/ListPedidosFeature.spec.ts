@@ -26,6 +26,22 @@ describe('List Pedido Feature', () => {
       it('returns a list with all Pedidos', async () => {
         // Arrange
         const expectedResponse = pedidos
+          .filter(p => p.status !== PedidoStatusEnum.FINALIZADO)
+          .sort((a, b) => {
+            const statusOrder = [
+              PedidoStatusEnum.PRONTO,
+              PedidoStatusEnum.PREPARACAO,
+              PedidoStatusEnum.RECEBIDO,
+              PedidoStatusEnum.PAGAMENTO_PENDENTE
+            ]
+            const statusResult = statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)
+
+            if (statusResult !== 0) return statusResult
+
+            if (a.createdAt && b.createdAt) return a.createdAt.getTime() - b.createdAt.getTime()
+
+            return 0
+          })
           .map((pedido) => ({
             id: pedido.id,
             consumidorId: pedido.consumidorId,
@@ -45,22 +61,6 @@ describe('List Pedido Feature', () => {
             createdAt: expect.stringMatching(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z/),
             updatedAt: expect.stringMatching(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+Z/),
           }))
-          .filter(p => p.status !== PedidoStatusEnum.FINALIZADO)
-          .sort((a, b) => {
-            const statusOrder = [
-              PedidoStatusEnum.PRONTO,
-              PedidoStatusEnum.PREPARACAO,
-              PedidoStatusEnum.RECEBIDO,
-              PedidoStatusEnum.PAGAMENTO_PENDENTE
-            ]
-            const statusResult = statusOrder.indexOf(a.status) - statusOrder.indexOf(b.status)
-
-            if (statusResult !== 0) return statusResult
-
-            if (a.createdAt && b.createdAt) return a.createdAt.getTime() - b.createdAt.getTime()
-
-            return 0
-          })
 
         // Act
         const { status, body } = await setup.server

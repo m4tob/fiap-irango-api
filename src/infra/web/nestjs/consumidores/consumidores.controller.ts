@@ -47,7 +47,7 @@ export default class ConsumidoresController {
   }
 
   @Put(':id')
-  @ApiOperation({ summary: 'Atualizar um dado Consumidor' })
+  @ApiOperation({ summary: 'Atualizar um Consumidor' })
   @ApiParam({ name: 'id', required: true, example: 'f1453a0d-4b53-4ff9-8b17-709e089ca805' })
   @ApiBody({ type: UpdateConsumidorRequest })
   @ApiOkResponse({ description: 'O registro atualizado', type: ConsumidorResponse })

@@ -54,12 +54,7 @@ export default class PedidoTypeormRepository implements IPedidoRepository {
 
     await this.repository.update(input.id, toSave as Entity)
 
-    const updated = await this.findById(input.id)
-    if (!updated) {
-      throw new Error('Pedido não existe')
-    }
-
-    return updated
+    return pedido
   }
 
   async find (): Promise<Pedido[]> {
