@@ -7,13 +7,13 @@ data:
   NODE_ENV: "development"
   PORT: 3000
   SENTRY_DSN: "https://public@sentry.example.com"
-  DB_HOSTNAME: "local-mysql"
+  DB_HOSTNAME: "mysql"
   DB_PORT: 3306
   DB_USERNAME: "root"
   DB_DATABASE: "irango"
   DB_CONNECTION_LIMIT: 10000
   DB_CONNECTION_TIMEOUT: 30000
-  REDIS_HOSTNAME: "local-redis"
+  REDIS_HOSTNAME: "redis"
   REDIS_PORT: 6379
   REDIS_DB: 0
   REDIS_ENABLED: false
