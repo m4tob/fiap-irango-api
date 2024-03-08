@@ -169,7 +169,7 @@ We have a folder ([deploy](./deploy/)) with all necessary files to deploy the ap
 
 - kubenernetes.create: `create all resources in kubernetes in the correct order (namespace, secrets, configmap, mysql, redis and api)`
 
-# Kubernetes comamnds usage
+# Kubernetes commands usage
 ```bash
 
 # to create all resources in kubernetes, we need to run the following command:
