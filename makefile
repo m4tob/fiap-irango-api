@@ -9,6 +9,8 @@ CONTAINER_BACKEND = service-irango-api
 
 DATABASE = irango
 
+IMAGE ?= matob/irango-api
+
 .PHONY: setup
 setup: clean down add-network create.env.file build up migration.run seed.run logs
 
@@ -75,3 +77,31 @@ bash:
 	docker exec -it ${CONTAINER_BACKEND} /bin/bash
 redis:
 	docker exec -it ${CONTAINER_REDIS} redis-cli
+
+kubenernetes.delete:
+	kubectl delete -f ./deploy/*
+
+kubenernetes.create.namespace:
+	kubectl apply -f ./deploy/namespace.yaml
+
+kubenernetes.create.secrets:
+	kubectl apply -f ./deploy/secrets.yaml
+
+kubenernetes.create.confimap:
+	kubectl apply -f ./deploy/confimaps.yaml
+
+kubenernetes.create.api:
+	kubectl apply -f ./deploy/deployment.yaml
+	kubectl apply -f ./deploy/service.yaml
+	kubectl apply -f ./deploy/hpa.yaml
+
+kubenernetes.update.api.image:
+	kubectl set image deployment/irango-api=$(IMAGE)
+
+kubenernetes.create.mysql:
+	kubectl apply -f ./deploy/mysql.yaml
+
+kubenernetes.create.redis:
+	kubectl apply -f ./deploy/redis.yaml
+
+kubenernetes.create:  kubenernetes.create.namespace kubenernetes.create.secrets kubenernetes.create.confimap kubenernetes.create.mysql kubenernetes.create.redis kubenernetes.create.api
