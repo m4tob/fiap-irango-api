@@ -1,4 +1,17 @@
 # iRango API
+![typescript](https://shields.io/badge/TypeScript-3178C6?logo=TypeScript&logoColor=FFF&style=flat-square)
+![Node 20.10](https://shields.io/badge/Node-14.17.0-339933?logo=Node.js&logoColor=FFF&style=flat-square)
+![nestjs](https://shields.io/badge/NestJS-E0234E?logo=NestJS&logoColor=FFF&style=flat-square)
+![mysql](https://shields.io/badge/MySQL-4479A1?logo=MySQL&logoColor=FFF&style=flat-square)
+![redis](https://shields.io/badge/Redis-DC382D?logo=Redis&logoColor=FFF&style=flat-square)
+![docker](https://shields.io/badge/Docker-2496ED?logo=Docker&logoColor=FFF&style=flat-square)
+![kubernetes](https://shields.io/badge/Kubernetes-326CE5?logo=Kubernetes&logoColor=FFF&style=flat-square)
+![swagger](https://shields.io/badge/Swagger-85EA2D?logo=Swagger&logoColor=FFF&style=flat-square)
+![make](https://shields.io/badge/Make-00CC00?logo=Make&logoColor=FFF&style=flat-square)
+![jest](https://shields.io/badge/Jest-C21325?logo=Jest&logoColor=FFF&style=flat-square)
+![eslint](https://shields.io/badge/ESLint-4B32C3?logo=ESLint&logoColor=FFF&style=flat-square)
+![editorconfig](https://shields.io/badge/EditorConfig-000000?logo=EditorConfig&logoColor=FFF&style=flat-square)
+![typeorm](https://shields.io/badge/TypeORM-F37626?logo=TypeORM&logoColor=FFF&style=flat-square)
 
 This project involves the development of an API for a fast food self-service system, proposed as a Tech Challenge for the Software Architecture Postgraduate Course at FIAP.
 
@@ -133,3 +146,41 @@ npm run test:integration:one <FILE_NAME>
 - Run Seeds: `make seed.run`
 - Access container bash: `make bash`
 - Access Redis container: `make redis`
+
+# Kubernetes
+We have a folder ([deploy](./deploy/)) with all necessary files to deploy the application in a kubernetes cluster. We have a `Makefile` to help us to deploy the application in a kubernetes cluster. We need to have a kubernetes cluster running and `kubectl` installed in our machine.
+
+## Make commands related to kubernetes
+- kubenernetes.delete: `delete all resources in kubernetes`
+
+- kubenernetes.create.namespace: `create a namespace in kubernetes`
+
+- kubenernetes.create.secrets: `create secrets in kubernetes`
+
+- kubenernetes.create.confimap: `create configmap in kubernetes`
+
+- kubenernetes.create.api: `create irango-api resources in kubernetes`
+
+- kubenernetes.update.api.image: `update irango-api image in kubernetes`
+
+- kubenernetes.create.mysql: `create mysql resources in kubernetes`
+
+- kubenernetes.create.redis: `create redis resources in kubernetes`
+
+- kubenernetes.create: `create all resources in kubernetes in the correct order (namespace, secrets, configmap, mysql, redis and api)`
+
+# Kubernetes comamnds usage
+```bash
+
+# to create all resources in kubernetes, we need to run the following command:
+make kubenernetes.create
+
+# to update the image in kubernetes, we need to run the following command:
+make kubeernetes.update.api.image IMAGE=matob/irango-api:latest
+
+# to delete all resources in kubernetes, we need to run the following command:
+make kubenernetes.delete
+
+```
+
+
