@@ -48,7 +48,15 @@ make k8s.up
 
 # or try without make
 
+kubectl apply -f ./deploy/namespace.yml
+kubectl apply -f ./deploy/secret.yml
 kubectl apply -f ./deploy/configmap.yml
+kubectl apply -f ./deploy/mysql.yml
+kubectl apply -f ./deploy/redis.yml
+kubectl apply -f ./deploy/migrate.yml
+kubectl apply -f ./deploy/deployment.yml
+kubectl apply -f ./deploy/service.yml
+kubectl apply -f ./deploy/hpa.yml
 ```
 
 ### Stopping Kubernetes project
@@ -75,7 +83,7 @@ docker-compose exec -it service-irango-api npm run migration:run
 docker-compose exec -it service-irango-api npm run seed:run
 ```
 
-## Start project without Docker
+## Start project using npm
 Watch mode:
 ```bash
 npm run start:dev
