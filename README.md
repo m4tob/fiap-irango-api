@@ -41,6 +41,25 @@ Install project dependencies with:
 npm run install
 ```
 
+## Start Project using Kubernetes
+We have a folder ([deploy](./deploy/)) with all necessary files to deploy the application in a kubernetes cluster. We have a `Makefile` to help us to deploy the application in a kubernetes cluster. We need to have a kubernetes cluster running and `kubectl` installed in our machine.
+```bash
+make k8s.up
+
+# or try without make
+
+kubectl apply -f ./deploy/configmap.yml
+```
+
+### Stopping Kubernetes project
+```bash
+make k8s.down
+
+# or try without make
+
+kubectl delete -f ./deploy
+```
+
 ## Start Project using Docker
 Configure all docker containers and volumes and start the application
 ```bash
@@ -136,6 +155,7 @@ npm run test:integration:one <FILE_NAME>
 ```
 
 ## Make commands
+### Using Docker
 - Setup Project: `make setup`. This command will create docker network, containers and volumes. It will also start the project and show its logs.
 - Start Project: `make up`
 - Stop Projects: `make down`
@@ -147,37 +167,13 @@ npm run test:integration:one <FILE_NAME>
 - Access container bash: `make bash`
 - Access Redis container: `make redis`
 
-# Kubernetes
-We have a folder ([deploy](./deploy/)) with all necessary files to deploy the application in a kubernetes cluster. We have a `Makefile` to help us to deploy the application in a kubernetes cluster. We need to have a kubernetes cluster running and `kubectl` installed in our machine.
-
-## Make commands related to kubernetes
-- kubenernetes.delete: `delete all resources in kubernetes`
-
-- kubenernetes.create.namespace: `create a namespace in kubernetes`
-
-- kubenernetes.create.secrets: `create secrets in kubernetes`
-
-- kubenernetes.create.confimap: `create configmap in kubernetes`
-
-- kubenernetes.create.api: `create irango-api resources in kubernetes`
-
-- kubenernetes.update.api.image: `update irango-api image in kubernetes`
-
-- kubenernetes.create.mysql: `create mysql resources in kubernetes`
-
-- kubenernetes.create.redis: `create redis resources in kubernetes`
-
-- kubenernetes.create: `create all resources in kubernetes in the correct order (namespace, secrets, configmap, mysql, redis and api)`
-
-# Kubernetes commands usage
-```bash
-
-# to create all resources in kubernetes, we need to run the following command:
-make kubenernetes.create
-
-# to delete all resources in kubernetes, we need to run the following command:
-make kubenernetes.delete
-
-```
-
-
+### Using Kubernetes
+- k8s.up: `create all resources in kubernetes in the correct order (namespace, secrets, configmap, mysql, redis and api)`
+- k8s.down: `delete all resources in kubernetes`
+- k8s.create.namespace: `create a namespace in kubernetes`
+- k8s.create.secrets: `create secrets in kubernetes`
+- k8s.create.confimap: `create configmap in kubernetes`
+- k8s.create.api: `create irango-api resources in kubernetes`
+- k8s.update.api.image: `update irango-api image in kubernetes`
+- k8s.create.mysql: `create mysql resources in kubernetes`
+- k8s.create.redis: `create redis resources in kubernetes`
