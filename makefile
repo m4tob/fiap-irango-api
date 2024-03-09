@@ -87,7 +87,7 @@ k8s.create.namespace:
 k8s.create.secrets:
 	kubectl apply -f ./deploy/secret.yml
 
-k8s.create.confimap:
+k8s.create.configmap:
 	kubectl apply -f ./deploy/configmap.yml
 
 k8s.create.api:
@@ -107,4 +107,4 @@ k8s.create.mysql:
 k8s.create.redis:
 	kubectl apply -f ./deploy/redis.yml
 
-k8s.up:  k8s.create.namespace k8s.create.secrets k8s.create.confimap k8s.create.mysql k8s.create.job.migrate k8s.create.redis k8s.create.api
+k8s.up:  k8s.create.namespace k8s.create.secrets k8s.create.configmap k8s.create.mysql k8s.create.redis k8s.create.job.migrate k8s.create.api
