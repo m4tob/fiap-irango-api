@@ -17,7 +17,7 @@ This project involves the development of an API for a fast food self-service sys
 
 For this project, we utilized the [TypeScript](https://www.typescriptlang.org/) programming language with [Node.js](https://nodejs.org/) and the [Nest.js](https://nestjs.com/) framework. The database management includes [MySQL 5.7](https://www.mysql.com/) to handle information related to Consumidor, Produto, and Pedido. Additionally, an in-memory [Redis](https://redis.io/) database is employed for caching.
 
-To build the API documentation, we've used [Swagger](https://swagger.io/) tool integrated with Nest.js, accessible through the endpoint: http://localhost:3000/docs
+To build the API documentation, we've used [Swagger](https://swagger.io/) tool integrated with Nest.js, accessible through the endpoint: {irango_host}/docs
 
 ## [DDD - Domain Driven Design Diagrams](./docs/domain-driven-design.md)
 
@@ -109,21 +109,27 @@ We developed few endpoints which can be found in [consumidores.controller.ts](./
 
 ## Business Requirements:
 1. Cadastro do Cliente
-> POST http://localhost:3000/consumidores
+> POST {irango_host}/v1/consumidores
 2. Identificação do Cliente via CPF
-> GET http://localhost:3000/consumidores/cpf
+> GET {irango_host}/v1/consumidores/cpf
 3. Criar, editar e remover de produto
-> POST http://localhost:3000/produtos
+> POST {irango_host}/v1/produtos
 
-> PUT http://localhost:3000/produtos/:id
+> PUT {irango_host}/v1/produtos/:id
 
-> DELETE http://localhost:3000/produtos/:id
+> DELETE {irango_host}/v1/produtos/:id
 4. Buscar produtos por categoria
-> GET http://localhost:3000/produtos/categorias/:termo
-5. Fake checkout, apenas enviar os produtos escolhidos para a fila
-> POST http://localhost:3000/pedidos
-6. Listar os pedidos
-> GET http://localhost:3000/pedidos
+> GET {irango_host}/v1/produtos/categorias/:termo
+5. Checkout
+> POST {irango_host}/v1/pedidos
+6. Verificar status do Pedido
+> GET {irango_host}/v1/pedidos/:id
+7. Atualizar status do pedido
+> PUT {irango_host}/v1/produtos/:id
+8. Webhook de Pagamento (Mercado Pago)
+> POST {irango_host}/v1/pedidos/pagamento-webhook/mercado-pago
+9. Listar os pedidos
+> GET {irango_host}/v1/pedidos
 
 ## Automated Tests
 We developed integration tests which can be run using docker or in directly in local machine (in this case you need change the `DB_HOSTNAME` env to `localhost`). Before run the tests, we need to create the test database using:
