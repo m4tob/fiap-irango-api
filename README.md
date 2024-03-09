@@ -175,9 +175,6 @@ We have a folder ([deploy](./deploy/)) with all necessary files to deploy the ap
 # to create all resources in kubernetes, we need to run the following command:
 make kubenernetes.create
 
-# to update the image in kubernetes, we need to run the following command:
-make kubeernetes.update.api.image IMAGE=matob/irango-api:latest
-
 # to delete all resources in kubernetes, we need to run the following command:
 make kubenernetes.delete
 

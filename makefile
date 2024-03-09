@@ -79,29 +79,32 @@ redis:
 	docker exec -it ${CONTAINER_REDIS} redis-cli
 
 kubenernetes.delete:
-	kubectl delete -f ./deploy/*
+	kubectl delete -f ./deploy
 
 kubenernetes.create.namespace:
-	kubectl apply -f ./deploy/namespace.yaml
+	kubectl apply -f ./deploy/namespace.yml
 
 kubenernetes.create.secrets:
-	kubectl apply -f ./deploy/secrets.yaml
+	kubectl apply -f ./deploy/secret.yml
 
 kubenernetes.create.confimap:
-	kubectl apply -f ./deploy/confimaps.yaml
+	kubectl apply -f ./deploy/configmap.yml
 
 kubenernetes.create.api:
-	kubectl apply -f ./deploy/deployment.yaml
-	kubectl apply -f ./deploy/service.yaml
-	kubectl apply -f ./deploy/hpa.yaml
+	kubectl apply -f ./deploy/deployment.yml
+	kubectl apply -f ./deploy/service.yml
+	kubectl apply -f ./deploy/hpa.yml
 
 kubenernetes.update.api.image:
 	kubectl set image deployment/irango-api=$(IMAGE)
 
+kubenernetes.create.job.migrate:
+	kubectl apply -f ./deploy/migrate.yml
+
 kubenernetes.create.mysql:
-	kubectl apply -f ./deploy/mysql.yaml
+	kubectl apply -f ./deploy/mysql.yml
 
 kubenernetes.create.redis:
-	kubectl apply -f ./deploy/redis.yaml
+	kubectl apply -f ./deploy/redis.yml
 
-kubenernetes.create:  kubenernetes.create.namespace kubenernetes.create.secrets kubenernetes.create.confimap kubenernetes.create.mysql kubenernetes.create.redis kubenernetes.create.api
+kubenernetes.create:  kubenernetes.create.namespace kubenernetes.create.secrets kubenernetes.create.confimap kubenernetes.create.mysql kubenernetes.create.job.migrate kubenernetes.create.redis kubenernetes.create.api

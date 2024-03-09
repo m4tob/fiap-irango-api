@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: irango-api
@@ -27,11 +27,11 @@ spec:
     spec:
       containers:
         - name: irango-api
-          image: {{imagem}}
+          image: matob/irango-api:latest
           livenessProbe:
             httpGet:
-              path: /health
-              port: 8080
+              path: /health-check
+              port: 3000
               scheme: HTTP
             initialDelaySeconds: 30
             timeoutSeconds: 5
@@ -42,7 +42,7 @@ spec:
               memory: "256Mi"
           imagePullPolicy: "Always"
           ports:
-          - containerPort: 8080
+          - containerPort: 3000
           envFrom:
           - secretRef:
               name: irango-secret
