@@ -15,6 +15,8 @@
 
 This project involves the development of an API for a fast food self-service system, proposed as a Tech Challenge for the Software Architecture Postgraduate Course at FIAP.
 
+## [Youtube Video Explaining the Project](https://youtu.be/vazoQujY8aU)
+
 For this project, we utilized the [TypeScript](https://www.typescriptlang.org/) programming language with [Node.js](https://nodejs.org/) and the [Nest.js](https://nestjs.com/) framework. The database management includes [MySQL 5.7](https://www.mysql.com/) to handle information related to Consumidor, Produto, and Pedido. Additionally, an in-memory [Redis](https://redis.io/) database is employed for caching.
 
 To build the API documentation, we've used [Swagger](https://swagger.io/) tool integrated with Nest.js, accessible through the endpoint: {irango_host}/docs
@@ -22,10 +24,11 @@ To build the API documentation, we've used [Swagger](https://swagger.io/) tool i
 ## [DDD - Domain Driven Design Diagrams](./docs/domain-driven-design.md)
 
 ## Application Architecture and Technologies:
-![Architecture diagram](./docs/application-diagram.png)
+![Architecture diagram](./docs/k8s-diagram.png)
 
 ## Workspace Dependencies
 - [Node 20.10](https://nodejs.org/)
+- [Kubernetes](https://kubernetes.io/)
 - [Docker](https://www.docker.com/get-started/)
 - Make
   - [Windows](https://gnuwin32.sourceforge.net/packages/make.htm)
