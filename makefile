@@ -108,3 +108,5 @@ k8s.create.redis:
 	kubectl apply -f ./deploy/redis.yml
 
 k8s.up:  k8s.create.namespace k8s.create.secrets k8s.create.configmap k8s.create.mysql k8s.create.redis k8s.create.job.migrate k8s.create.api
+
+k8s.aws.up:  k8s.create.namespace k8s.create.secrets k8s.create.configmap k8s.create.job.migrate k8s.create.api
