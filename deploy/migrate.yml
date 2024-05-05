@@ -13,10 +13,11 @@ spec:
       containers:
       - name: irango-api-migrate
         image: matob/irango-api
-        command:
-          - npm
-          - run
-          - migration:run
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          npm run migration:run
+          npm run seed:run
         envFrom:
           - secretRef:
               name: irango-secret
