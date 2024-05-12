@@ -5,7 +5,6 @@
 ![mysql](https://shields.io/badge/MySQL-4479A1?logo=MySQL&logoColor=FFF&style=flat-square)
 ![redis](https://shields.io/badge/Redis-DC382D?logo=Redis&logoColor=FFF&style=flat-square)
 ![docker](https://shields.io/badge/Docker-2496ED?logo=Docker&logoColor=FFF&style=flat-square)
-![kubernetes](https://shields.io/badge/Kubernetes-326CE5?logo=Kubernetes&logoColor=FFF&style=flat-square)
 ![swagger](https://shields.io/badge/Swagger-85EA2D?logo=Swagger&logoColor=FFF&style=flat-square)
 ![make](https://shields.io/badge/Make-00CC00?logo=Make&logoColor=FFF&style=flat-square)
 ![jest](https://shields.io/badge/Jest-C21325?logo=Jest&logoColor=FFF&style=flat-square)
@@ -14,8 +13,6 @@
 ![typeorm](https://shields.io/badge/TypeORM-F37626?logo=TypeORM&logoColor=FFF&style=flat-square)
 
 This project involves the development of an API for a fast food self-service system, proposed as a Tech Challenge for the Software Architecture Postgraduate Course at FIAP.
-
-## [Youtube Video Explaining the Project](https://youtu.be/vazoQujY8aU)
 
 For this project, we utilized the [TypeScript](https://www.typescriptlang.org/) programming language with [Node.js](https://nodejs.org/) and the [Nest.js](https://nestjs.com/) framework. The database management includes [MySQL 5.7](https://www.mysql.com/) to handle information related to Consumidor, Produto, and Pedido. Additionally, an in-memory [Redis](https://redis.io/) database is employed for caching.
 
@@ -28,7 +25,6 @@ To build the API documentation, we've used [Swagger](https://swagger.io/) tool i
 
 ## Workspace Dependencies
 - [Node 20.10](https://nodejs.org/)
-- [Kubernetes](https://kubernetes.io/)
 - [Docker](https://www.docker.com/get-started/)
 - Make
   - [Windows](https://gnuwin32.sourceforge.net/packages/make.htm)
@@ -42,33 +38,6 @@ To build the API documentation, we've used [Swagger](https://swagger.io/) tool i
 Install project dependencies with:
 ```bash
 npm run install
-```
-
-## Start Project using Kubernetes
-We have a folder ([deploy](./deploy/)) with all necessary files to deploy the application in a kubernetes cluster. We have a `Makefile` to help us to deploy the application in a kubernetes cluster. We need to have a kubernetes cluster running and `kubectl` installed in our machine.
-```bash
-make k8s.up
-
-# or try without make
-
-kubectl apply -f ./deploy/namespace.yml
-kubectl apply -f ./deploy/secret.yml
-kubectl apply -f ./deploy/configmap.yml
-kubectl apply -f ./deploy/mysql.yml
-kubectl apply -f ./deploy/redis.yml
-kubectl apply -f ./deploy/migrate.yml
-kubectl apply -f ./deploy/deployment.yml
-kubectl apply -f ./deploy/service.yml
-kubectl apply -f ./deploy/hpa.yml
-```
-
-### Stopping Kubernetes project
-```bash
-make k8s.down
-
-# or try without make
-
-kubectl delete -f ./deploy
 ```
 
 ## Start Project using Docker
@@ -183,14 +152,3 @@ npm run test:integration:one <FILE_NAME>
 - Run Seeds: `make seed.run`
 - Access container bash: `make bash`
 - Access Redis container: `make redis`
-
-### Using Kubernetes
-- k8s.up: `create all resources in kubernetes in the correct order (namespace, secrets, configmap, mysql, redis and api)`
-- k8s.down: `delete all resources in kubernetes`
-- k8s.create.namespace: `create a namespace in kubernetes`
-- k8s.create.secrets: `create secrets in kubernetes`
-- k8s.create.confimap: `create configmap in kubernetes`
-- k8s.create.api: `create irango-api resources in kubernetes`
-- k8s.update.api.image: `update irango-api image in kubernetes`
-- k8s.create.mysql: `create mysql resources in kubernetes`
-- k8s.create.redis: `create redis resources in kubernetes`

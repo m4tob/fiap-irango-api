@@ -77,36 +77,3 @@ bash:
 	docker exec -it ${CONTAINER_BACKEND} /bin/bash
 redis:
 	docker exec -it ${CONTAINER_REDIS} redis-cli
-
-k8s.down:
-	kubectl delete -f ./deploy
-
-k8s.create.namespace:
-	kubectl apply -f ./deploy/namespace.yml
-
-k8s.create.secrets:
-	kubectl apply -f ./deploy/secret.yml
-
-k8s.create.configmap:
-	kubectl apply -f ./deploy/configmap.yml
-
-k8s.create.api:
-	kubectl apply -f ./deploy/deployment.yml
-	kubectl apply -f ./deploy/service.yml
-	kubectl apply -f ./deploy/hpa.yml
-
-k8s.update.api.image:
-	kubectl set image deployment/irango-api=$(IMAGE)
-
-k8s.create.job.migrate:
-	kubectl apply -f ./deploy/migrate.yml
-
-k8s.create.mysql:
-	kubectl apply -f ./deploy/mysql.yml
-
-k8s.create.redis:
-	kubectl apply -f ./deploy/redis.yml
-
-k8s.up:  k8s.create.namespace k8s.create.secrets k8s.create.configmap k8s.create.mysql k8s.create.redis k8s.create.job.migrate k8s.create.api
-
-k8s.aws.up:  k8s.create.namespace k8s.create.secrets k8s.create.configmap k8s.create.job.migrate k8s.create.api
