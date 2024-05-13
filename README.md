@@ -20,9 +20,6 @@ To build the API documentation, we've used [Swagger](https://swagger.io/) tool i
 
 ## [DDD - Domain Driven Design Diagrams](./docs/domain-driven-design.md)
 
-## Application Architecture and Technologies:
-![Architecture diagram](./docs/k8s-diagram.png)
-
 ## Workspace Dependencies
 - [Node 20.10](https://nodejs.org/)
 - [Docker](https://www.docker.com/get-started/)
